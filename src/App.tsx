@@ -14,19 +14,20 @@ function App() {
           pathname === "/",
       })}
     >
-      <div
-        className={cn(
-          "max-h-[396px] w-full absolute top-0 left-0 pointer-events-none",
-          getCover(pathname)?.opacity
-        )}
-      >
-        <img
-          src={getCover(pathname)?.img}
-          alt=""
-          className="w-full h-full object-cover mix-blend-soft-light"
-        />
-      </div>
-
+      {pathname !== "/" && (
+        <div
+          className={cn(
+            "max-h-[396px] w-full absolute top-0 left-0 pointer-events-none",
+            getCover(pathname)?.opacity
+          )}
+        >
+          <img
+            src={getCover(pathname)?.img}
+            alt=""
+            className="w-full h-full object-cover mix-blend-soft-light"
+          />
+        </div>
+      )}
       <div className="w-full h-screen fixed -z-20 pointer-events-none top-0 right-0 bottom-0 left-0 mix-blend-multiply">
         <img
           src="/images/texture.png"

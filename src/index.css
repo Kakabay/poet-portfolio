@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 .kaushan {
-  font-family: 'Kaushan Script', cursive;
+  font-family: "Kaushan Script", cursive;
   font-weight: 400;
   font-style: normal;
 }
 
 .inter {
-  font-family: 'Inter', cursive;
+  font-family: "Inter", cursive;
   font-weight: 400;
   font-style: normal;
 }
@@ -34,5 +34,9 @@
 
   .h1 {
     @apply text-[64px] leading-[115%];
+  }
+
+  .input {
+    @apply p-4 text-[14px] text-ON_SURFACE_VAR focus:outline-none border rounded-sm border-OUTLINE_VAR font-medium leading-[140%] bg-transparent;
   }
 }
