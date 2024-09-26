@@ -1,61 +1,60 @@
-import { Facebook, Instagram, Plane, Youtube } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const navData = [
   {
-    link: '',
-    view: 'Özüm hakda kelam agyz',
+    link: "/about",
+    view: "Özüm hakda kelam agyz",
   },
   {
-    link: '/poems',
-    view: 'Täze goşgular',
+    link: "/poems",
+    view: "Täze goşgular",
   },
   {
-    link: '',
-    view: 'Synlar, ýatlamar, gutlaglar',
+    link: "",
+    view: "Synlar, ýatlamar, gutlaglar",
   },
   {
-    link: '',
-    view: 'Pursatlar',
+    link: "",
+    view: "Pursatlar",
   },
   {
-    link: '',
-    view: 'Kitaplar',
+    link: "",
+    view: "Kitaplar",
   },
   {
-    link: '',
-    view: 'Teswirler',
+    link: "",
+    view: "Teswirler",
   },
   {
-    link: '',
-    view: 'Muşdaklar',
+    link: "",
+    view: "Muşdaklar",
   },
   {
-    link: '',
-    view: 'Kontaktlar',
+    link: "",
+    view: "Kontaktlar",
   },
 ];
 
 const socials = [
   {
-    link: '',
-    icon: '/images/tg.svg',
-    name: 'ezizgeldihellenov',
+    link: "",
+    icon: "/images/tg.svg",
+    name: "ezizgeldihellenov",
   },
   {
-    link: '',
-    icon: '/images/facebook.svg',
-    name: 'ezizgeldihellenov',
+    link: "",
+    icon: "/images/facebook.svg",
+    name: "ezizgeldihellenov",
   },
   {
-    link: '',
-    icon: '/images/youtube.svg',
-    name: 'ezizgeldihellenov',
+    link: "",
+    icon: "/images/youtube.svg",
+    name: "ezizgeldihellenov",
   },
   {
-    link: '',
-    icon: '/images/inst.svg',
-    name: 'ezizgeldihellenov',
+    link: "",
+    icon: "/images/inst.svg",
+    name: "ezizgeldihellenov",
   },
 ];
 
@@ -77,21 +76,21 @@ const Header = () => {
           </div>
         </div>
 
-        <div
-          className="relative py-3 px-2 bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW
-        ">
+        <div className="relative py-3 px-2 bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW">
           <div className="text-14">Giriş</div>
         </div>
       </div>
 
-      <nav className="bg-HEADER_PATTERN drop-shadow-INNER_SHADOW -tracking-[1%] kaushan text-[18px] flex gap-4 bg-no-repeat container py-4 px-[50px]">
-        {navData.map((item, i) => (
-          <Link to={item.link} key={i} className="flex items-center gap-4">
-            {item.view}
-            {navData.length !== i + 1 && <img src="/images/romb.svg" />}
-          </Link>
-        ))}
-      </nav>
+      <div className="container">
+        <nav className="bg-HEADER_PATTERN px-8 bg-cover drop-shadow-INNER_SHADOW -tracking-[1%] kaushan text-[18px] flex gap-4 bg-no-repeat py-4">
+          {navData.map((item, i) => (
+            <Link to={item.link} key={i} className="flex items-center gap-4">
+              {item.view}
+              {navData.length !== i + 1 && <img src="/images/romb.svg" />}
+            </Link>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 };

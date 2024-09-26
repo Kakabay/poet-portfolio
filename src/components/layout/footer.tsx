@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-FOOTER_PATTERN drop-shadow-INNER_SHADOW py-6">
+    <footer className="bg-FOOTER_PATTERN bg-cover bg-no-repeat drop-shadow-INNER_SHADOW py-6">
       <div className="container flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="kaushan">Ezizgeldi Helleňow</div>
