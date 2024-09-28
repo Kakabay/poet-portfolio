@@ -82,7 +82,7 @@ const Header = () => {
       </div>
 
       <div className="container">
-        <nav className="bg-HEADER_PATTERN px-8 bg-cover drop-shadow-INNER_SHADOW -tracking-[1%] kaushan text-[18px] flex gap-4 bg-no-repeat py-4">
+        <nav className="bg-[url('/images/header-bg.png')] bg-cover flex justify-center relative drop-shadow-INNER_SHADOW bg-clip -tracking-[1%] kaushan text-[18px]  gap-4 bg-no-repeat py-4">
           {navData.map((item, i) => (
             <Link to={item.link} key={i} className="flex items-center gap-4">
               {item.view}

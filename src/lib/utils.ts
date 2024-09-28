@@ -8,10 +8,22 @@ export function cn(...inputs: ClassValue[]) {
 export const getCover = (key: string) => {
   switch (key) {
     case "/poems":
-      return { img: "/images/poems/cover.png", opacity: "opacity-35" };
+      return {
+        img: "/images/poems/cover.png",
+        opacity: "opacity-35",
+        mode: "mix-blend-normal",
+      };
+    case "/about":
+      return {
+        img: "/images/about/cover.png",
+        opacity: "opacity-75",
+        mode: "mix-blend-soft-light",
+      };
     case "/poems":
-      return { img: "/images/poems/cover.png", opacity: "opacity-35" };
-    case "/poems":
-      return { img: "/images/poems/cover.png", opacity: "opacity-35" };
+      return {
+        img: "/images/poems/cover.png",
+        opacity: "opacity-35",
+        mode: "mix-blend-normal",
+      };
   }
 };

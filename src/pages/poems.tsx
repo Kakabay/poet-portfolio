@@ -1,4 +1,5 @@
 import PageLayout from "@/components/layout/page-layout";
+import PoemsModal from "@/components/shared/poems-modal";
 import SortModal from "@/components/shared/sort-modal";
 
 const Poems = () => {
@@ -10,6 +11,7 @@ const Poems = () => {
     >
       <div className="flex gap-6">
         <SortModal />
+        <PoemsModal />
       </div>
     </PageLayout>
   );

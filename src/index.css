@@ -14,6 +14,10 @@
   font-style: normal;
 }
 
+.arrow {
+  transform: scale(1, -1);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -25,7 +29,7 @@
 
 @layer components {
   .container {
-    @apply w-[1200px] mx-auto px-4;
+    @apply w-[1232px] mx-auto px-4;
   }
 
   .text-14 {
@@ -36,7 +40,11 @@
     @apply text-[64px] leading-[115%];
   }
 
+  .h2 {
+    @apply text-[48px] font-medium -tracking-[2%] leading-none font-[kaushan];
+  }
+
   .input {
-    @apply p-4 text-[14px] text-ON_SURFACE_VAR focus:outline-none border rounded-sm border-OUTLINE_VAR font-medium leading-[140%] bg-transparent;
+    @apply p-4 text-[14px] text-ON_SURFACE_VAR focus:outline-none border rounded-[4px] placeholder:text-ON_SURFACE_VAR border-OUTLINE_VAR font-medium leading-[140%] bg-transparent;
   }
 }

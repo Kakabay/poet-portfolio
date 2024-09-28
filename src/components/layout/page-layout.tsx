@@ -11,7 +11,7 @@ interface Props {
 const PageLayout = ({ className, title, children, text }: Props) => {
   return (
     <main className={cn("pt-12 pb-[120px] relative")}>
-      <section className="container">
+      <div className="container">
         <h1 className="h1 kaushan text-center mb-12">{title}</h1>
 
         <div className={cn("flex flex-col", className)}>
@@ -20,7 +20,7 @@ const PageLayout = ({ className, title, children, text }: Props) => {
           )}
           {children}
         </div>
-      </section>
+      </div>
     </main>
   );
 };

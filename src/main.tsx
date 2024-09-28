@@ -1,11 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
 import App from "./App";
 import Home from "./pages/home";
 import Poems from "./pages/poems";
 import About from "./pages/about";
+
+import "./index.css";
+import PoemsSingle from "./pages/poems-single";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "poems",
         element: <Poems />,
+      },
+      {
+        path: "poems/:id",
+        element: <PoemsSingle />,
       },
       {
         path: "about",

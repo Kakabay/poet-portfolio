@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
+import { SelectValue } from "@radix-ui/react-select";
+import DropDown from "./drop-down";
 
 const sortData = [
   {
@@ -13,17 +15,13 @@ const sortData = [
 ];
 
 const SortModal = () => {
-  const [sort, setSort] = useState({ id: "new", view: "Snaçala nowye" });
-
-  console.log(sort);
-
   return (
-    <div className="relative min-h-[288px] max-w-[284px] drop-shadow-INNER_SHADOW">
-      <img
+    <div className="relative bg-[url('/images/poems/1.png')] bg-cover bg-no-repeat transition-all w-[284px] drop-shadow-INNER_SHADOW">
+      {/* <img
         src="/images/poems/1.png"
         alt=""
         className="absolute object-cover h-full w-full -z-10"
-      />
+      /> */}
 
       <div className="flex flex-col gap-6 py-12 px-6">
         <div>
@@ -35,23 +33,8 @@ const SortModal = () => {
           <h5 className="text-[16px] leading-[150%] mb-2 font-medium">
             Sortirowka
           </h5>
-          <Select>
-            <SelectTrigger value={sort.id}>{sort.view}</SelectTrigger>
-            <SelectContent>
-              {sortData
-                .filter((item) => item.id !== sort.id)
-                .map((item) => (
-                  <SelectItem
-                    onClick={() => setSort(item)}
-                    key={item.id}
-                    value={item.id}
-                    className="cursor-pointer"
-                  >
-                    {item.view}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
+
+          <DropDown />
         </div>
       </div>
     </div>
