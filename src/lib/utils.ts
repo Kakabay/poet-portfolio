@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -7,23 +7,23 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getCover = (key: string) => {
   switch (key) {
-    case "/poems":
+    case '/poems':
       return {
-        img: "/images/poems/cover.png",
-        opacity: "opacity-35",
-        mode: "mix-blend-normal",
+        img: '/images/poems/cover.png',
+        opacity: 'opacity-35',
+        mode: 'mix-blend-normal',
       };
-    case "/about":
+    case '/about':
       return {
-        img: "/images/about/cover.png",
-        opacity: "opacity-75",
-        mode: "mix-blend-soft-light",
+        img: '/images/about/cover.png',
+        opacity: 'opacity-75',
+        mode: 'mix-blend-soft-light',
       };
-    case "/poems":
+    case '/poems/1':
       return {
-        img: "/images/poems/cover.png",
-        opacity: "opacity-35",
-        mode: "mix-blend-normal",
+        img: '/images/poems/poem-bg.png',
+        opacity: 'opacity-75',
+        mode: 'mix-blend-soft-light',
       };
   }
 };

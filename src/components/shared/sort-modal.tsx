@@ -1,39 +1,37 @@
-import { useState } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
-import { SelectValue } from "@radix-ui/react-select";
-import DropDown from "./drop-down";
+import { cn } from '@/lib/utils';
+import DropDown from './drop-down';
 
 const sortData = [
   {
-    id: "new",
-    view: "Snaçala nowye",
+    id: 'new',
+    view: 'Snaçala nowye',
   },
   {
-    id: "old",
-    view: "Snaçala starye",
+    id: 'old',
+    view: 'Snaçala starye',
   },
 ];
 
-const SortModal = () => {
+const SortModal = ({ className, small }: { className?: string; small?: boolean }) => {
   return (
-    <div className="relative bg-[url('/images/poems/1.png')] bg-cover bg-no-repeat transition-all w-[284px] drop-shadow-INNER_SHADOW">
-      {/* <img
-        src="/images/poems/1.png"
+    <div
+      className={cn(
+        'relative bg-cover bg-no-repeat transition-all drop-shadow-INNER_SHADOW',
+        className,
+      )}>
+      <img
+        src={small ? '/images/poems/1.png' : '/images/comments/sort-bg.png'}
+        className="absolute -z-10 h-full w-full"
         alt=""
-        className="absolute object-cover h-full w-full -z-10"
-      /> */}
-
-      <div className="flex flex-col gap-6 py-12 px-6">
-        <div>
+      />
+      <div className={cn('flex gap-6 py-12 px-6', small ? 'flex-col' : '')}>
+        <div className={cn(!small && 'flex-[0_0_80%]')}>
           <h5 className="text-[16px] leading-[150%] mb-2 font-medium">Поиск</h5>
-          <input type="text" placeholder="Подсказка" className="input" />
+          <input type="text" placeholder="Подсказка" className={cn('input', !small && 'w-full')} />
         </div>
 
-        <div>
-          <h5 className="text-[16px] leading-[150%] mb-2 font-medium">
-            Sortirowka
-          </h5>
-
+        <div className={cn(!small && 'flex-[0_0_20%]')}>
+          <h5 className="text-[16px] leading-[150%] mb-2 font-medium">Sortirowka</h5>
           <DropDown />
         </div>
       </div>

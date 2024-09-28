@@ -1,6 +1,8 @@
-const SectionLine = () => {
+import { cn } from '@/lib/utils';
+
+const SectionLine = ({ className }: { className?: string }) => {
   return (
-    <div className="w-full h-[1px] relative bg-OUTLINE_VAR">
+    <div className={cn('w-full h-[1px] relative bg-OUTLINE_VAR', className)}>
       <img
         src="/images/romb.svg"
         alt=""
