@@ -66,7 +66,7 @@ const Header = () => {
           <Link to="/" className="kaushan text-[36px] mr-6">
             Ezizgeldi Helleňow
           </Link>
-          <div className="flex gap-2 text-ON_SURFACE_VAR font-medium leading-[115%] text-[14px]">
+          <div className="flex gap-2 text-ON_SURFACE_VAR  font-medium leading-[115%] text-[14px]">
             {socials.map((item, i) => (
               <Link to={item.link} key={i} className="flex gap-1">
                 <img src={item.icon} alt="" />
@@ -76,7 +76,8 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="relative py-3 px-2 bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW">
+        <div className="relative py-3 px-2 flex items-center gap-1 cursor-pointer bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW">
+          <img src="/images/enter.svg" alt="" />
           <div className="text-14">Giriş</div>
         </div>
       </div>

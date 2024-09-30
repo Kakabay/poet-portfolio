@@ -26,6 +26,7 @@ module.exports = {
         ON_SURFACE: '#564A36',
         ON_SURFACE_VAR: '#6D5E46',
         OUTLINE_VAR: '#BFA98D',
+        OUTLINE: '#807667',
         ON_PRIM_CONTAINER: '#FFE9C2',
         PRIM: '#7A590C',
         PRIM_CONTAINER: '#665A3D',
