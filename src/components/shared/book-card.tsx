@@ -1,4 +1,4 @@
-import DownloadLink from "./download-link";
+import DownloadLink from './download-link';
 
 type Props = {
   name: string;
@@ -8,7 +8,7 @@ type Props = {
 
 const BookCard = ({ name, text, link }: Props) => {
   return (
-    <article className="py-12 pl-4 pr-6 w-[756px]">
+    <article className="py-12 pl-6 pr-6 w-[756px] bg-[url('/images/books/1.png')] drop-shadow-INNER_SHADOW">
       <div className="flex gap-6">
         <div className="flex flex-col justify-between">
           <div className="">

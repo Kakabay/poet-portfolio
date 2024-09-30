@@ -10,8 +10,8 @@ const Poems = () => {
       className="gap-12">
       <div className="flex gap-6">
         <SortModal small />
-        <PoemsModal />
       </div>
+      <PoemsModal />
     </PageLayout>
   );
 };

@@ -3,19 +3,23 @@
 @tailwind utilities;
 
 .kaushan {
-  font-family: "Kaushan Script", cursive;
+  font-family: 'Kaushan Script', cursive;
   font-weight: 400;
   font-style: normal;
 }
 
 .inter {
-  font-family: "Inter", cursive;
+  font-family: 'Inter', cursive;
   font-weight: 400;
   font-style: normal;
 }
 
 .arrow {
   transform: scale(1, -1);
+}
+
+.faq-shape-1 {
+  clip-path: url(#faq-shape-1);
 }
 
 @layer base {

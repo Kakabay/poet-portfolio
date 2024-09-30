@@ -1,14 +1,17 @@
-import { useParams } from "react-router-dom";
-import PoemsItem from "./poems-item";
+import { useParams } from 'react-router-dom';
+import PoemsItem from './poems-item';
 
 const PoemsModal = () => {
   const { id } = useParams();
 
   return (
-    <div className="bg-[url('/images/poems/2.png')] bg-no-repeat bg-cover grid grid-cols-2 gap-x-6 gap gap-y-4 py-12 px-6 drop-shadow-INNER_SHADOW w-full h-full">
-      <PoemsItem id={"1"} />
-      <PoemsItem id={id} />
-      <PoemsItem id={id} />
+    <div className="bg-no-repeat grid grid-cols-2 relative gap-x-6 gap gap-y-4 py-12 px-6 drop-shadow-INNER_SHADOW max-w-[1000px] max-h-[500px]">
+      <img
+        src="/images/poems/1.svg"
+        alt=""
+        className="h-full w-full object- absolute top-0 left-0 right-0 "
+      />
+      <PoemsItem key={id} id="" />
     </div>
   );
 };
