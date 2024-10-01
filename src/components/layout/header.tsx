@@ -1,60 +1,60 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const navData = [
   {
-    link: "/about",
-    view: "Özüm hakda kelam agyz",
+    link: '/about',
+    view: 'Özüm hakda kelam agyz',
   },
   {
-    link: "/poems",
-    view: "Täze goşgular",
+    link: '/poems',
+    view: 'Täze goşgular',
   },
   {
-    link: "/comments",
-    view: "Synlar, ýatlamar, gutlaglar",
+    link: '/comments',
+    view: 'Synlar, ýatlamar, gutlaglar',
   },
   {
-    link: "/moments",
-    view: "Pursatlar",
+    link: '/moments',
+    view: 'Pursatlar',
   },
   {
-    link: "/books",
-    view: "Kitaplar",
+    link: '/books',
+    view: 'Kitaplar',
   },
   {
-    link: "/messages",
-    view: "Teswirler",
+    link: '/messages',
+    view: 'Teswirler',
   },
   {
-    link: "/instruction",
-    view: "Muşdaklar",
+    link: '/instruction',
+    view: 'Muşdaklar',
   },
   {
-    link: "/contacts",
-    view: "Kontaktlar",
+    link: '/contacts',
+    view: 'Kontaktlar',
   },
 ];
 
 const socials = [
   {
-    link: "",
-    icon: "/images/tg.svg",
-    name: "ezizgeldihellenov",
+    link: '',
+    icon: '/images/tg.svg',
+    name: 'ezizgeldihellenov',
   },
   {
-    link: "",
-    icon: "/images/facebook.svg",
-    name: "ezizgeldihellenov",
+    link: '',
+    icon: '/images/facebook.svg',
+    name: 'ezizgeldihellenov',
   },
   {
-    link: "",
-    icon: "/images/youtube.svg",
-    name: "ezizgeldihellenov",
+    link: '',
+    icon: '/images/youtube.svg',
+    name: 'ezizgeldihellenov',
   },
   {
-    link: "",
-    icon: "/images/inst.svg",
-    name: "ezizgeldihellenov",
+    link: '',
+    icon: '/images/inst.svg',
+    name: 'ezizgeldihellenov',
   },
 ];
 
@@ -83,21 +83,31 @@ const Header = () => {
       </div>
 
       <div className="container">
-        <nav className="relative z-50 drop-shadow-INNER_SHADOW bg-no-repeat ">
-          <div className="flex justify-center py-4 -tracking-[1%] z-50 kaushan text-[18px] gap-4">
+        <nav className="relative drop-shadow-INNER_SHADOW">
+          <div className="relative inset-0 w-full h-auto">
+            <img
+              src="/images/header-shape.svg"
+              alt="Background"
+              className="w-full h-full object-contain" // Фон растягивается по ширине и высоте
+            />
+          </div>
+          {/* Наложение текстуры */}
+          <div className="absolute inset-0 mix-blend-multiply pointer-events-none">
+            <img
+              src="/images/texture.png"
+              alt=""
+              className="w-full h-full opacity-50 object-cover "
+            />
+          </div>
+
+          {/* Контент навигации */}
+          <div className="absolute inset-0 flex justify-center py-4 -tracking-[1%] z-10 kaushan text-[18px] gap-4">
             {navData.map((item, i) => (
               <Link to={item.link} key={i} className="flex items-center gap-4">
                 {item.view}
                 {navData.length !== i + 1 && <img src="/images/romb.svg" />}
               </Link>
             ))}
-          </div>
-          <div className="absolute left-0 top-0 h-full -z-10">
-            <img
-              src={"/images/header-bg.svg"}
-              alt=""
-              className=" h-full w-full"
-            />
           </div>
         </nav>
       </div>
