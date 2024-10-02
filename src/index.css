@@ -51,4 +51,9 @@
   .input {
     @apply p-4 text-[14px] text-ON_SURFACE_VAR focus:outline-none border rounded-[4px] placeholder:text-ON_SURFACE_VAR border-OUTLINE_VAR font-medium leading-[140%] bg-transparent;
   }
+
+  .shadow-top {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    @apply drop-shadow-INNER_SHADOW;
+  }
 }

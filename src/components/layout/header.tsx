@@ -66,7 +66,7 @@ const Header = () => {
           <Link to="/" className="kaushan text-[36px] mr-6">
             Ezizgeldi Helleňow
           </Link>
-          <div className="flex gap-2 text-ON_SURFACE_VAR  font-medium leading-[115%] text-[14px]">
+          <div className="flex gap-2 text-ON_SURFACE_VAR font-medium leading-[115%] text-[14px]">
             {socials.map((item, i) => (
               <Link to={item.link} key={i} className="flex gap-1">
                 <img src={item.icon} alt="" />
@@ -76,30 +76,21 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="relative py-3 px-2 flex items-center gap-1 cursor-pointer bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW">
+        <div className="relative py-3 px-2 flex items-center custom-shadow gap-1 cursor-pointer bg-AUTH_BTN_PATTERN bg-no-repeat drop-shadow-INNER_SHADOW">
           <img src="/images/enter.svg" alt="" />
           <div className="text-14">Giriş</div>
         </div>
       </div>
 
       <div className="container">
-        <nav className="relative drop-shadow-INNER_SHADOW">
-          <div className="relative inset-0 w-full h-auto">
-            <img
-              src="/images/header-shape.svg"
-              alt="Background"
-              className="w-full h-full object-contain" // Фон растягивается по ширине и высоте
-            />
-          </div>
-          {/* Наложение текстуры */}
-          <div className="absolute inset-0 mix-blend-multiply pointer-events-none">
+        <nav className="relative custom-shadow min-h-[60px]">
+          <div className="absolute top-0 left-0 bg-[url('/images/header-shape.svg')] bg-center border-PRIM bg bg-no-repeat h-full w-full">
             <img
               src="/images/texture.png"
               alt=""
-              className="w-full h-full opacity-50 object-cover "
+              className="w-full h-full object-cover bg-clip-border opacity-50 mix-blend-multiply"
             />
           </div>
-
           {/* Контент навигации */}
           <div className="absolute inset-0 flex justify-center py-4 -tracking-[1%] z-10 kaushan text-[18px] gap-4">
             {navData.map((item, i) => (

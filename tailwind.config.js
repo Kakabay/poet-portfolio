@@ -12,14 +12,14 @@ module.exports = {
       backgroundImage: {
         HOME_PATTERN: "url('/images/home-bg.png')",
         HEADER_PATTERN: "url('/images/header-bg.png')",
-        FOOTER_PATTERN: "url('/images/footer-bg.png')",
+        FOOTER_PATTERN: "url('/images/footer-shape.svg')",
         AUTH_BTN_PATTERN: "url('/images/auth-btn-bg.png')",
       },
       fontFamily: {
         'caushan-script': ['Caushan Script"', 'cursive'],
       },
       dropShadow: {
-        INNER_SHADOW: '0 2px 3px rgba(0, 0, 0, 0.3)',
+        INNER_SHADOW: '0 0px 3px rgba(0, 0, 0, 0.3)',
         OUTER_SHADOW: '0 8px 20px rgba(0, 0, 0, 0.3)',
       },
       colors: {
