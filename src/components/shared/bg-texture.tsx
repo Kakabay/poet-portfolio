@@ -1,25 +1,20 @@
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
 
 type Props = {
-  img: string;
-  children: ReactNode;
   className?: string;
 };
 
-const BgTexture = ({ img, children, className }: Props) => {
+const BgTexture = ({ className }: Props) => {
   return (
     <div
       className={cn(
-        "bg-[url('/images/poems/1.svg')] z-10 drop-shadow-INNER_SHADOW relative bg-no-repeat",
+        `absolute -z-10 right-0 top-0 bg-no-repeat bg-cover bg-center size-full`,
         className,
       )}>
       <img
         src={'/images/texture.png'}
-        alt=""
-        className="absolute top-0 left-0 z-20 p-1 w-full h-full pointer-events-none right-0 bottom-0 mix-blend-multiply opacity-50"
+        className="size-full pointer-events-none scale-150 object-cover mix-blend-multiply opacity-50"
       />
-      {children}
     </div>
   );
 };

@@ -27,7 +27,7 @@ const DropDown = ({ className }: Props) => {
       <div
         onClick={() => setActive(!active)}
         className={cn(
-          'p-4 border cursor-pointer transition-all border-OUTLINE_VAR rounded-[4px_4px_0_0] flex justify-between items-center text-[14px] font-medium leading-[115%]',
+          'p-4 border cursor-pointer relative transition-all border-OUTLINE_VAR rounded-[4px_4px_0_0] flex justify-between items-center text-[14px] font-medium leading-[115%]',
           {
             'bg-PRIM_CONTAINER text-ON_PRIM_CONTAINER': active,
           },
@@ -35,23 +35,25 @@ const DropDown = ({ className }: Props) => {
         {activeSort.view}
       </div>
 
-      {active && (
-        <div className="cursor-pointer">
-          {sortData
-            .filter((item) => item.id !== activeSort.id)
-            .map((item, i) => (
-              <div
-                onClick={() => {
-                  setActiveSort(item);
-                  setActive(false);
-                }}
-                key={i}
-                className="border border-OUTLINE_VAR cursor-pointer text-[14px] leading-[145%] p-4 rounded-[0_0_4px_4px]">
-                {item.view}
-              </div>
-            ))}
-        </div>
-      )}
+      <div className="relative">
+        {active && (
+          <div className="cursor-pointer absolute top-0 right-0 left-0">
+            {sortData
+              .filter((item) => item.id !== activeSort.id)
+              .map((item, i) => (
+                <div
+                  onClick={() => {
+                    setActiveSort(item);
+                    setActive(false);
+                  }}
+                  key={i}
+                  className="input rounded-[0_0_4px_4px]">
+                  {item.view}
+                </div>
+              ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

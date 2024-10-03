@@ -11,7 +11,6 @@ const Poems = () => {
       <div className="flex gap-6">
         <SortModal small />
       </div>
-      <PoemsModal />
     </PageLayout>
   );
 };

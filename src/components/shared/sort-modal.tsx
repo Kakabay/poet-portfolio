@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import DropDown from './drop-down';
 import BgTexture from './bg-texture';
+import { Input } from '../ui/input';
 
 const sortData = [
   {
@@ -13,21 +14,37 @@ const sortData = [
   },
 ];
 
-const SortModal = ({ className, small }: { className?: string; small?: boolean }) => {
-  return (
-    <BgTexture img={''}>
-      <div className={cn('flex gap-6 py-12 px-6', small ? 'flex-col' : '')}>
-        <div className={cn(!small && 'flex-[0_0_80%]')}>
-          <h5 className="text-[16px] leading-[150%] mb-2 font-medium">Поиск</h5>
-          <input type="text" placeholder="Подсказка" className={cn('input', !small && 'w-full')} />
-        </div>
+const SortModal = ({ small }: { className?: string; small?: boolean }) => {
+  return small ? (
+    <div className="relative shadow-bottom pt-12 pb-20 px-6">
+      <BgTexture className="bg-[url('/images/poems/1-shape.svg')] poems-1-shape" />
 
-        <div className={cn(!small && 'flex-[0_0_20%]')}>
-          <h5 className="text-[16px] leading-[150%] mb-2 font-medium">Sortirowka</h5>
+      <div className="flex flex-col gap-6">
+        <div>
+          <h5 className="mb-2 text-16">Поиск</h5>
+          <Input placeholder="Подсказка" />
+        </div>
+        <div>
+          <h5 className="mb-2 text-16">Sortirowka</h5>
           <DropDown />
         </div>
       </div>
-    </BgTexture>
+    </div>
+  ) : (
+    <div className="relative shadow-bottom pt-12 pb-20 px-6">
+      <BgTexture className="bg-[url('/images/poems/1-shape.svg')] poems-1-shape" />
+
+      <div className="flex flex-col gap-6">
+        <div>
+          <h5 className="mb-2 text-16">Поиск</h5>
+          <Input placeholder="Подсказка" />
+        </div>
+        <div>
+          <h5 className="mb-2 text-16">Sortirowka</h5>
+          <DropDown />
+        </div>
+      </div>
+    </div>
   );
 };
 
