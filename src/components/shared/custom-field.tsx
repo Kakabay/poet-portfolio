@@ -1,18 +1,32 @@
-import { FormControl, FormField, FormItem, FormLabel } from '../ui/form';
-import { Input } from '../ui/input';
+import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Input } from "../ui/input";
 
-type Props = { control: any; name: string; label: string };
+type Props = {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+  area?: boolean;
+};
 
-const CustomInput = ({ control, name, label }: Props) => {
+const CustomField = ({
+  control,
+  name,
+  label,
+  placeholder,
+  area = false,
+}: Props) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
+        <FormItem className="flex flex-col gap-2 w-full">
+          <FormLabel className="font-medium text-16 tracking-4">
+            {label}
+          </FormLabel>
           <FormControl>
-            <Input />
+            {!area && <Input placeholder={placeholder} {...field} />}
           </FormControl>
         </FormItem>
       )}
@@ -20,4 +34,4 @@ const CustomInput = ({ control, name, label }: Props) => {
   );
 };
 
-export default CustomInput;
+export default CustomField;
