@@ -16,8 +16,8 @@ const sortData = [
 
 const SortModal = ({ small }: { className?: string; small?: boolean }) => {
   return small ? (
-    <div className="relative shadow-bottom pt-12 pb-20 px-6 w-[284px] h-[336px]">
-      <BgTexture className="bg-[url('/images/poems/1-shape.svg')] poems-1-shape" />
+    <div className="relative flex-[0_0_284px] shadow-bottom pt-12 pb-20 px-6 w-[284px] h-[336px]">
+      <BgTexture className="bg-[url('/images/poems/1-shape.svg')] poems-1-path" />
 
       <div className="flex flex-col gap-6">
         <div>

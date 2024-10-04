@@ -49,6 +49,13 @@ const ContactsForm = () => {
             placeholder="Kuda otprawit otwet?"
           />
         </div>
+        <CustomField
+          control={form.control}
+          label="Waş email"
+          name="email"
+          placeholder="Kuda otprawit otwet?"
+          area
+        />
 
         <Button type="submit">Otprawit</Button>
       </form>

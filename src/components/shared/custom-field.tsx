@@ -1,5 +1,6 @@
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 type Props = {
   control: any;
@@ -26,7 +27,11 @@ const CustomField = ({
             {label}
           </FormLabel>
           <FormControl>
-            {!area && <Input placeholder={placeholder} {...field} />}
+            {!area ? (
+              <Input placeholder={placeholder} {...field} />
+            ) : (
+              <Textarea rows={9} placeholder={placeholder} {...field} />
+            )}
           </FormControl>
         </FormItem>
       )}
