@@ -32,6 +32,7 @@ module.exports = {
         PRIM: '#7A590C',
         ON_PRIM: '#FFFDFA',
         PRIM_CONTAINER: '#665A3D',
+        SURFACE_CONTAINER: '#F8ECDF',
         TERTIARY: '#4C6545',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

@@ -1,5 +1,4 @@
-import React from "react";
-import DownloadLink from "./download-link";
+import DownloadLink from './download-link';
 
 type Props = {
   title: string;
@@ -9,8 +8,8 @@ type Props = {
 
 const ContactsLink = ({ link, subtitle, title }: Props) => {
   return (
-    <div className="flex flex-col gap-2">
-      <h4 className="text-20">{title}</h4>
+    <div className="flex flex-col gap-2 group">
+      <h4 className="text-20 group-hover:text-PRIM transition-colors">{title}</h4>
       <h5 className="text-16 !font-normal">{subtitle}</h5>
       <DownloadLink link={link} text="Dobawitsýa" />
     </div>

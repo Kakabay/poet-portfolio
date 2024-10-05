@@ -1,15 +1,15 @@
-import DropDown from "./drop-down";
-import BgTexture from "./bg-texture";
-import { Input } from "../ui/input";
+import DropDown from './drop-down';
+import BgTexture from './bg-texture';
+import { Input } from '../ui/input';
 
 const sortData = [
   {
-    id: "new",
-    view: "Snaçala nowye",
+    id: 'new',
+    view: 'Snaçala nowye',
   },
   {
-    id: "old",
-    view: "Snaçala starye",
+    id: 'old',
+    view: 'Snaçala starye',
   },
 ];
 
@@ -30,15 +30,15 @@ const SortModal = ({ small }: { className?: string; small?: boolean }) => {
       </div>
     </div>
   ) : (
-    <div className="relative shadow-bottom pt-12 pb-20 px-6">
-      <BgTexture className="bg-[url('/images/poems/1-shape.svg')] poems-1-shape" />
+    <div className="relative shadow-bottom p-6">
+      <BgTexture className="bg-[url('/images/comments/filter-shape.svg')] comments-filter-path" />
 
-      <div className="flex flex-col gap-6">
-        <div>
+      <div className="flex items-center gap-6">
+        <div className="flex-[0_0_888px]">
           <h5 className="mb-2 text-16">Поиск</h5>
-          <Input placeholder="Подсказка" />
+          <Input placeholder="Подсказка" className="search h-[52px]" />
         </div>
-        <div>
+        <div className="flex-[0_0_240px]">
           <h5 className="mb-2 text-16">Sortirowka</h5>
           <DropDown />
         </div>
