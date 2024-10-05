@@ -6,9 +6,9 @@ import CustomField from "./custom-field";
 import { Button } from "../ui/button";
 
 const formSchema = z.object({
-  name: z.string(),
+  name: z.string().min(3, "Imya obyazatelno"),
   email: z.string().email(),
-  text: z.string(),
+  message: z.string().min(5, "text requried"),
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -19,7 +19,7 @@ const ContactsForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      text: "",
+      message: "",
     },
   });
 
@@ -31,7 +31,7 @@ const ContactsForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 flex-[0_0_648px]"
+        className="flex flex-col gap-8 flex-[0_0_648px]"
       >
         <h4 className="text-20">Maňa hat iberiň</h4>
 
@@ -41,19 +41,22 @@ const ContactsForm = () => {
             label="Waşe imýa"
             name="name"
             placeholder="Kak was zowut?"
+            error={form.formState.errors.name}
           />
           <CustomField
             control={form.control}
             label="Waş email"
             name="email"
             placeholder="Kuda otprawit otwet?"
+            error={form.formState.errors.email}
           />
         </div>
         <CustomField
           control={form.control}
           label="Waş email"
-          name="email"
+          name="message"
           placeholder="Kuda otprawit otwet?"
+          error={form.formState.errors.message}
           area
         />
 
