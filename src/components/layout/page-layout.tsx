@@ -9,6 +9,8 @@ interface Props {
 }
 
 const PageLayout = ({ className, title, children, text }: Props) => {
+  // useScrollToTop();
+
   return (
     <main className={cn("pt-12 pb-[120px] relative")}>
       <div className="container">

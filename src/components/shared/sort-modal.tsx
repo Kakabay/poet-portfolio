@@ -1,15 +1,15 @@
-import DropDown from './drop-down';
-import BgTexture from './bg-texture';
-import { Input } from '../ui/input';
+import DropDown from "./drop-down";
+import BgTexture from "./bg-texture";
+import { Input } from "../ui/input";
 
 const sortData = [
   {
-    id: 'new',
-    view: 'Snaçala nowye',
+    id: "new",
+    view: "Snaçala nowye",
   },
   {
-    id: 'old',
-    view: 'Snaçala starye',
+    id: "old",
+    view: "Snaçala starye",
   },
 ];
 
@@ -21,7 +21,7 @@ const SortModal = ({ small }: { className?: string; small?: boolean }) => {
       <div className="flex flex-col gap-6">
         <div>
           <h5 className="mb-2 text-16">Поиск</h5>
-          <Input placeholder="Подсказка" />
+          <Input placeholder="Подсказка" className="search" />
         </div>
         <div>
           <h5 className="mb-2 text-16">Sortirowka</h5>

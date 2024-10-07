@@ -1,17 +1,15 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
-import clsx from "clsx";
 import { cn, getCover } from "./lib/utils";
 
 function App() {
   const { pathname } = useLocation();
 
   return (
-    <main
-      className={clsx(
-        "flex flex-col relative h-screen bg-[#EFDEBE] overflow-x-hidden",
-        {}
+    <div
+      className={cn(
+        "flex flex-col relative min-h-screen w-full bg-[#EFDEBE] overflow-x-hidden"
       )}
     >
       <div className="fixed left-0 right-0 bottom-0 pointer-events-none top-0 w-full h-full mix-blend-multiply">
@@ -44,14 +42,15 @@ function App() {
           />
         </div>
       )}
+
       <Header />
 
-      <div className="flex-auto">
+      <main id="main" className="flex-auto">
         <Outlet />
-      </div>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }
 

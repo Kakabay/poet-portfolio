@@ -1,7 +1,7 @@
-import PageLayout from '@/components/layout/page-layout';
-import BgTexture from '@/components/shared/bg-texture';
-import ContactsForm from '@/components/shared/contacts-form';
-import ContactsLink from '@/components/shared/contacts-link';
+import PageLayout from "@/components/layout/page-layout";
+import BgTexture from "@/components/shared/bg-texture";
+import ContactsForm from "@/components/shared/contacts-form";
+import ContactsLink from "@/components/shared/contacts-link";
 
 type Props = {};
 
@@ -10,10 +10,13 @@ const Contacts = ({}: Props) => {
     <PageLayout
       title="Kontaktlar"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-      className="gap-12">
+      className="gap-12"
+    >
       <section className="relative h-[656px] px-6 py-12 w-full shadow-bottom overflow-hidden  ">
         <BgTexture className="bg-[url('/images/contacts/contacts-shape.svg')] contacts-path" />
-        <h3 className="text-[32px] kaushan leading-[110%] mb-8">Men bilen habarlaşyň!</h3>
+        <h3 className="text-[32px] kaushan leading-[110%] mb-8">
+          Men bilen habarlaşyň!
+        </h3>
 
         <div className="flex gap-6">
           <ContactsForm />

@@ -9,11 +9,12 @@ import About from "./pages/about";
 import "./index.css";
 import PoemsSingle from "./pages/poems-single";
 import Moments from "./pages/moments";
-import Comments from "./pages/comments";
+import Comments from "./pages/synlar";
 import Books from "./pages/books";
 import Messages from "./pages/messages";
 import Contacts from "./pages/contacts";
 import Instruction from "./pages/instruction";
+import Synlar from "./pages/synlar";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: "comments",
-        element: <Comments />,
+        element: <Synlar />,
       },
       {
         path: "moments",
