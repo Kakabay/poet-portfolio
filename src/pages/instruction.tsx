@@ -12,11 +12,13 @@ const Instruction = ({}: Props) => {
       className="gap-12"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
     >
-      <section className="text-center relative shadow-bottom h-[980px] w-full">
+      <section className="text-center relative shadow-bottom h-[900px] w-full py-8">
         <BgTexture className='bg-[url("/images/faq/register-shape1.svg")] register-path' />
-        <div className="w-[640px] mx-auto flex flex-col gap-12 pt-12 pb-14">
+
+        <div className="w-[640px] mx-auto flex flex-col gap-8">
           <h2 className="h2 kaushan">Kak zaregistrirowatsýa</h2>
-          <div className="leading-[150%] mb-2">
+
+          <div className="leading-[150%]">
             <div className="mb-4">1 shag</div>
             <h4 className="font-semibold mb-2">Vvedite vash email</h4>
             <h5 className="text-[18px] leading-[145%] mb-6">
@@ -35,7 +37,7 @@ const Instruction = ({}: Props) => {
             <Button className="w-full">Dalee</Button>
           </div>
 
-          <div className="leading-[150%] opacity-50">
+          <div className="leading-[150%] opacity-">
             <div className="mb-4">2 shag</div>
             <h4 className="font-semibold mb-2">Pridumayte parol'</h4>
             <h5 className="text-[18px] leading-[145%] mb-6">
@@ -43,7 +45,8 @@ const Instruction = ({}: Props) => {
               ne menee 8 simvolov, vklyuchaya bukvy, tsifry i spetsial'nye
               simvoly.
             </h5>
-            <div className="text-[16px] font-medium leading-[150%] mb-4">
+
+            <div className="text-[16px] font-medium leading-[150%] mb-">
               <span>Vvedite parol'</span>
               <Input
                 type="text"

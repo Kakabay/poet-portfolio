@@ -12,7 +12,7 @@ const Contacts = ({}: Props) => {
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
       className="gap-12"
     >
-      <section className="relative h-[656px] px-6 py-12 w-full shadow-bottom overflow-hidden  ">
+      <section className="relative h-[624px] px-6 py-8 w-full shadow-bottom overflow-hidden  ">
         <BgTexture className="bg-[url('/images/contacts/contacts-shape.svg')] contacts-path" />
         <h3 className="text-[32px] kaushan leading-[110%] mb-8">
           Men bilen habarlaşyň!

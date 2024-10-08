@@ -41,7 +41,7 @@ const ContactsForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-8 flex-[0_0_648px]"
+          className="flex flex-col gap-6 flex-[0_0_648px]"
         >
           <h4 className="text-20">Maňa hat iberiň</h4>
 

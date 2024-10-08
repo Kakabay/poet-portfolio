@@ -1,22 +1,21 @@
-import PageLayout from '@/components/layout/page-layout';
-import BgTexture from '@/components/shared/bg-texture';
-import Pagination from '@/components/shared/pagination';
-import PoemsItem from '@/components/shared/poems-item';
-import SortModal from '@/components/shared/sort-modal';
-import { cn } from '@/lib/utils';
-import React from 'react';
+import PageLayout from "@/components/layout/page-layout";
+import Pagination from "@/components/shared/pagination";
+import PoemsItem from "@/components/shared/poems-item";
+import SortModal from "@/components/shared/sort-modal";
 
 const data = [
   {
-    name: 'Ýaşyl Tugly Türkmenistan',
+    name: "Ýaşyl Tugly Türkmenistan",
   },
   {
-    name: 'Ýaşyl Tugly Bayr',
+    name: "Gel, kalbym, Gel, gürleşeli!",
   },
   {
-    name: 'Ýaşyl Tugly sads',
+    name: "Ýürek bilen sorag-jogap",
   },
-  { name: 'Ýaşyl Tugly hasdj' },
+  {
+    name: "Gyşdan soňra bahar gelýär!",
+  },
 ];
 
 const Poems = () => {
@@ -24,16 +23,19 @@ const Poems = () => {
     <PageLayout
       title="Täze goşgular"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-      className="gap-12">
+      className="gap-12"
+    >
       <SortModal />
 
-      <div className="grid grid-cols-2 gap-8 w-[948px] mx-auto">
-        {[...Array(6)].map((_, i) => (
-          <PoemsItem key={i} id={'1'} />
-        ))}
-      </div>
+      <div className="">
+        <div className="mb-8 grid grid-cols-2 gap-8 w-[948px] mx-auto">
+          {data.map((item, i) => (
+            <PoemsItem key={i} id={"1"} {...item} />
+          ))}
+        </div>
 
-      <Pagination />
+        <Pagination />
+      </div>
     </PageLayout>
   );
 };

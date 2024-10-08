@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import BgTexture from './bg-texture';
+import { Link } from "react-router-dom";
+import BgTexture from "./bg-texture";
 
 const PoemsItem = ({ id, name }: { id: string | undefined; name?: string }) => {
   return (
@@ -7,10 +7,11 @@ const PoemsItem = ({ id, name }: { id: string | undefined; name?: string }) => {
       <BgTexture className="bg-[url('/images/poems/poem-shape.svg')] poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
+      >
         <div className="flex items-center">
           <img src="/images/romb.svg" alt="" className="mr-1" />
-          <h4 className="kaushan mr-3">Ýaşyl Tugly Türkmenistan</h4>
+          <h4 className="kaushan mr-3">{name}</h4>
           <img src="/images/play.svg" alt="play" />
         </div>
       </Link>
