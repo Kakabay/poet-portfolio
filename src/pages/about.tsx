@@ -79,7 +79,6 @@ const About = () => {
           '2022-nji ýylyň oktýabr aýynyň ortasyndan tä zähmet rugsadyna çykýançam, Ilat Gaznasynyň Malawidäki Wekiliniň orunbasary bolup işledim we 17 million ilatly ýurda niýetlenen maksatnama ýolbaşçylyk etdim.',
           '2025-nji ýylyň mart aýynyň ahyrynda men hormatly dynç alşa çykdym.',
         ]}
-        rombs
       />
 
       <SectionLine />
@@ -87,10 +86,21 @@ const About = () => {
       <section className="flex flex-col">
         <h2 className="h2 kaushan mb-20 text-center">Ynha meniň geçen durmuş ýolum:</h2>
 
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 relative">
+          <img src="/images/about/dash-arrow-big.svg" alt="" className="absolute top-[30.5%]" />
+          <img
+            src="/images/about/dash-arrow-big.svg"
+            alt=""
+            className="absolute right-0 top-[32.5%] -rotate-[180deg]"
+          />
+
           <div className="flex gap-6 relative">
             <TextRomb ellips text="Turkmenistan" />
-            <img src="/images/about/dash-arrow.svg" alt="" className="absolute left-0 top-0" />
+            <img
+              src="/images/about/dash-arrow.svg"
+              alt=""
+              className="absolute left-[27%] -top-[12%] -rotate-[35deg]"
+            />
             <TextRomb className="-mt-10" ellips text="Sudan (Darfur ülkesi)" />
             <img
               src="/images/about/dash-arrow.svg"
@@ -99,10 +109,27 @@ const About = () => {
             />
 
             <TextRomb ellips text="Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar" />
+            <img
+              src="/images/about/dash-arrow.svg"
+              alt=""
+              className="absolute bottom-4 right-[30%] -rotate-[180deg]"
+            />
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-6 relative">
             <TextRomb ellips text="Malawi" />
+            <img
+              src="/images/about/dash-arrow.svg"
+              alt=""
+              className="absolute bottom-[11%] right-[26.5%] -rotate-[210deg]"
+            />
+
             <TextRomb className="mt-10" ellips text="Keniýa" />
+            <img
+              src="/images/about/dash-arrow.svg"
+              alt=""
+              className="absolute top-[7%] left-[29.5%]"
+            />
+
             <TextRomb ellips text="Ýemen" />
           </div>
         </div>
@@ -110,7 +137,7 @@ const About = () => {
 
       <SectionLine />
 
-      <section className="flex flex-col gap-20">
+      <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-6">
           <p>
             Meniň 90-dan gowrak ylmy makalalarym we 3 sany ylmy kitabym dürli ýüllarda çap edildi.

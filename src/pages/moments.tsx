@@ -1,6 +1,7 @@
 import PageLayout from '@/components/layout/page-layout';
 import BgTexture from '@/components/shared/bg-texture';
 import MomentsCard from '@/components/shared/moments-card';
+import Pagination from '@/components/shared/pagination';
 
 const Moments = () => {
   return (
@@ -17,6 +18,8 @@ const Moments = () => {
           ))}
         </div>
       </div>
+
+      <Pagination />
     </PageLayout>
   );
 };
