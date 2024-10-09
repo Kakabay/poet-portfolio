@@ -1,77 +1,82 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
-import Home from './pages/home';
-import Poems from './pages/poems';
-import About from './pages/about';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Home from "./pages/home";
+import Poems from "./pages/poems";
+import About from "./pages/about";
 
-import './index.css';
-import PoemsSingle from './pages/poems-single';
-import Moments from './pages/moments';
-import Books from './pages/books';
-import Messages from './pages/messages';
-import Contacts from './pages/contacts';
-import Instruction from './pages/instruction';
-import Synlar from './pages/synlar';
-import Cabinet from './pages/cabinet';
+import "./index.css";
+import PoemsSingle from "./pages/poems-single";
+import Moments from "./pages/moments";
+import Books from "./pages/books";
+import Messages from "./pages/messages";
+import Contacts from "./pages/contacts";
+import Instruction from "./pages/instruction";
+import Synlar from "./pages/synlar";
+import Cabinet from "./pages/cabinet";
+import MomentsSingle from "./pages/moments-single";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
 
     children: [
       {
-        path: '',
+        path: "",
         element: <Home />,
       },
       {
-        path: 'about',
+        path: "about",
         element: <About />,
       },
       {
-        path: 'poems',
+        path: "poems",
         element: <Poems />,
       },
       {
-        path: 'poems/:id',
+        path: "poems/:id",
         element: <PoemsSingle />,
       },
       {
-        path: 'comments',
+        path: "comments",
         element: <Synlar />,
       },
       {
-        path: 'moments',
+        path: "moments",
         element: <Moments />,
       },
       {
-        path: 'books',
+        path: "moments/:id",
+        element: <MomentsSingle />,
+      },
+      {
+        path: "books",
         element: <Books />,
       },
       {
-        path: 'messages',
+        path: "messages",
         element: <Messages />,
       },
       {
-        path: 'contacts',
+        path: "contacts",
         element: <Contacts />,
       },
       {
-        path: 'instruction',
+        path: "instruction",
         element: <Instruction />,
       },
       {
-        path: 'cabinet',
+        path: "cabinet",
         element: <Cabinet />,
       },
     ],
   },
 ]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );

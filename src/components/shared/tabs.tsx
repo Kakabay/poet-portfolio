@@ -1,26 +1,25 @@
 import { cn } from "@/lib/utils";
-import React from "react";
 
 interface Props {
   array: any[];
   setActive: (i: number) => void;
   active: number;
+  className?: string;
 }
 
-const Tabs = ({ array, active, setActive }: Props) => {
+const Tabs = ({ array, active, setActive, className }: Props) => {
   return (
-    <div className="flex text-16 items-center border-b transition-all w-fit mx-auto border-OUTLINE">
+    <div
+      className={cn(
+        "flex text-16 items-center border-b transition-all w-fit mx-auto border-OUTLINE",
+        className
+      )}
+    >
       {array.map((item, i) => (
         <h5
           key={i}
           onClick={() => setActive(i)}
-          className={cn(
-            "px-4 py-2 cursor-pointer relative transition-all "
-            // {
-            //   "after:absolute after:h-0.5 after:bg-OUTLINE_VAR_HIGH after:w-full after:transition-all after:bottom-0 after:left-0":
-            //     active === i,
-            // }
-          )}
+          className={cn("px-4 py-2 cursor-pointer relative transition-all")}
         >
           <div
             className={cn(

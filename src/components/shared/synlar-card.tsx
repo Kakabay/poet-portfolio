@@ -23,10 +23,8 @@ const SynlarCard = ({ text, print, categ, author }: Props) => {
 
       <div className="flex flex-col justify-between h-full">
         <div className="text-[14px] leading-[140%] mb-9">
-          <h5 className="font-semibold  uppercase mb-2">Aýdyn Ataýew</h5>
-          <h6 className="text-ON_SURFACE_VAR font-medium italic">
-            AGU neşirýat, kopiraýter
-          </h6>
+          <h5 className="font-semibold  uppercase mb-2">{author}</h5>
+          <h6 className="text-ON_SURFACE_VAR font-medium italic">{print}</h6>
         </div>
         <Button>Pereýti k istoçniku</Button>
       </div>

@@ -24,8 +24,8 @@ const BookCard = ({ name, text, link = "" }: Props) => {
           <DownloadLink link={link} />
         </div>
 
-        <div className="flex-[0_0_25.2%] w-[180px] h-[252px] bg-white">
-          <img src="" alt="" />
+        <div className="flex-[0_0_25.2%] w-[180px] h-[252px] ">
+          <img src="/images/book.png" alt="" />
         </div>
       </div>
     </article>

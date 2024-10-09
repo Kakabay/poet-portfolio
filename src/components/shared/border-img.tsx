@@ -10,7 +10,7 @@ const BorderImg = ({ className, imgClassName, img }: Props) => {
   return (
     <div
       className={cn(
-        "relative border border-ON_SURFACE_VAR flex-[1_0_auto]",
+        "relative ring-[0.3px] ring-ON_SURFACE_VAR flex-[1_0_auto]",
         className
       )}
     >

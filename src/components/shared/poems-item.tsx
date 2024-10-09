@@ -11,7 +11,7 @@ const PoemsItem = ({ id, name }: { id: string | undefined; name?: string }) => {
       >
         <div className="flex items-center">
           <img src="/images/romb.svg" alt="" className="mr-1" />
-          <h4 className="kaushan mr-3">{name}</h4>
+          <h4 className="kaushan mr-3">{name}Ýaşyl Tugly Türkmenistan </h4>
           <img src="/images/play.svg" alt="play" />
         </div>
       </Link>

@@ -2,10 +2,14 @@ import PageLayout from "@/components/layout/page-layout";
 import BgTexture from "@/components/shared/bg-texture";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 type Props = {};
 
 const Instruction = ({}: Props) => {
+  const [active, setActive] = useState(false);
+
   return (
     <PageLayout
       title="Muşdaklar"
@@ -18,7 +22,12 @@ const Instruction = ({}: Props) => {
         <div className="w-[640px] mx-auto flex flex-col gap-8">
           <h2 className="h2 kaushan">Kak zaregistrirowatsýa</h2>
 
-          <div className="leading-[150%]">
+          <div
+            className={cn(
+              "leading-[150%] transition-opacity",
+              active && "opacity-50 pointer-events-none"
+            )}
+          >
             <div className="mb-4">1 shag</div>
             <h4 className="font-semibold mb-2">Vvedite vash email</h4>
             <h5 className="text-[18px] leading-[145%] mb-6">
@@ -30,14 +39,26 @@ const Instruction = ({}: Props) => {
               Vvedite email v pole nizhe i nazhmite «Dalee»
             </div>
             <Input
+              disabled={active}
               type="text"
               placeholder="Подсказка"
               className="input w-full mb-4"
             />
-            <Button className="w-full">Dalee</Button>
+            <Button
+              disabled={active}
+              onClick={() => setActive(true)}
+              className="w-full"
+            >
+              Dalee
+            </Button>
           </div>
 
-          <div className="leading-[150%] opacity-">
+          <div
+            className={cn(
+              "leading-[150%] transition-opacity",
+              !active && "opacity-50 pointer-events-none"
+            )}
+          >
             <div className="mb-4">2 shag</div>
             <h4 className="font-semibold mb-2">Pridumayte parol'</h4>
             <h5 className="text-[18px] leading-[145%] mb-6">
@@ -49,6 +70,7 @@ const Instruction = ({}: Props) => {
             <div className="text-[16px] font-medium leading-[150%] mb-">
               <span>Vvedite parol'</span>
               <Input
+                disabled={!active}
                 type="text"
                 placeholder="Подсказка"
                 className="input w-full mt-2 mb-4"
@@ -59,11 +81,14 @@ const Instruction = ({}: Props) => {
                 Powtorite parol' i podtverdite ego, zatem nazhmite «Dalee».
               </span>
               <Input
+                disabled={!active}
                 type="text"
                 placeholder="Подсказка"
                 className="input w-full mt-2 mb-4"
               />
-              <Button className="w-full">Dalee</Button>
+              <Button disabled={!active} className="w-full">
+                Dalee
+              </Button>
             </div>
           </div>
         </div>

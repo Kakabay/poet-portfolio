@@ -23,7 +23,7 @@ const Contacts = ({}: Props) => {
 
           <div className="h-[492px] flex-[0_0_1px] w-[1px] bg-OUTLINE_VAR" />
 
-          <div className="flex flex-col gap-4 flex-[0_0_472px]">
+          <div className="flex flex-col gap-6 flex-[0_0_472px]">
             {[...Array(4)].map((_, i) => (
               <ContactsLink
                 key={i}

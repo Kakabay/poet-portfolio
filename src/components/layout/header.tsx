@@ -141,7 +141,7 @@ const Header = () => {
             active={success}
             setActive={setSuccess}
             className="h-full"
-            mode="message"
+            mode="tost"
           />
         )}
 

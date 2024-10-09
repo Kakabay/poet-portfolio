@@ -24,7 +24,6 @@ function App() {
           <img
             src="/images/home-bg.png"
             className="w-full h-full object-cover"
-            alt=""
           />
         </div>
       ) : (
@@ -37,7 +36,6 @@ function App() {
         >
           <img
             src={getCover(pathname)?.img}
-            alt=""
             className="w-full h-full object-cover"
           />
         </div>

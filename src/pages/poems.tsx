@@ -2,6 +2,7 @@ import PageLayout from "@/components/layout/page-layout";
 import Pagination from "@/components/shared/pagination";
 import PoemsItem from "@/components/shared/poems-item";
 import SortModal from "@/components/shared/sort-modal";
+import { useState } from "react";
 
 const data = [
   {
@@ -19,13 +20,15 @@ const data = [
 ];
 
 const Poems = () => {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <PageLayout
       title="Täze goşgular"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-      className="gap-12"
+      className="gap-[64px]"
     >
-      <SortModal />
+      <SortModal search={searchValue} setSearch={setSearchValue} />
 
       <div className="">
         <div className="mb-8 grid grid-cols-2 gap-8 w-[948px] mx-auto">
