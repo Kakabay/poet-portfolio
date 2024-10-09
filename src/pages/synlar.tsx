@@ -3,6 +3,7 @@ import Pagination from "@/components/shared/pagination";
 import SortModal from "@/components/shared/sort-modal";
 import SynlarCard from "@/components/shared/synlar-card";
 import Tabs from "@/components/shared/tabs";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 export const tabs = [
@@ -92,8 +93,16 @@ const data = [
 
 const Synlar = () => {
   const [active, setActive] = useState(0);
-
+  const [notFound, setNotFound] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  const filteredData = data.filter((item) =>
+    searchValue
+      ? item.text.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      : active === 0
+      ? item
+      : item.id === active
+  );
 
   return (
     <PageLayout
@@ -105,8 +114,15 @@ const Synlar = () => {
       <section>
         <div className="relative flex flex-col justify-center transition-all">
           {searchValue ? (
-            <div className="absolute w-full left-1/2 -translate-x-1/2 top-12 text-center pb-4 h-[50px] border-b border-OUTLINE">
-              Po «{searchValue}» zaprosy naýdeno:
+            <div
+              className={cn(
+                "absolute w-full left-1/2 -translate-x-1/2 top-12 text-center pb-4 h-[50px] border-b border-OUTLINE",
+                filteredData.length > 0 && "border-b border-OUTLINE"
+              )}
+            >
+              {filteredData.length > 0
+                ? `Po «${searchValue}» zaprosy naýdeno:`
+                : "Niçego ne naýdeno!"}
             </div>
           ) : (
             <Tabs
@@ -118,16 +134,13 @@ const Synlar = () => {
           )}
 
           <div className="grid grid-cols-3 grid-rows-3 mt-[140px] gap-6">
-            {data
-              .filter((item) => (active === 0 ? item : item.id === active))
-              .map((item, i) => (
-                <SynlarCard key={i} {...item} />
-              ))}
+            {filteredData.map((item, i) => (
+              <SynlarCard key={i} {...item} />
+            ))}
           </div>
         </div>
+        <Pagination className="mt-8" />
       </section>
-
-      <Pagination />
     </PageLayout>
   );
 };

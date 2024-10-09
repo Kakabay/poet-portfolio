@@ -21,6 +21,7 @@ const data = [
 
 const Poems = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [notFound, setNotFound] = useState(false);
 
   return (
     <PageLayout
@@ -30,11 +31,21 @@ const Poems = () => {
     >
       <SortModal search={searchValue} setSearch={setSearchValue} />
 
-      <div className="">
-        <div className="mb-8 grid grid-cols-2 gap-8 w-[948px] mx-auto">
-          {data.map((item, i) => (
-            <PoemsItem key={i} id={"1"} {...item} />
-          ))}
+      <div className="flex flex-col gap-8 relative">
+        {searchValue && (
+          <div className="w-full mx-auto  text-center pb-4 h-[50px] border-b border-OUTLINE">
+            Po «{searchValue}» zaprosy naýdeno:
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-8 w-[948px] mx-auto">
+          {data
+            .filter((item) =>
+              item.name.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((item, i) => (
+              <PoemsItem key={i} id={"1"} {...item} />
+            ))}
         </div>
 
         <Pagination />

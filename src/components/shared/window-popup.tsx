@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import BgTexture from "./bg-texture";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ const WindowPopup = ({
   mode,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
@@ -81,8 +82,16 @@ const WindowPopup = ({
 
             <div className="flex flex-col gap-2">
               <div className="text-16 text-left">Kommentariý</div>
-              <Textarea className="p-4" rows={11} maxLength={500} />
-              <div className="text-right text-14 !font-normal">500/500</div>
+              <Textarea
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="p-4"
+                rows={11}
+                maxLength={500}
+              />
+              <div className="text-right text-14 !font-normal">
+                {value.length}/500
+              </div>
             </div>
 
             <Button>Otprawit</Button>
