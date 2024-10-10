@@ -1,15 +1,14 @@
-import CustomField from "./custom-field";
-import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "../ui/form";
-import { useLoginStore } from "@/store/useLogin";
+import CustomField from './custom-field';
+import { Button } from '../ui/button';
+import { Link } from 'react-router-dom';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form } from '../ui/form';
+import { useLoginStore } from '@/store/useLogin';
 
 const formsSchema = z.object({
-  login: z.string(),
+  login: z.string().email(),
   password: z.string(),
 });
 
@@ -19,8 +18,8 @@ const LoginWindow = () => {
   const form = useForm({
     resolver: zodResolver(formsSchema),
     defaultValues: {
-      login: "",
-      password: "",
+      login: '',
+      password: '',
     },
   });
 
@@ -42,19 +41,20 @@ const LoginWindow = () => {
         <div className="flex flex-col gap-6">
           <h3 className="text-center font-semibold">Woýti</h3>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <CustomField
               control={form.control}
-              name={"login"}
-              label={"Login"}
-              placeholder={"Подсказка"}
+              name={'login'}
+              label={'Login'}
+              placeholder={'Подсказка'}
               error={form.formState.errors.login}
             />
             <CustomField
+              type="password"
               control={form.control}
-              name={"password"}
-              label={"Parol"}
-              placeholder={"Wwedite swoý parol"}
+              name={'password'}
+              label={'Parol'}
+              placeholder={'Wwedite swoý parol'}
               error={form.formState.errors.password}
             />
           </div>
@@ -66,8 +66,7 @@ const LoginWindow = () => {
             <Link
               onClick={() => setActive(false)}
               className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
-              to="/instruction"
-            >
+              to="/instruction">
               zaregistriruýsýa.
             </Link>
           </h5>

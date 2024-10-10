@@ -1,14 +1,8 @@
-import { FieldError } from "react-hook-form";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { cn } from "@/lib/utils";
+import { FieldError } from 'react-hook-form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
+import { cn } from '@/lib/utils';
 
 type Props = {
   control: any;
@@ -17,6 +11,7 @@ type Props = {
   placeholder: string;
   error: FieldError | undefined;
   area?: boolean;
+  type?: string;
 };
 
 const CustomField = ({
@@ -26,6 +21,7 @@ const CustomField = ({
   placeholder,
   error,
   area = false,
+  type = 'text',
 }: Props) => {
   return (
     <FormField
@@ -33,30 +29,28 @@ const CustomField = ({
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col w-full relative">
-          <FormLabel className="font-medium text-16 tracking-4">
-            {label}
-          </FormLabel>
+          <FormLabel className="font-medium text-16 tracking-4">{label}</FormLabel>
           <FormControl>
             {!area ? (
               <Input
+                type={type}
                 placeholder={placeholder}
                 {...field}
-                className={error?.message && "border-[#BA1A1A]"}
+                className={error?.message && 'border-[#BA1A1A]'}
               />
             ) : (
               <Textarea
-                rows={10}
+                rows={7}
                 placeholder={placeholder}
                 {...field}
-                className={error?.message && "border-[#BA1A1A]"}
+                className={error?.message && 'border-[#BA1A1A]'}
               />
             )}
           </FormControl>
           <FormMessage
             className={cn(
-              "absolute -bottom-5 left-0 text-[12px] font-medium leading-[130%] text-[#BA1A1A]"
-            )}
-          >
+              'absolute -bottom-5 left-0 text-[12px] font-medium leading-[130%] text-[#BA1A1A]',
+            )}>
             {error?.message}
           </FormMessage>
         </FormItem>

@@ -37,6 +37,12 @@ export const getCover = (key: string) => {
         mode: 'mix-blend-soft-light',
         opacity: 'opacity-35',
       };
+    case '/moments/1':
+      return {
+        img: '/images/faq/cover.png',
+        mode: 'mix-blend-soft-light',
+        opacity: 'opacity-35',
+      };
     case '/contacts':
       return {
         img: '/images/faq/cover.png',

@@ -1,27 +1,18 @@
-import DropDown from "./drop-down";
-import BgTexture from "./bg-texture";
-import { Input } from "../ui/input";
-
-const sortData = [
-  {
-    id: "new",
-    view: "Snaçala nowye",
-  },
-  {
-    id: "old",
-    view: "Snaçala starye",
-  },
-];
+import DropDown from './drop-down';
+import { Input } from '../ui/input';
+import { ActiveSort } from '@/store/useSynlar';
 
 interface Props {
-  className?: string;
   search: string;
   setSearch: (str: string) => void;
+  sort: ActiveSort;
+  setSort: (val: ActiveSort) => void;
+  className?: string;
 }
 
-const SortModal = ({ setSearch, search }: Props) => {
+const SortModal = ({ setSearch, search, sort, setSort }: Props) => {
   return (
-    <div className="relative shadow-bottom">
+    <div className="relative">
       <div className="flex items-center gap-6">
         <div className="flex-[0_1_928px]">
           <h5 className="mb-2 text-16 !text-ON_SURFACE">Поиск</h5>
@@ -35,7 +26,7 @@ const SortModal = ({ setSearch, search }: Props) => {
         </div>
         <div className="flex-[0_1_240px]">
           <h5 className="mb-2 text-16">Sortirowka</h5>
-          <DropDown />
+          <DropDown sort={sort} setSort={setSort} />
         </div>
       </div>
     </div>
