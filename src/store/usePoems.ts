@@ -1,4 +1,6 @@
-import { create } from 'zustand';
+import { PoemType } from "@/components/shared/poems-item";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface ActiveSort {
   id: string;
@@ -9,21 +11,38 @@ interface Props {
   activeSort: ActiveSort;
   setActiveSort: (value: ActiveSort) => void;
 
-  favorites: number[];
-  setFavorites: (num: number) => void;
+  favorites: PoemType[];
+  setFavorites: (obj: PoemType) => void;
 }
 
-export const usePoemsStore = create<Props>((set) => ({
-  activeSort: {
-    id: 'new',
-    view: 'Snaçala nowye',
-  },
+export const usePoemsStore = create<Props>()(
+  persist(
+    (set) => ({
+      activeSort: {
+        id: "new",
+        view: "Snaçala nowye",
+      },
 
-  favorites: [],
+      favorites: [],
 
-  setActiveSort: (value) => set((state) => ({ activeSort: (state.activeSort = value) })),
+      setActiveSort: (value) => set((state) => ({ activeSort: value })), // Убираем лишнее присваивание
 
-  setFavorites: (num) => {
-    set((state) => ({ favorites: [...state.favorites, num] }));
-  },
-}));
+      setFavorites: (obj) => {
+        set((state) => {
+          // Проверяем, есть ли элемент в массиве
+          const isFavorite = state.favorites.some((item) => item.id === obj.id);
+
+          // Если элемент есть, убираем его, если нет — добавляем
+          return {
+            favorites: isFavorite
+              ? state.favorites.filter((favorite) => favorite.id !== obj.id)
+              : [...state.favorites, obj],
+          };
+        });
+      },
+    }),
+    {
+      name: "poems-store", // имя ключа в localStorage
+    }
+  )
+);

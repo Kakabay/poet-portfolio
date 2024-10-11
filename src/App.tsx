@@ -2,9 +2,11 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
 import { cn, getCover } from "./lib/utils";
+import { usePathStore } from "./store/usePathname";
 
 function App() {
   const { pathname } = useLocation();
+  const path = usePathStore().path;
 
   return (
     <div
@@ -29,13 +31,19 @@ function App() {
       ) : (
         <div
           className={cn(
-            "max-h-[396px] bottom-0 absolute top-0 left-0 right-0",
+            "max-h-[396px] bottom-0 absolute top-0 left-0 right-0 opacity-35 mix-blend-soft-light",
             getCover(pathname)?.opacity,
             getCover(pathname)?.mode
           )}
         >
           <img
-            src={getCover(pathname)?.img}
+            src={
+              path === "moment"
+                ? "/images/faq/cover.png"
+                : path === "poem"
+                ? "/images/poems/poem-cover.png"
+                : getCover(pathname)?.img
+            }
             className="w-full h-full object-cover"
           />
         </div>

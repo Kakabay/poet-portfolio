@@ -20,7 +20,14 @@ const Moments = () => {
           ))}
         </div>
 
-        <Pagination />
+        <Pagination
+          currentPage={0}
+          totalPages={0}
+          perPage={0}
+          onChangePage={function (page: number): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       </div>
     </PageLayout>
   );

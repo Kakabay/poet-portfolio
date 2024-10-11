@@ -1,6 +1,12 @@
 import PageLayout from "@/components/layout/page-layout";
 import BgTexture from "@/components/shared/bg-texture";
 import MomentsCard from "@/components/shared/moments-card";
+
+import { cn } from "@/lib/utils";
+import { usePathStore } from "@/store/usePathname";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Carousel,
   CarouselContent,
@@ -8,10 +14,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
 
 const MomentsSingle = () => {
+  const setPath = usePathStore().setPath;
+
+  useEffect(() => {
+    setPath("moment");
+
+    return () => setPath("");
+  }, []);
+
   return (
     <PageLayout title={"Pursatlar"} className="gap-8">
       <div className="relative w-full h-[504px] shadow-bottom py-8 px-6">

@@ -8,7 +8,7 @@ const BgTexture = ({ className }: Props) => {
   return (
     <div
       className={cn(
-        `absolute -z-10 right-0 top-0 bg-no-repeat bg-cover bg-left size-full overflow-hidden`,
+        `absolute -z-10 right-0 top-0 bg-no-repeat bg-cover bg-center size-full overflow-hidden`,
         className
       )}
     >
