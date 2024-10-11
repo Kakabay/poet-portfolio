@@ -3,7 +3,7 @@ import CommentCard from "@/components/shared/comment-card";
 import NotificationCard from "@/components/shared/notification-card";
 import PoemsItem from "@/components/shared/poems-item";
 import Tabs from "@/components/shared/tabs";
-import { cn } from "@/lib/utils";
+import { cn, scrollTop } from "@/lib/utils";
 import { usePoemsStore } from "@/store/usePoems";
 import { div } from "framer-motion/client";
 import { useState } from "react";
@@ -24,11 +24,11 @@ const cabinetTabs = [
 ];
 
 const Cabinet = () => {
+  scrollTop();
+
   const [active, setActive] = useState(0);
 
   const favorites = usePoemsStore().favorites;
-
-  console.log(favorites);
 
   return (
     <PageLayout title="Salam Myrat!" className="gap-12">

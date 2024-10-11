@@ -2,6 +2,12 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { useEffect } from "react";
 
+export const scrollTop = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

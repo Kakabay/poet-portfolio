@@ -2,7 +2,7 @@ import PageLayout from "@/components/layout/page-layout";
 import Pagination from "@/components/shared/pagination";
 import PoemsItem from "@/components/shared/poems-item";
 import SortModal from "@/components/shared/sort-modal";
-import { cn } from "@/lib/utils";
+import { cn, scrollTop } from "@/lib/utils";
 import { usePoemsStore } from "@/store/usePoems";
 import { useState } from "react";
 
@@ -112,10 +112,6 @@ const data = [
     name: "Gel, kalbym, Gel, gürleşeli!",
   },
   {
-    id: 27,
-    name: "Ýürek bilen sorag-jogap",
-  },
-  {
     id: 28,
     name: "Gyşdan soňra bahar gelýär!",
   },
@@ -127,9 +123,15 @@ const data = [
     id: 30,
     name: "Gyşdan soňra bahar gelýär!",
   },
+  {
+    id: 27,
+    name: "Ýürek bilen sorag-jogap",
+  },
 ];
 
 const Poems = () => {
+  scrollTop();
+
   const [searchValue, setSearchValue] = useState("");
   const [sort, setSort] = useState({
     id: "new",
@@ -147,14 +149,16 @@ const Poems = () => {
     item.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const totalItems = filterData.length;
   const displayedData = filterData.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
 
+  const sortData = [...displayedData].reverse();
+
   const favorites = usePoemsStore().favorites;
-  const setFavorites = usePoemsStore().setFavorites;
+
+  const getSortData = () => (sort.id === "old" ? sortData : displayedData);
 
   return (
     <PageLayout
@@ -183,7 +187,7 @@ const Poems = () => {
           </div>
         )}
         <div className="grid grid-cols-2 gap-8 w-[948px] mx-auto">
-          {displayedData.map((item, i) => (
+          {getSortData().map((item, i) => (
             <PoemsItem
               key={i}
               active={favorites.some((obj) => obj.id === item.id)}
@@ -196,7 +200,7 @@ const Poems = () => {
           <Pagination
             perPage={perPage}
             currentPage={currentPage}
-            totalPages={totalItems}
+            totalPages={filterData.length}
             onChangePage={handlePageChange}
           />
         )}

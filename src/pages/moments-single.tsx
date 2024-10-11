@@ -2,7 +2,7 @@ import PageLayout from "@/components/layout/page-layout";
 import BgTexture from "@/components/shared/bg-texture";
 import MomentsCard from "@/components/shared/moments-card";
 
-import { cn } from "@/lib/utils";
+import { cn, scrollTop } from "@/lib/utils";
 import { usePathStore } from "@/store/usePathname";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/carousel";
 
 const MomentsSingle = () => {
+  scrollTop();
+
   const setPath = usePathStore().setPath;
 
   useEffect(() => {

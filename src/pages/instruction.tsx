@@ -2,12 +2,14 @@ import PageLayout from "@/components/layout/page-layout";
 import BgTexture from "@/components/shared/bg-texture";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn, scrollTop } from "@/lib/utils";
 import { useState } from "react";
 
 type Props = {};
 
 const Instruction = ({}: Props) => {
+  scrollTop();
+
   const [active, setActive] = useState(false);
 
   return (

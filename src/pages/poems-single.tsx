@@ -1,6 +1,7 @@
 import PageLayout from "@/components/layout/page-layout";
 import PoemSwitch from "@/components/shared/poem-switch";
 import SectionLine from "@/components/shared/section-line";
+import { scrollTop } from "@/lib/utils";
 import { usePathStore } from "@/store/usePathname";
 import { usePoemsStore } from "@/store/usePoems";
 import { useEffect } from "react";
@@ -38,9 +39,7 @@ const poem = [
 ];
 
 const PoemsSingle = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  scrollTop();
 
   const setPath = usePathStore().setPath;
   const { id } = useParams();
@@ -101,11 +100,19 @@ const PoemsSingle = () => {
             </h4>
           </div>
         </div>
+
         <SectionLine className="mt-16 mb-12" />
 
         <div className="flex justify-between">
-          <PoemSwitch prev name="Ýaşyl Tugly Türkmenistan " />
-          <PoemSwitch name="Ýaşyl Tugly Türkmenistan " />
+          <PoemSwitch
+            disable={Number(id) === 1}
+            prev
+            name="Ýaşyl Tugly Türkmenistan "
+          />
+          <PoemSwitch
+            disable={Number(id) === 5}
+            name="Ýaşyl Tugly Türkmenistan "
+          />
         </div>
       </section>
     </PageLayout>

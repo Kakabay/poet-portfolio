@@ -17,8 +17,6 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
   const favorites = usePoemsStore().favorites;
   const setFavorites = usePoemsStore().setFavorites;
 
-  console.log(favorites);
-
   return (
     <div className="w-[458px] h-[134px] p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="bg-[url('/images/poems/poem-shape.svg')] poem-path" />

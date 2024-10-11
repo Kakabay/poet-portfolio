@@ -1,8 +1,11 @@
 import PageLayout from "@/components/layout/page-layout";
 import MomentsCard from "@/components/shared/moments-card";
 import Pagination from "@/components/shared/pagination";
+import { scrollTop } from "@/lib/utils";
 
 const Moments = () => {
+  scrollTop();
+
   return (
     <PageLayout
       title={"Pursatlar"}

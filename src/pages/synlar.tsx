@@ -3,9 +3,9 @@ import Pagination from "@/components/shared/pagination";
 import SortModal from "@/components/shared/sort-modal";
 import SynlarCard from "@/components/shared/synlar-card";
 import Tabs from "@/components/shared/tabs";
-import { cn } from "@/lib/utils";
+import { cn, scrollTop } from "@/lib/utils";
 import { ActiveSort } from "@/store/useSynlar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const tabs = [
   {
@@ -93,12 +93,24 @@ const data = [
 ];
 
 const Synlar = () => {
+  scrollTop();
+
   const [active, setActive] = useState(0);
   const [searchValue, setSearchValue] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 3;
   const [sort, setSort] = useState({
     id: "new",
     view: "Snaçala nowye",
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [active]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const filteredData = data.filter((item) =>
     searchValue
@@ -106,6 +118,15 @@ const Synlar = () => {
       : active === 0
       ? item
       : item.id === active
+  );
+
+  const sortData = [...filteredData].reverse();
+
+  const getSortData = () => (sort.id === "new" ? filteredData : sortData);
+
+  const displayedData = getSortData().slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage
   );
 
   return (
@@ -142,20 +163,18 @@ const Synlar = () => {
             />
           )}
 
-          <div className="grid grid-cols-3 grid-rows-3 mt-[140px] gap-6">
-            {filteredData.map((item, i) => (
+          <div className="grid grid-cols-3 mt-[140px] gap-6">
+            {displayedData.map((item, i) => (
               <SynlarCard key={i} {...item} />
             ))}
           </div>
         </div>
         <Pagination
           className="mt-8"
-          currentPage={0}
-          totalPages={0}
-          perPage={0}
-          onChangePage={function (page: number): void {
-            throw new Error("Function not implemented.");
-          }}
+          currentPage={currentPage}
+          totalPages={getSortData().length}
+          perPage={perPage}
+          onChangePage={handlePageChange}
         />
       </section>
     </PageLayout>
