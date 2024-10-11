@@ -8,6 +8,9 @@ interface ActiveSort {
 interface Props {
   activeSort: ActiveSort;
   setActiveSort: (value: ActiveSort) => void;
+
+  favorites: number[];
+  setFavorites: (num: number) => void;
 }
 
 export const usePoemsStore = create<Props>((set) => ({
@@ -15,6 +18,12 @@ export const usePoemsStore = create<Props>((set) => ({
     id: 'new',
     view: 'Snaçala nowye',
   },
-  setActiveSort: (value: ActiveSort) =>
-    set((state) => ({ activeSort: (state.activeSort = value) })),
+
+  favorites: [],
+
+  setActiveSort: (value) => set((state) => ({ activeSort: (state.activeSort = value) })),
+
+  setFavorites: (num) => {
+    set((state) => ({ favorites: [...state.favorites, num] }));
+  },
 }));

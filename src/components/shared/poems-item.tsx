@@ -1,14 +1,27 @@
-import { Link } from "react-router-dom";
-import BgTexture from "./bg-texture";
+import { Link } from 'react-router-dom';
+import BgTexture from './bg-texture';
+import { usePoemsStore } from '@/store/usePoems';
 
-const PoemsItem = ({ id, name }: { id: string | undefined; name?: string }) => {
+const PoemsItem = ({
+  id,
+  name,
+  active = false,
+}: {
+  id: number;
+  name: string;
+  active?: boolean;
+}) => {
+  const favorites = usePoemsStore().favorites;
+  const setFavorites = usePoemsStore().setFavorites;
+
+  console.log(favorites);
+
   return (
     <div className="w-[458px] h-[134px] p-6 relative shadow-bottom">
       <BgTexture className="bg-[url('/images/poems/poem-shape.svg')] poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
-      >
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
         <div className="flex items-center">
           <img src="/images/romb.svg" alt="" className="mr-1" />
           <h4 className="kaushan mr-3">{name}</h4>
@@ -17,7 +30,11 @@ const PoemsItem = ({ id, name }: { id: string | undefined; name?: string }) => {
       </Link>
 
       <div className="leading-[115%] flex items-center gap-2">
-        <img src="/images/star.svg" alt="" className="mr-1" />
+        <img
+          src={active ? '/images/star-fill.svg' : '/images/star.svg'}
+          onClick={() => setFavorites(id)}
+          className="mr-1 size-5"
+        />
         <img src="/images/poems/new.svg" alt="" className="mr-1" />
 
         <span className="font-medium italic text-[14px]">(Aýdym üçin)</span>
