@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import BgTexture from "./bg-texture";
-import { usePoemsStore } from "@/store/usePoems";
+import { Link } from 'react-router-dom';
+import BgTexture from './bg-texture';
+import { usePoemsStore } from '@/store/usePoems';
 
 interface Props {
   id: number;
@@ -22,8 +22,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
       <BgTexture className="bg-[url('/images/poems/poem-shape.svg')] poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
-      >
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
         <div className="flex items-center">
           <img src="/images/romb.svg" alt="" className="mr-1" />
           <h4 className="kaushan mr-3">{name}</h4>
@@ -33,7 +32,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
 
       <div className="leading-[115%] flex items-center gap-2">
         <img
-          src={active ? "/images/star-fill.svg" : "/images/star.svg"}
+          src={active ? '/images/star-fill.svg' : '/images/star.svg'}
           onClick={() => setFavorites({ id, name })}
           className="mr-1 size-5"
         />

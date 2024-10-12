@@ -5,20 +5,20 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
+import { usePopupStore } from '@/store/usePopup';
 
 interface Props {
   setActive: (val: boolean) => void;
   setIsSubmitted?: (val: boolean) => void;
   children?: ReactNode;
   className?: string;
-  mode?: 'login' | 'comment' | 'tost';
 }
 
-const WindowPopup = ({ children, setActive, className, mode, setIsSubmitted }: Props) => {
+const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState('');
-  const [error, setError] = useState(false);
-  const mount = useRef(false);
+  const mode = usePopupStore().mode;
+  const setMode = usePopupStore().setMode;
 
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
@@ -36,25 +36,23 @@ const WindowPopup = ({ children, setActive, className, mode, setIsSubmitted }: P
     }
   };
 
-  useEffect(() => {
-    if (mount.current) {
-      setError(true);
-    }
-  }, [value]);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ ease: 'easeInOut' }}
       className={cn(
         className,
         'fixed top-0 left-0 right-0 bottom-0 z-[100] overflow-hidden bg-[#7A590C] bg-opacity-[16%] w-full h-screen',
       )}>
-      <div
+      <motion.div
+        // initial={{ scale: 0.9 }}
+        // animate={{ scale: 1 }}
+        // exit={{ scale: 0.9 }}
         ref={ref}
         className={cn(
-          'relative py-[52px] w-[408px] px-6 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 shadow-bottom',
+          'absolute py-[52px] w-[408px] px-6 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 shadow-bottom',
           {
             'h-[456px]': mode === 'login',
             'h-[532px]': mode === 'comment',
@@ -104,14 +102,14 @@ const WindowPopup = ({ children, setActive, className, mode, setIsSubmitted }: P
 
             <Button
               onClick={() => {
-                value.length > 10 && setActive(false) && setIsSubmitted && setIsSubmitted(true);
+                value.length > 10 && setMode('tost');
               }}>
               Otprawit
             </Button>
           </div>
         )}
         {children}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

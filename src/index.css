@@ -40,7 +40,7 @@ body::-webkit-scrollbar {
 
 @layer components {
   .container {
-    @apply w-[1232px] mx-auto px-4;
+    @apply w-[328px] xl:w-[1200px] mx-auto;
   }
 
   .h1 {

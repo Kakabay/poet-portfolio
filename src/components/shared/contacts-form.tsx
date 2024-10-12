@@ -6,6 +6,7 @@ import CustomField from './custom-field';
 import { Button } from '../ui/button';
 import LoadingDots from './loading-dots';
 import { useContactsStore } from '@/store/useContacts';
+import { usePopupStore } from '@/store/usePopup';
 
 const formSchema = z.object({
   name: z.string().min(3, 'Imya obyazatelno'),
@@ -16,6 +17,8 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 const ContactsForm = () => {
+  const setMode = usePopupStore().setMode;
+
   const setSuccess = useContactsStore().setSuccess;
 
   const form = useForm<FormType>({
@@ -69,7 +72,11 @@ const ContactsForm = () => {
             area
           />
 
-          <Button type="submit" disabled={isSubmitting} className="relative">
+          <Button
+            onClick={() => setMode('tost')}
+            type="submit"
+            disabled={isSubmitting}
+            className="relative">
             {isSubmitting ? <LoadingDots /> : 'Otprawit'}
           </Button>
         </form>
