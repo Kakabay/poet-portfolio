@@ -1,3 +1,4 @@
+import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -6,7 +7,6 @@ import Home from "./pages/home";
 import Poems from "./pages/poems";
 import About from "./pages/about";
 
-import "./index.css";
 import PoemsSingle from "./pages/poems-single";
 import Moments from "./pages/moments";
 import Books from "./pages/books";

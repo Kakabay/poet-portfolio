@@ -76,11 +76,11 @@ const MomentsSingle = () => {
         <BgTexture className="bg-[url('/images/moments/moments-single-shape-2.svg')] moments-single-2-path" />
 
         <Carousel>
-          <CarouselContent>
+          <CarouselContent innerClassName="overflow-hidden">
             {[...Array(6)].map((_, i) => (
               <CarouselItem
                 className={cn(
-                  "basis-[372px] !h-[253px] ",
+                  "basis-[372px] !h-[253px]",
                   6 !== i + 1 && "mr-[18px]"
                 )}
                 key={i}

@@ -11,7 +11,7 @@ function App() {
   return (
     <div
       className={cn(
-        "flex flex-col relative min-h-screen w-full bg-[#EFDEBE] overflow-x-hidden"
+        "flex flex-col relative xl:min-h-screen h-screen w-full bg-[#EFDEBE] overflow-x-hidden"
       )}
     >
       <div className="fixed left-0 right-0 bottom-0 pointer-events-none top-0 w-full h-full mix-blend-multiply">

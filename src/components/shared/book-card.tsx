@@ -9,8 +9,8 @@ type Props = {
 
 const BookCard = ({ name, text, link = "" }: Props) => {
   return (
-    <article className="py-12 pl-6 pr-6 w-[756px] group relative after:book-path shadow-bottom book-hover transition-all">
-      <BgTexture className='bg-[url("/images/books/book-shape.svg")] book-path' />
+    <article className="py-12 pl-6 pr-6 xl:w-[756px] group relative after:book-path shadow-bottom book-hover transition-all">
+      <BgTexture className='xl:bg-[url("/images/books/book-shape.svg")] bg-[url("/images/books/book-mob-shape.svg")] book-path' />
       <div className="flex gap-6">
         <div className="flex flex-col justify-between">
           <div>

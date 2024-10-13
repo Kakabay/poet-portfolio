@@ -11,7 +11,7 @@ const Tabs = ({ array, active, setActive, className }: Props) => {
   return (
     <div
       className={cn(
-        "flex text-16 items-center border-b transition-all w-fit mx-auto border-OUTLINE",
+        "flex xl:text-16 text-[14px] font-medium items-center xl:h-10 h-9 border-b transition-all w-fit mx-auto border-OUTLINE",
         className
       )}
     >
@@ -19,7 +19,9 @@ const Tabs = ({ array, active, setActive, className }: Props) => {
         <h5
           key={i}
           onClick={() => setActive(i)}
-          className={cn("px-4 py-2 cursor-pointer relative transition-all")}
+          className={cn(
+            "px-4 xl:py-2 py-1 cursor-pointer relative transition-all"
+          )}
         >
           <div
             className={cn(

@@ -3,17 +3,45 @@ import BorderImg from "@/components/shared/border-img";
 import InfoBlock from "@/components/shared/info-block";
 import SectionLine from "@/components/shared/section-line";
 import TextRomb from "@/components/shared/text-romb";
-import { scrollTop } from "@/lib/utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { cn, scrollTop } from "@/lib/utils";
+import { useMediaQuery } from "usehooks-ts";
+
+const data = [
+  {
+    name: "Turkmenistan",
+  },
+  {
+    name: "Sudan (Darfur ülkesi)",
+  },
+  {
+    name: "Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar",
+  },
+  {
+    name: "Ýemen",
+  },
+  {
+    name: "Keniýa",
+  },
+  {
+    name: "Malawi",
+  },
+];
 
 const About = () => {
-  scrollTop();
+  // scrollTop();
+  const desktop = useMediaQuery("(min-width: 1280px)");
 
   return (
     <PageLayout
       text="Men bu Internet sahypany özüniň hem mähriban ýanýoldaşymyň 65 ýyl ýubileýine bagyşlaýaryn.
         Men öz durmuş ýolum täze sepgidine aralaşýan sebäbi men hormatly dynç alşa çykýaryn."
       title="Özüm hakda kelam agyz"
-      className="gap-12 pb-[30px]"
+      className="xl:gap-12 gap-8 pb-[30px] container"
     >
       <BorderImg
         className="max-w-[616px] max-h-[340px] mx-auto"
@@ -22,39 +50,53 @@ const About = () => {
 
       <SectionLine />
 
-      <section className="flex flex-col gap-12">
-        <h2 className="h2 kaushan text-center">
+      <section className="flex flex-col gap-6 xl:gap-12">
+        <h2 className="h2 kaushan xl:text-center pr-4">
           Ynha meniň geçen durmuş ýolum:
         </h2>
 
-        <div className="flex gap-6 items-center relative">
-          <TextRomb text="Çagalyk we mekdep ýyllarym" />
+        <div className="flex xl:flex-row flex-col xl:gap-6 items-center relative">
+          <div className="flex justify-start w-full xl:w-fit">
+            <TextRomb text="Çagalyk we mekdep ýyllarym" />
+          </div>
           <img
-            src="/images/about/arrow.svg"
+            src={`/images/about/arrow${desktop ? "" : "-right"}.svg`}
             alt=""
-            className="absolute top-0 left-[13.5%]"
+            className="absolute xl:top-0 top-10 xl:left-[13.5%] left-[165px]"
           />
-          <TextRomb text="Talyplyk" />
+          <div className="flex justify-end w-full xl:w-fit -mt-4">
+            <TextRomb text="Talyplyk" />
+          </div>
+
           <img
-            src="/images/about/arrow.svg"
+            src={`/images/about/arrow${desktop ? "-bottom" : "-right"}.svg`}
             alt=""
-            className="absolute arrow bottom-0 left-[34%] scale-[-1,-1]"
+            className="absolute xl:bottom-0 bottom-[340px] xl:left-[34%] left-1/2"
           />
-          <TextRomb text="Lukmançylyk we lukmançylyk ylmyna içgin girişmek" />
+          <div className="flex justify-start w-full xl:w-fit -mt-4">
+            <TextRomb text="Lukmançylyk we lukmançylyk ylmyna içgin girişmek" />
+          </div>
+
           <img
-            src="/images/about/arrow.svg"
+            src={`/images/about/arrow${!desktop ? "-left" : "-bottom"}.svg`}
             alt=""
-            className="absolute bottom-0 right-[15%] arrow"
+            className={cn(
+              "absolute xl:bottom-0 bottom-[185px] xl:right-[15%] right-[150px]"
+            )}
           />
 
-          <TextRomb text="Birleşen milletler Guramasynyň Ilat Gaznasynda işlän döwrüm" />
-          <img
-            src="/images/about/arrow.svg"
-            alt=""
-            className="absolute top-0 right-[35%]"
-          />
+          <div className="flex justify-end w-full xl:w-fit -mt-4">
+            <TextRomb text="Birleşen milletler Guramasynyň Ilat Gaznasynda işlän döwrüm" />
+          </div>
 
-          <TextRomb text="Hormatly dynç alyş" />
+          <img
+            src={`/images/about/arrow${!desktop ? "-left" : "-bottom"}.svg`}
+            alt=""
+            className="absolute xl:top-0 top-[210px] xl:right-[35%] right-[147px]"
+          />
+          <div className="flex justify-start w-full xl:w-fit -mt-4">
+            <TextRomb text="Hormatly dynç alyş" />
+          </div>
         </div>
       </section>
 
@@ -79,7 +121,7 @@ const About = () => {
         title="Lukmançylyk we lukmançylyk ylmyna içgin girişen döwrüm"
         text="Şeýdibem men doga wirus ýokuşmalary boýunça ylmy işler alyp bardym. 1983-1988-nji ýyllarda öňki SSSR-iň Lukmançylyk ylymlary akademiýasynyň ýanyndaky Pediýatriýa institutynda (Moskwa şäheri) aspiranturada okadym hem-de “lukmançylyk ylymlarynyň kandidaty” diýen ylmy derejäni aldym. 1988-1991-nji ýyllarda,  Eneler we Çagalar baradaky ylmy-kliniki merkezde kiçi, soňra uly ylmy işgär wezipelerinde işledim, özümiň ylmy işimi dowam etdim hem-de gapdalyndan talyplara neonatalogiýa dersinden tälim berdim. 1991-1993-nji ýylarda öňki SSSR-iň Lukmançylyk ylymlary akademiýasynyň ýanyndaky pediýatriýa institutynda (Moskwa şäheri) doktorlyk dissertasiyasynyň üstünde işledim. 1993-nji ýylda “Lukmançylyk ylymlarynyň doktory” diýen ylmy derejäni aldym. 1993-1997 ýyllarda, Eneler we çagalar baradaky ylmy-kliniki merkezde baş ylmy işgär, bölüm müdiri, merkeziň direktorynyň ylmy işler baradaky orunbasary wezipelerinde işledim."
         img="/images/about/doctor.png"
-        imgClassName="w-[286px] h-[420px]"
+        imgClassName="xl:w-[286px] size-full xl:h-[420px]"
         rombs
       />
 
@@ -100,12 +142,30 @@ const About = () => {
 
       <SectionLine />
 
-      <section className="flex flex-col">
-        <h2 className="h2 kaushan mb-20 text-center">
+      <section className="flex flex-col overflow-visible">
+        <h2 className="h2 kaushan xl:mb-20 mb-6 text-center">
           Ynha meniň geçen durmuş ýolum:
         </h2>
 
-        <div className="flex flex-col gap-12 relative">
+        <Carousel
+          opts={{ align: "start" }}
+          className="xl:hidden overflow-visible"
+        >
+          <CarouselContent className="overflow-visible">
+            {data.map(({ name }, i) => (
+              <CarouselItem
+                className={cn(
+                  "basis-[296px] overflow-visible",
+                  6 !== i + 1 && "mr-4"
+                )}
+              >
+                <TextRomb key={name} text={name} ellips></TextRomb>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        <div className="hidden xl:flex flex-col gap-12 relative">
           <img
             src="/images/about/dash-arrow-big.svg"
             alt=""
@@ -141,6 +201,7 @@ const About = () => {
               className="absolute bottom-4 right-[30%] -rotate-[180deg]"
             />
           </div>
+
           <div className="flex gap-6 relative">
             <TextRomb ellips text="Malawi" />
             <img
@@ -163,8 +224,8 @@ const About = () => {
 
       <SectionLine />
 
-      <section className="flex flex-col gap-6">
-        <div className="flex flex-col gap-6">
+      <section className="flex flex-col xl:gap-6 gap-2 text-[16px] leading-[150%] xl:text-[24px] xl:leading-[135%]">
+        <div className="flex flex-col xl:gap-6 gap-2">
           <p>
             Meniň 90-dan gowrak ylmy makalalarym we 3 sany ylmy kitabym dürli
             ýüllarda çap edildi.

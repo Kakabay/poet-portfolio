@@ -13,22 +13,26 @@ const PoemSwitch = ({ name, disable = false, prev = false }: Props) => {
       <button
         disabled={disable}
         className={cn(
-          "flex flex-col disabled:opacity-50 disabled:cursor-default gap-2 cursor-pointer",
+          "flex flex-col disabled:opacity-50 disabled:cursor-default xl:gap-2 gap-1 cursor-pointer",
           prev ? "text-right items-end" : "text-left"
         )}
       >
-        <span className="text-PRIM leading-[140%] font-medium text-[14px]">
+        <span className="text-PRIM leading-[130%] xl:leading-[140%] font-normal -tracking-wider xl:font-medium text-[12px] xl:text-[14px]">
           {prev ? "Predyduşeýe proizwedeniýe" : "Sleduşeýe proizwedeniýe"}
         </span>
         <img
           src={"/images/poems/poem-arrow.svg"}
           className={cn(!prev && "-rotate-[180deg]")}
         />
-        <div className="flex flex-col gap-2">
-          <h4 className="kaushan leading-[115%]">{prev ? name : name}</h4>
-          <div className={cn("flex gap-2", prev && "justify-end")}>
-            <img src="/images/star.svg" />
-            <h5 className="text-[14px] fon-medium italic">(Aýdym üçin)</h5>
+        <div className="flex flex-col xl:gap-2">
+          <h4 className="kaushan text-[16px] leading-none xl:text-[24px] xl:leading-[115%]">
+            {prev ? name : name}
+          </h4>
+          <div className={cn("flex items-center gap-2", prev && "justify-end")}>
+            <img src="/images/star.svg" className="xl:size-6 size-4" />
+            <h5 className="xl:text-[14px] text-[12px] fon-medium italic">
+              (Aýdym üçin)
+            </h5>
           </div>
         </div>
       </button>

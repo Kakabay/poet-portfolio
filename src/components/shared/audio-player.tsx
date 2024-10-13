@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { Howl } from 'howler';
-import { Input } from '../ui/input';
-import { CirclePause, CirclePauseIcon, Pause, Play } from 'lucide-react';
-import { Progress } from '../ui/progress';
+import React, { useState, useRef } from "react";
+import { Howl } from "howler";
+import { Input } from "../ui/input";
+import { CirclePause, CirclePauseIcon, Pause, Play } from "lucide-react";
+import { Progress } from "../ui/progress";
 
 const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,7 +14,7 @@ const AudioPlayer: React.FC = () => {
   // Загружаем аудиофайл
   const loadSound = () => {
     const newSound = new Howl({
-      src: ['/images/sound.mp3'], // Укажите путь к вашему аудиофайлу
+      src: ["/images/sound.mp3"], // Укажите путь к вашему аудиофайлу
       html5: true,
       onplay: () => {
         setDuration(newSound.duration()); // Устанавливаем продолжительность
@@ -51,14 +51,16 @@ const AudioPlayer: React.FC = () => {
       }, 1000); // Обновляем каждую секунду
 
       // Останавливаем обновление при завершении воспроизведения
-      sound.on('end', () => {
+      sound.on("end", () => {
         clearInterval(interval);
       });
     }
   };
 
   // Обработчик кликов на прогресс-баре
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleProgressClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (progressBarRef.current && sound) {
       const rect = progressBarRef.current.getBoundingClientRect();
       const clickPositionX = e.clientX - rect.left; // Позиция клика по оси X
@@ -74,11 +76,11 @@ const AudioPlayer: React.FC = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   return (
-    <div className="flex flex-col mt-16 p-4 bg-transparent border border-OUTLINE rounded-[4px] w-[400px] mx-auto">
+    <div className="flex flex-col mt-8 xl:mt-16 p-4 bg-transparent border border-OUTLINE rounded-[4px] xl:w-[400px] mx-auto">
       <h5 className="text-16 !font-semibold mb-3 text-left">Kakamyň sagady</h5>
 
       <div className="flex items-center w-full font-medium h-6 text-[14px] leading-[145%]">
