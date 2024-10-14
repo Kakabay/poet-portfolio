@@ -40,7 +40,7 @@ const poem = [
 ];
 
 const PoemsSingle = () => {
-  scrollTop();
+  // scrollTop();
 
   const setPath = usePathStore().setPath;
   const { id } = useParams();
@@ -104,7 +104,19 @@ const PoemsSingle = () => {
           </div>
         </div>
 
-        <AudioPlayer />
+        {/* <AudioPlayer /> */}
+
+        <div className="container flex justify-center mt-16">
+          <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
+            <h5 className="text-16 font-semibold">Kakamyň sagady</h5>
+            <audio
+              id="player"
+              controls
+              src="/images/sound.mp3"
+              className="bg-transparent"
+            ></audio>
+          </div>
+        </div>
 
         <SectionLine className="xl:mt-16 xl:mb-12 my-8" />
 

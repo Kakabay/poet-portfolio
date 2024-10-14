@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import BgTexture from './bg-texture';
-import { usePoemsStore } from '@/store/usePoems';
-import { ToastAction } from '../ui/toast';
-import { useToast } from '@/hooks/use-toast';
+import { Link } from "react-router-dom";
+import BgTexture from "./bg-texture";
+import { usePoemsStore } from "@/store/usePoems";
+import { ToastAction } from "../ui/toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface Props {
   id: number;
@@ -26,7 +26,8 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path xl:poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
+      >
         <div className="flex items-center">
           <img src="/images/romb.svg" alt="" className="mr-1" />
           <h4 className="kaushan mr-3">{name}</h4>
@@ -41,22 +42,24 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
 
             if (!isFavorite) {
               toast({
-                title: 'Wy dobawili stih',
+                title: "Wy dobawili stih",
                 action: (
                   <ToastAction
                     onClick={() => {
                       setFavorites({ id, name });
                     }}
-                    altText="Goto schedule to undo">
+                    altText="Goto schedule to undo"
+                  >
                     Otmenit
                   </ToastAction>
                 ),
                 duration: 3000,
               });
             }
-          }}>
+          }}
+        >
           <img
-            src={active ? '/images/star-fill.svg' : '/images/star.svg'}
+            src={active ? "/images/star-fill.svg" : "/images/star.svg"}
             onClick={() => setFavorites({ id, name })}
             className="mr-1 size-5"
           />
