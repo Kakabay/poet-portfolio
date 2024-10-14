@@ -48,7 +48,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
                     onClick={() => {
                       setFavorites({ id, name });
                     }}
-                    altText="Goto schedule to undo"
+                    altText="message"
                   >
                     Otmenit
                   </ToastAction>
