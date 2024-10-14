@@ -70,21 +70,23 @@ const Moments = () => {
   return (
     <PageLayout
       title={'Pursatlar'}
-      className="gap-12"
+      className="xl:gap-12 gap-8"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy.">
-      <div className="relative py-12 px-6">
-        <div className="grid grid-cols-3 gap-8 mb-8">
+      <div className="relative ">
+        <div className="grid xl:grid-cols-3 grid-cols-1 xl:gap-8 gap-6 mb-8">
           {displayedData.map((item, i) => (
             <MomentsCard key={i} {...item} />
           ))}
         </div>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={data.length}
-          perPage={perPage}
-          onChangePage={setCurrentPage}
-        />
+        {displayedData.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={data.length}
+            perPage={perPage}
+            onChangePage={setCurrentPage}
+          />
+        )}
       </div>
     </PageLayout>
   );

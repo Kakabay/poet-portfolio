@@ -8,8 +8,8 @@ type Props = {
 
 const CommentCard = ({ text, name, date }: Props) => {
   return (
-    <div className="pt-8 pb-[52px] px-6 relative shadow-bottom w-[892px] h-[233px]">
-      <BgTexture className="bg-[url('/images/messages/1-shape.svg')] message-1-path" />
+    <div className="xl:py-8 pb-[52px] p-4 xl:px-6 relative shadow-bottom xl:w-[892px] xl:h-[233px] h-[396px] w-[328px]">
+      <BgTexture className="xl:bg-[url('/images/messages/1-shape.svg')] bg-[url('/images/messages/message-mob-shape.svg')] xl:message-1-path message-mob-path" />
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 items-center">
           <h5 className="text-[14px] text-ON_SURFACE_VAR font-medium leading-[145%]">{name}</h5>
