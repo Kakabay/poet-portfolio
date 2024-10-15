@@ -9,22 +9,24 @@ type Props = {
 
 const BookCard = ({ name, text, link = "" }: Props) => {
   return (
-    <article className="py-12 pl-6 pr-6 xl:w-[756px] group relative after:book-path shadow-bottom book-hover transition-all">
-      <BgTexture className='xl:bg-[url("/images/books/book-shape.svg")] bg-[url("/images/books/book-mob-shape.svg")] book-path' />
-      <div className="flex gap-6">
+    <article className="xl:py-12 p-4 xl:pl-6 xl:pr-6 xl:w-[756px] w-[328px] xl:h-[349px] h-[226px] overflow-hidden group relative xl:after:book-path after:book-mob-path shadow-bottom book-hover transition-all">
+      <BgTexture className='xl:bg-[url("/images/books/book-shape.svg")] bg-[url("/images/books/book-mob-shape.svg")] book-mob-path xl:book-path' />
+      <div className="flex items-center xl:items-stretch xl:gap-6 gap-2">
         <div className="flex flex-col justify-between">
           <div>
-            <h4 className="font-semibold mb-4 group-hover:text-PRIM transition-all">
+            <h4 className="font-semibold xl:mb-4 mb-2 group-hover:text-PRIM transition-all">
               {name}
             </h4>
-            <p className="text-[14px] text-ON_SURFACE_VAR font-medium italic leading-[140%]">
+            <p className="xl:text-[14px] text-[12px] text-ON_SURFACE_VAR font-medium italic leading-[140%]">
               {text}
             </p>
           </div>
           <DownloadLink link={link} />
         </div>
 
-        <div className="flex-[0_0_25.2%] w-[180px] h-[252px] ">
+        <hr className="md:hidden" />
+
+        <div className="flex-[0_0_25.2%] w-[104px] h-[146px] xl:w-[180px] xl:h-[252px] ">
           <img src="/images/book.png" alt="" />
         </div>
       </div>

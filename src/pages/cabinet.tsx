@@ -38,7 +38,7 @@ const Cabinet = () => {
         className={cn(
           "",
           active === 0
-            ? "grid grid-cols-2 gap-8 grid-rows-5 w-[948px] mx-auto place-items-center"
+            ? "grid xl:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center"
             : "flex flex-col items-center gap-6"
         )}
       >

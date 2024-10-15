@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 
 const MomentsSingle = () => {
   scrollTop();
@@ -28,8 +29,8 @@ const MomentsSingle = () => {
 
   return (
     <PageLayout title={"Pursatlar"} className="gap-8">
-      <div className="relative w-full h-[504px] shadow-bottom py-8 px-6">
-        <BgTexture className="bg-[url('/images/moments/moments-single-shape.svg')] moments-single-path" />
+      <div className="relative w-full xl:h-[504px] shadow-bottom py-8 px-6">
+        <BgTexture className="hidden xl:block bg-[url('/images/moments/moments-single-shape.svg')] moments-single-path" />
 
         <Link to="/moments" className="flex items-center gap-1 mb-8">
           <img src="/images/arrow.svg" />
@@ -38,8 +39,8 @@ const MomentsSingle = () => {
           </h6>
         </Link>
 
-        <div className="flex gap-6">
-          <div className="flex-[0_0_675px] h-[379px] bg-[#7A590C]/[16%]">
+        <div className="flex md:flex-row flex-col xl:gap-6 gap-8">
+          <div className="xl:flex-[0_0_675px] xl:h-[379px] xl:bg-[#7A590C]/[16%]">
             <img
               src="/images/poet.png"
               alt="surat"
@@ -47,12 +48,12 @@ const MomentsSingle = () => {
             />
           </div>
 
-          <div className="flex flex-col justify-between">
-            <div className="">
-              <h4 className="text-[24px] font-semibold mb-4">
+          <div className="flex flex-col -tracking-wide justify-between">
+            <div>
+              <h4 className="text-[24px] -tracking-wide font-semibold mb-4">
                 Luchshie momenty zhizni
               </h4>
-              <p className="text-16 !font-normal">
+              <p className="text-16 !font-normal xl:mb-2 mb-4">
                 Na fotoghrafiyi zobrazhen portret poeta. Na perednem plani viden
                 muzhchina s vyrazitelnym litcom, vozmozhno, s glyubokimi glazami
                 i mudrym vzyglyadom. Yego poza i vyrashcheniye litca mogut
@@ -72,10 +73,12 @@ const MomentsSingle = () => {
         </div>
       </div>
 
-      <div className="relative shadow-bottom h-[317px] py-8 px-6">
-        <BgTexture className="bg-[url('/images/moments/moments-single-shape-2.svg')] moments-single-2-path" />
+      <img src="/images/divider.svg" className="w-full md:hidden" />
 
-        <Carousel>
+      <div className="relative xl:block hidden shadow-bottom xl:h-[317px] py-8 px-6">
+        <BgTexture className="xl:block hidden bg-[url('/images/moments/moments-single-shape-2.svg')] moments-single-2-path" />
+
+        <Carousel className="md:block hidden">
           <CarouselContent innerClassName="overflow-hidden">
             {[...Array(6)].map((_, i) => (
               <CarouselItem
@@ -96,6 +99,21 @@ const MomentsSingle = () => {
           <CarouselNext className="hover:opacity-100" />
           <CarouselPrevious className="hover:opacity-100" />
         </Carousel>
+      </div>
+
+      <div className="xl:hidden flex flex-col gap-[44px]">
+        <div className="flex xl:hidden flex-col gap-4">
+          {[...Array(3)].map((_, i) => (
+            <MomentsCard
+              key={i}
+              textureNone
+              img={"/images/moments/moments-img.png"}
+              title={"Zagolovok"}
+              className="!p-0"
+            />
+          ))}
+        </div>
+        <Button className="w-fit mx-auto">Zagruzit bolşe</Button>
       </div>
     </PageLayout>
   );

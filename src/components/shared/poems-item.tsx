@@ -39,6 +39,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
         <button
           onClick={() => {
             const isFavorite = favorites.some((item) => item.id === id);
+            setFavorites({ id, name });
 
             if (!isFavorite) {
               toast({
@@ -57,10 +58,10 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
               });
             }
           }}
+          className="w-5"
         >
           <img
             src={active ? "/images/star-fill.svg" : "/images/star.svg"}
-            onClick={() => setFavorites({ id, name })}
             className="mr-1 size-5"
           />
         </button>
