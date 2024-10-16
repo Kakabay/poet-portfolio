@@ -38,7 +38,12 @@ const Pagination = ({ className, totalPages, onChangePage, currentPage, perPage 
   };
   return (
     <div className={cn('flex justify-center items-center gap-2 text-ON_SURFACE_VAR', className)}>
-      <button onClick={() => onChangePage(currentPage - 1)} disabled={currentPage === 1}>
+      <button
+        onClick={() => {
+          onChangePage(currentPage - 1);
+          window.scrollTo(0, 0);
+        }}
+        disabled={currentPage === 1}>
         <ChevronLeft className="cursor-pointer stroke-ON_SURFACE_VAR" size={20} />
       </button>
       <div className="flex items-center gap-1 text-[14px] leading-[140%] font-medium">

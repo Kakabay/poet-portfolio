@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { usePopupStore } from '@/store/usePopup';
+import { useMediaQuery } from 'usehooks-ts';
 
 interface Props {
   setActive: (val: boolean) => void;
@@ -19,6 +20,7 @@ const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) 
   const [value, setValue] = useState('');
   const mode = usePopupStore().mode;
   const setMode = usePopupStore().setMode;
+  const desktop = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
@@ -44,19 +46,16 @@ const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) 
       transition={{ ease: 'easeInOut' }}
       className={cn(
         className,
-        'fixed top-0 left-0 right-0 bottom-0 z-[100] overflow-hidden bg-[#7A590C] bg-opacity-[16%] w-full h-screen',
+        'fixed top-0 left-0 right-0 bottom-0 z-[100] overflow-hidden bg-[#7A590C]/[16%] w-full h-screen',
       )}>
       <motion.div
-        // initial={{ scale: 0.9 }}
-        // animate={{ scale: 1 }}
-        // exit={{ scale: 0.9 }}
         ref={ref}
         className={cn(
-          'absolute py-[52px] w-[408px] px-6 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 shadow-bottom',
+          'absolute md:py-[52px] py-8 w-[328px] md:w-[408px] md:px-6 px-4 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 shadow-bottom',
           {
             'h-[456px]': mode === 'login',
             'h-[532px]': mode === 'comment',
-            'h-[232px]': mode === 'tost',
+            'md:h-[232px] h-[168px]': mode === 'tost',
           },
         )}>
         <BgTexture
@@ -65,19 +64,27 @@ const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) 
               ? "bg-[url('/images/login-shape.svg')] login-path"
               : mode === 'comment'
               ? "bg-[url('/images/messages/comment-modal-shape.svg')] comment-modal-path"
-              : "bg-[url('/images/tost-shape.svg')] tost-path",
+              : "md:bg-[url('/images/tost-shape.svg')] bg-[url('/images/tost-mob-shape.svg')] md:tost-path tost-mob-path",
           )}
         />
-        <X onClick={close} className="absolute top-3 right-3 p-1 cursor-pointer" size={30} />
+        <X
+          onClick={close}
+          className="absolute md:block hidden top-3 right-3 p-1 cursor-pointer"
+          size={30}
+        />
         {mode === 'tost' && (
-          <div className="flex flex-col gap-4 text-center">
-            <h5 className="font-semibold">Waş kommentariý otprawlen</h5>
-            <h6 className="text-16">Wy uwidite swoý kommentriý posle moderasii</h6>
-            <Button onClick={close}>Zakryt</Button>
+          <div className="flex flex-col md:gap-4 gap-2 text-center">
+            <h5 className="font-semibold md:text-[24px] text-[20px]">Waş kommentariý otprawlen</h5>
+            <h6 className="md:text-16 text-[14px] leading-[145%] -tracking-wide">
+              Wy uwidite swoý kommentriý posle moderasii
+            </h6>
+            <Button onClick={close} className="text-[10px] md:text-[14px]">
+              Zakryt
+            </Button>
           </div>
         )}
-        {mode === 'comment' && (
-          <div className="flex flex-col gap-6 text-center">
+        {desktop && mode === 'comment' && (
+          <div className="flex md:bg-none bg-[url('/images/texture.png')] bg-cover md:size-auto h-screen flex-col gap-6 text-center">
             <h5 className="font-semibold">Ostaw swoý kommentariý</h5>
 
             <div className="flex flex-col gap-2">
