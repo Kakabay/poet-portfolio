@@ -28,10 +28,12 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
         to={`/poems/${id}`}
         className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
       >
-        <div className="flex items-center">
+        <div className="flex items-center w-full">
           <img src="/images/romb.svg" alt="" className="mr-1" />
-          <h4 className="kaushan mr-3">{name}</h4>
-          <img src="/images/play.svg" alt="play" />
+          <div className="flex justify-between w-full">
+            <h4 className="kaushan mr-3">{name}</h4>
+            <img src="/images/play.svg" alt="play" />
+          </div>
         </div>
       </Link>
 

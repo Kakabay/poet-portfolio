@@ -29,7 +29,7 @@ const MomentsSingle = () => {
 
   return (
     <PageLayout title={"Pursatlar"} className="gap-8">
-      <div className="relative w-full xl:h-[504px] shadow-bottom py-8 px-6">
+      <div className="relative w-full xl:h-[504px] xl:shadow-bottom py-8 px-6">
         <BgTexture className="hidden xl:block bg-[url('/images/moments/moments-single-shape.svg')] moments-single-path" />
 
         <Link to="/moments" className="flex items-center gap-1 mb-8">
@@ -113,7 +113,12 @@ const MomentsSingle = () => {
             />
           ))}
         </div>
-        <Button className="w-fit mx-auto">Zagruzit bolşe</Button>
+        <Button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="w-fit mx-auto"
+        >
+          Zagruzit bolşe
+        </Button>
       </div>
     </PageLayout>
   );
