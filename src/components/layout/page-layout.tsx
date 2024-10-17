@@ -43,7 +43,7 @@ const PageLayout = ({
 
         <div className={cn("flex flex-col xl:gap-12 gap-8")}>
           {text && (
-            <p className="text-center xl:text-[24px] text-[16px] xl:leading-[135%] leading-[150%] text-ON_SURFACE_VAR mx-auto xl:w-[1000px]">
+            <p className="text-center xl:text-[24px] md:text-[18px] text-[16px] xl:leading-[135%] leading-[150%] text-ON_SURFACE_VAR mx-auto xl:w-[1000px]">
               {text}
             </p>
           )}
