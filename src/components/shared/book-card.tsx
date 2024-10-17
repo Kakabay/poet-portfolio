@@ -1,8 +1,7 @@
-import { cn } from '@/lib/utils';
-import BgTexture from './bg-texture';
-import DownloadLink from './download-link';
-import { useState } from 'react';
-import ScrollToTop from '@/hooks/use-scroll-top';
+import { cn } from "@/lib/utils";
+import BgTexture from "./bg-texture";
+import DownloadLink from "./download-link";
+import { useState } from "react";
 
 type Props = {
   name: string;
@@ -11,7 +10,7 @@ type Props = {
   id: number;
 };
 
-const BookCard = ({ name, text, id, link = '' }: Props) => {
+const BookCard = ({ name, text, id, link = "" }: Props) => {
   const [expanded, setExpanded] = useState<number[]>([]);
 
   const onExpand = () => {
@@ -34,17 +33,18 @@ const BookCard = ({ name, text, id, link = '' }: Props) => {
   return (
     <article
       className={cn(
-        'xl:py-12 py-3 px-4 xl:pl-6 xl:pr-6 xl:w-[756px] w-[328px] xl:h-[349px] overflow-hidden group relative xl:after:book-path  shadow-bottom book-hover ',
+        "xl:py-12 py-3 px-4 xl:pl-6 xl:pr-6 xl:w-[756px] w-[328px] xl:h-[349px] overflow-hidden group relative xl:after:book-path  shadow-bottom book-hover ",
         findId()
-          ? 'h-[296px] after:book-expanded-path after:transition-none'
-          : 'h-[226px] after:book-mob-path',
-      )}>
+          ? "h-[296px] after:book-expanded-path after:transition-none"
+          : "h-[226px] after:book-mob-path"
+      )}
+    >
       <BgTexture
         className={cn(
           'xl:bg-[url("/images/books/book-shape.svg")] bg-[url("/images/books/book-mob-shape.svg")] xl:book-path',
           findId()
             ? 'bg-[url("/images/books/book-expanded-shape.svg")] book-expanded-path'
-            : 'bg-[url("/images/books/book-mob-shape.svg")] book-mob-path',
+            : 'bg-[url("/images/books/book-mob-shape.svg")] book-mob-path'
         )}
       />
       <div className="flex items-center xl:items-stretch xl:gap-6 gap-2">
@@ -55,17 +55,19 @@ const BookCard = ({ name, text, id, link = '' }: Props) => {
             </h4>
             <div
               className={cn(
-                'xl:text-[14px] text-[12px] -tracking-[0.3px] text-ON_SURFACE_VAR font-medium italic leading-[140%] xl:line-clamp-none ',
-                !findId() && 'line-clamp-2',
-              )}>
+                "xl:text-[14px] text-[12px] -tracking-[0.3px] text-ON_SURFACE_VAR font-medium italic leading-[140%] xl:line-clamp-none ",
+                !findId() && "line-clamp-2"
+              )}
+            >
               {text}
             </div>
             <button
               onClick={onExpand}
               className={cn(
-                'xl:hidden block text-TERTIARY text-[12px] font-medium leading-[140%]',
-              )}>
-              {findId() ? 'pokazat menshe...' : 'pokazat bolshe'}
+                "xl:hidden block text-TERTIARY text-[12px] font-medium leading-[140%]"
+              )}
+            >
+              {findId() ? "pokazat menshe..." : "pokazat bolshe"}
             </button>
           </div>
           <DownloadLink className="hidden xl:flex" link={link} />

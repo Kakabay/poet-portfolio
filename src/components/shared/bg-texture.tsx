@@ -2,9 +2,10 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   className?: string;
+  png?: boolean;
 };
 
-const BgTexture = ({ className }: Props) => {
+const BgTexture = ({ className, png }: Props) => {
   return (
     <div
       className={cn(
@@ -12,10 +13,12 @@ const BgTexture = ({ className }: Props) => {
         className
       )}
     >
-      <img
-        src={"/images/texture.png"}
-        className="size-full pointer-events-none scale-150 object-cover mix-blend-multiply opacity-50"
-      />
+      {!png && (
+        <img
+          src={"/images/texture.png"}
+          className="size-full pointer-events-none scale-150 object-cover mix-blend-multiply opacity-50"
+        />
+      )}
     </div>
   );
 };
