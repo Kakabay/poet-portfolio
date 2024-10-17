@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import BgTexture from "./bg-texture";
-import { usePoemsStore } from "@/store/usePoems";
-import { ToastAction } from "../ui/toast";
-import { useToast } from "@/hooks/use-toast";
+import { Link } from 'react-router-dom';
+import BgTexture from './bg-texture';
+import { usePoemsStore } from '@/store/usePoems';
+import { ToastAction } from '../ui/toast';
+import { useToast } from '@/hooks/use-toast';
+import { motion } from 'framer-motion';
 
 interface Props {
   id: number;
@@ -22,14 +23,13 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
   const { toast } = useToast();
 
   return (
-    <div className="xl:w-[458px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
+    <motion.div className="xl:w-[458px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path xl:poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
-      >
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
         <div className="flex items-center w-full">
-          <img src="/images/romb.svg" alt="" className="mr-1" />
+          <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
             <h4 className="kaushan mr-3">{name}</h4>
             <img src="/images/play.svg" alt="play" />
@@ -45,14 +45,13 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
 
             if (!isFavorite) {
               toast({
-                title: "Wy dobawili stih",
+                title: 'Wy dobawili stih',
                 action: (
                   <ToastAction
                     onClick={() => {
                       setFavorites({ id, name });
                     }}
-                    altText="message"
-                  >
+                    altText="message">
                     Otmenit
                   </ToastAction>
                 ),
@@ -60,10 +59,9 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
               });
             }
           }}
-          className="w-5"
-        >
+          className="w-5">
           <img
-            src={active ? "/images/star-fill.svg" : "/images/star.svg"}
+            src={active ? '/images/star-fill.svg' : '/images/star.svg'}
             className="mr-1 size-5"
           />
         </button>
@@ -71,7 +69,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
 
         <span className="font-medium italic text-[14px]">(Aýdym üçin)</span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -5,7 +5,7 @@ import PoemsItem from '@/components/shared/poems-item';
 import Tabs from '@/components/shared/tabs';
 import { cn, scrollTop } from '@/lib/utils';
 import { usePoemsStore } from '@/store/usePoems';
-import { div } from 'framer-motion/client';
+import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 const cabinetTabs = [
@@ -41,11 +41,14 @@ const Cabinet = () => {
             ? 'grid xl:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center'
             : 'flex flex-col items-center gap-6',
         )}>
-        {favorites.map((item) =>
+        {favorites.map((item, i) =>
           active === 0 ? (
-            <PoemsItem active {...item} key={item.id} id={item.id} />
+            <AnimatePresence>
+              <PoemsItem active {...item} key={item.id} id={item.id} />
+            </AnimatePresence>
           ) : active === 1 ? (
             <CommentCard
+              key={i}
               name={'Batyr'}
               date={'09.10.2024'}
               text={
@@ -53,7 +56,7 @@ const Cabinet = () => {
               }
             />
           ) : (
-            <NotificationCard />
+            <NotificationCard key={i} />
           ),
         )}
       </div>

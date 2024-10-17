@@ -61,6 +61,7 @@ const data = [
 
 const Messages = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const [active, setActive] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mobComment, setMobComment] = useState(false);
@@ -76,6 +77,14 @@ const Messages = () => {
 
   const totalItems = 9;
   const displayedData = data.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  useEffect(() => {
+    console.log('Current Page:', currentPage);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [currentPage]);
 
   return (
     <>

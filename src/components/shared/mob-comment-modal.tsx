@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Textarea } from '../ui/textarea';
 import { useState } from 'react';
 import { Button } from '../ui/button';
