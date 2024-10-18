@@ -2,11 +2,11 @@ import BgTexture from "../shared/bg-texture";
 
 const Footer = () => {
   return (
-    <footer className="relative shadow-top h-[164px] xl:h-[123px] py-4 xl:py-6">
+    <footer className="relative shadow-top h-[164px] md:h-[123px] py-4 md:py-6">
       <BgTexture png className='bg-[url("/images/footer-shape.png")] ' />
       <div className="container top-0 left-0 bottom-0 relative flex flex-col gap-4">
-        <div className="flex flex-col xl:flex-row xl:gap-0 gap-4 text-center xl:text-left items-center justify-between">
-          <div className="kaushan xl:text-left text-center">
+        <div className="flex flex-col md:flex-row md:gap-0 gap-4 text-center md:text-left items-center justify-between">
+          <div className="kaushan md:text-left text-center">
             Ezizgeldi Helleňow
           </div>
           <div className="text-14 !leading-[140%]">

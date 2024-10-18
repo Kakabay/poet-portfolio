@@ -1,6 +1,8 @@
 import PageLayout from "@/components/layout/page-layout";
 import BorderImg from "@/components/shared/border-img";
+import EllipsisBlock from "@/components/shared/ellipsis-block";
 import InfoBlock from "@/components/shared/info-block";
+import RombsBlock from "@/components/shared/rombs-block";
 import SectionLine from "@/components/shared/section-line";
 import TextRomb from "@/components/shared/text-romb";
 import {
@@ -8,33 +10,10 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { cn, scrollTop } from "@/lib/utils";
-import { useMediaQuery } from "usehooks-ts";
-
-const data = [
-  {
-    name: "Turkmenistan",
-  },
-  {
-    name: "Sudan (Darfur ülkesi)",
-  },
-  {
-    name: "Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar",
-  },
-  {
-    name: "Ýemen",
-  },
-  {
-    name: "Keniýa",
-  },
-  {
-    name: "Malawi",
-  },
-];
+import { cn } from "@/lib/utils";
 
 const About = () => {
   // scrollTop();
-  const desktop = useMediaQuery("(min-width: 1280px)");
 
   return (
     <PageLayout
@@ -55,49 +34,7 @@ const About = () => {
           Ynha meniň geçen durmuş ýolum:
         </h2>
 
-        <div className="flex xl:flex-row flex-col xl:gap-6 items-center relative">
-          <div className="flex justify-start w-full xl:w-fit">
-            <TextRomb text="Çagalyk we mekdep ýyllarym" />
-          </div>
-          <img
-            src={`/images/about/arrow${desktop ? "" : "-right"}.svg`}
-            alt=""
-            className="absolute xl:top-0 top-10 xl:left-[13.5%] left-[165px]"
-          />
-          <div className="flex justify-end w-full xl:w-fit -mt-4">
-            <TextRomb text="Talyplyk" />
-          </div>
-
-          <img
-            src={`/images/about/arrow${desktop ? "-bottom" : "-right"}.svg`}
-            alt=""
-            className="absolute xl:bottom-0 bottom-[340px] xl:left-[34%] left-1/2"
-          />
-          <div className="flex justify-start w-full xl:w-fit -mt-4">
-            <TextRomb text="Lukmançylyk we lukmançylyk ylmyna içgin girişmek" />
-          </div>
-
-          <img
-            src={`/images/about/arrow${!desktop ? "-left" : "-bottom"}.svg`}
-            alt=""
-            className={cn(
-              "absolute xl:bottom-0 bottom-[185px] xl:right-[15%] right-[150px]"
-            )}
-          />
-
-          <div className="flex justify-end w-full xl:w-fit -mt-4">
-            <TextRomb text="Birleşen milletler Guramasynyň Ilat Gaznasynda işlän döwrüm" />
-          </div>
-
-          <img
-            src={`/images/about/arrow${!desktop ? "-left" : ""}.svg`}
-            alt=""
-            className="absolute xl:top-0 top-[210px] xl:right-[35%] right-[147px]"
-          />
-          <div className="flex justify-start w-full xl:w-fit -mt-4">
-            <TextRomb text="Hormatly dynç alyş" />
-          </div>
-        </div>
+        <RombsBlock />
       </section>
 
       <SectionLine />
@@ -147,79 +84,7 @@ const About = () => {
           Ynha meniň geçen durmuş ýolum:
         </h2>
 
-        <Carousel
-          opts={{ align: "start" }}
-          className="xl:hidden overflow-visible"
-        >
-          <CarouselContent className="overflow-visible">
-            {data.map(({ name }, i) => (
-              <CarouselItem
-                className={cn(
-                  "basis-[296px] overflow-visible",
-                  6 !== i + 1 && "mr-4"
-                )}
-              >
-                <TextRomb key={name} text={name} ellips></TextRomb>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-
-        <div className="hidden xl:flex flex-col gap-12 relative">
-          <img
-            src="/images/about/dash-arrow-big.svg"
-            alt=""
-            className="absolute top-[30.5%]"
-          />
-          <img
-            src="/images/about/dash-arrow-big.svg"
-            alt=""
-            className="absolute right-0 top-[32.5%] -rotate-[180deg]"
-          />
-
-          <div className="flex gap-6 relative">
-            <TextRomb ellips text="Turkmenistan" />
-            <img
-              src="/images/about/dash-arrow.svg"
-              alt=""
-              className="absolute left-[27%] -top-[12%] -rotate-[35deg]"
-            />
-            <TextRomb className="-mt-10" ellips text="Sudan (Darfur ülkesi)" />
-            <img
-              src="/images/about/dash-arrow.svg"
-              alt=""
-              className="absolute bottom-4 right-[30%] -rotate-[180deg]"
-            />
-
-            <TextRomb
-              ellips
-              text="Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar"
-            />
-            <img
-              src="/images/about/dash-arrow.svg"
-              alt=""
-              className="absolute bottom-4 right-[30%] -rotate-[180deg]"
-            />
-          </div>
-
-          <div className="flex gap-6 relative">
-            <TextRomb ellips text="Malawi" />
-            <img
-              src="/images/about/dash-arrow.svg"
-              alt=""
-              className="absolute bottom-[11%] right-[26.5%] -rotate-[210deg]"
-            />
-
-            <TextRomb className="mt-10" ellips text="Keniýa" />
-            <img
-              src="/images/about/dash-arrow.svg"
-              alt=""
-              className="absolute top-[7%] left-[29.5%]"
-            />
-
-            <TextRomb ellips text="Ýemen" />
-          </div>
-        </div>
+        <EllipsisBlock />
       </section>
 
       <SectionLine />

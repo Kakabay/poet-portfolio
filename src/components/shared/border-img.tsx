@@ -33,7 +33,7 @@ const BorderImg = ({ className, imgClassName, img }: Props) => {
       <img
         src={img}
         alt=""
-        className={cn("object-cover w-full h-full", imgClassName)}
+        className={cn("object-cover size-full", imgClassName)}
       />
     </div>
   );

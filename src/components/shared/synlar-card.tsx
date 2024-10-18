@@ -1,5 +1,6 @@
 import { Button } from "../ui/button";
 import BgTexture from "./bg-texture";
+import { motion } from "framer-motion";
 
 type Props = {
   categ: string;
@@ -10,8 +11,13 @@ type Props = {
 
 const SynlarCard = ({ text, print, categ, author }: Props) => {
   return (
-    <div className="xl:px-6 relative p-4 xl:py-8 syn-hover flex flex-col gap-6 group shadow-bottom after:syn-mob-path xl:after:comments-1-path xl:w-[384px] xl:h-[378px] w-[328px] h-[334px]">
-      <BgTexture className='xl:bg-[url("/images/comments/1-shape.svg")] bg-[url("/images/comments/syn-mob-shape.svg")] syn-mob-path xl:comments-1-path' />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="md:px-6 relative p-4 md  :py-8 syn-hover flex flex-col gap-6 group shadow-bottom after:syn-mob-path md:after:syn-med-path xl:after:comments-1-path xl:w-[384px] xl:h-[378px] md:w-[372px] md:h-[372px] w-[328px] h-[334px]"
+    >
+      <BgTexture className='xl:bg-[url("/images/comments/1-shape.svg")] md:bg-[url("/images/comments/syn-med-shape.svg")] bg-[url("/images/comments/syn-mob-shape.svg")] syn-mob-path md:syn-med-path xl:comments-1-path' />
       <div>
         <h5 className="kaushan text-[18px] mb-4 text-ON_SURFACE_VAR">
           {categ}
@@ -28,7 +34,7 @@ const SynlarCard = ({ text, print, categ, author }: Props) => {
         </div>
         <Button>Pereýti k istoçniku</Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
