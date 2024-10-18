@@ -43,9 +43,7 @@ const Cabinet = () => {
         )}>
         {favorites.map((item, i) =>
           active === 0 ? (
-            <AnimatePresence>
-              <PoemsItem active {...item} key={item.id} id={item.id} />
-            </AnimatePresence>
+            <PoemsItem active {...item} key={item.id} id={item.id} />
           ) : active === 1 ? (
             <CommentCard
               key={i}

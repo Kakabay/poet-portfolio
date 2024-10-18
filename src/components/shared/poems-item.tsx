@@ -40,24 +40,24 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
       <div className="leading-[115%] h-5 flex items-center gap-2">
         <button
           onClick={() => {
-            const isFavorite = favorites.some((item) => item.id === id);
+            // const isFavorite = favorites.some((item) => item.id === id);
             setFavorites({ id, name });
 
-            if (!isFavorite) {
-              toast({
-                title: 'Wy dobawili stih',
-                action: (
-                  <ToastAction
-                    onClick={() => {
-                      setFavorites({ id, name });
-                    }}
-                    altText="message">
-                    Otmenit
-                  </ToastAction>
-                ),
-                duration: 3000,
-              });
-            }
+            // if (!isFavorite) {
+            toast({
+              title: 'Wy dobawili stih',
+              action: (
+                <ToastAction
+                  onClick={() => {
+                    setFavorites({ id, name });
+                  }}
+                  altText="message">
+                  Otmenit
+                </ToastAction>
+              ),
+              duration: 3000,
+            });
+            // }
           }}
           className="w-5">
           <img
