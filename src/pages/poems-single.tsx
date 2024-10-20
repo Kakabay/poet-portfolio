@@ -1,8 +1,6 @@
 import PageLayout from "@/components/layout/page-layout";
-import AudioPlayer from "@/components/shared/audio-player";
 import PoemSwitch from "@/components/shared/poem-switch";
 import SectionLine from "@/components/shared/section-line";
-import { scrollTop } from "@/lib/utils";
 import { usePathStore } from "@/store/usePathname";
 import { usePoemsStore } from "@/store/usePoems";
 import { useEffect } from "react";
@@ -63,8 +61,8 @@ const PoemsSingle = () => {
       audio
     >
       <section className="container">
-        <div className="flex xl:flex-row flex-col gap-4 xl:gap-12 text-[16px] xl:text-[20px] leading-[140%] text-ON_SURFACE_VAR">
-          <p className="xl:flex-[0_1_50%]">
+        <div className="flex md:flex-row flex-col gap-4 xl:gap-12 md:gap-6 text-[16px] xl:text-[20px] leading-[140%] text-ON_SURFACE_VAR">
+          <p className="md:flex-[0_1_50%]">
             Biz obadaky atam oýmüze 1982-nji ýylyň tomsunda doly göçüpdik. Ol
             wagtlar men talypdym. 1983-nji ýylda meniň diplom toýum bilen bile
             jaý toýuny tutupdyk. Ýöne meniň häzirki ýatlamam, Orazberdi kakam
@@ -74,7 +72,7 @@ const PoemsSingle = () => {
             eýwana düşýän günden ýalkym alýardy we eýwana geň hem ýakymly ýagty
             saçýardy.
           </p>
-          <p className="xl:flex-[0_1_50%]">
+          <p className="md:flex-[0_1_50%]">
             Öýe giren myhmanyň ünsüni derrew özüne çekýärdi. Biziň maşgalamyzyň
             uludan-kiçisine bolsa, ol sagadyň aşagynda asylan maýatnigiň
             yrgyldysy bilen sazlaşykly çykýan “jyk-jyk” sesi, her gezek sagat
@@ -93,7 +91,7 @@ const PoemsSingle = () => {
       <SectionLine />
 
       <section className="container">
-        <div className="flex flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] !font-normal mx-auto xl:text-[20px]">
+        <div className="flex flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] md:w-[372px] !font-normal mx-auto xl:text-[20px]">
           {poem.map(({ text }, i) => (
             <p key={i}>{text}</p>
           ))}
@@ -106,7 +104,7 @@ const PoemsSingle = () => {
 
         {/* <AudioPlayer /> */}
 
-        <div className="container flex justify-center mt-16">
+        <div className="container flex justify-center xl:mt-16 mt-8">
           <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
             <h5 className="text-16 font-semibold">Kakamyň sagady</h5>
             <audio
@@ -120,7 +118,7 @@ const PoemsSingle = () => {
 
         <SectionLine className="xl:mt-16 xl:mb-12 my-8" />
 
-        <div className="flex gap-4 items-center xl:justify-between">
+        <div className="flex gap-4 md:gap-8 xl:gap-0 items-center xl:justify-between">
           <PoemSwitch
             disable={Number(id) === 1}
             prev

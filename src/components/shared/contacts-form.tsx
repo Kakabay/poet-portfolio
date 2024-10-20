@@ -42,45 +42,45 @@ const ContactsForm = () => {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col xl:gap-10 gap-7 xl:flex-[0_0_648px]"
-        >
-          <h4 className="xl:text-20 text-[18px]">Maňa hat iberiň</h4>
-
-          <div className="flex xl:flex-row flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">
+            Maňa hat iberiň
+          </h4>
+          <div className="flex flex-col xl:gap-10 gap-7 md:gap-10 xl:flex-[0_0_648px]">
+            <div className="flex md:flex-row flex-col gap-6">
+              <CustomField
+                control={form.control}
+                label="Waşe imýa"
+                name="name"
+                placeholder="Kak was zowut?"
+                error={form.formState.errors.name}
+              />
+              <CustomField
+                control={form.control}
+                label="Waş email"
+                name="email"
+                placeholder="Kuda otprawit otwet?"
+                error={form.formState.errors.email}
+              />
+            </div>
             <CustomField
               control={form.control}
-              label="Waşe imýa"
-              name="name"
-              placeholder="Kak was zowut?"
-              error={form.formState.errors.name}
-            />
-            <CustomField
-              control={form.control}
-              label="Waş email"
-              name="email"
+              label="Tema soobşeniýa"
+              name="message"
               placeholder="Kuda otprawit otwet?"
-              error={form.formState.errors.email}
+              error={form.formState.errors.message}
+              area
             />
-          </div>
-          <CustomField
-            control={form.control}
-            label="Waş email"
-            name="message"
-            placeholder="Kuda otprawit otwet?"
-            error={form.formState.errors.message}
-            area
-          />
 
-          <Button
-            onClick={() => setMode("tost")}
-            type="submit"
-            disabled={isSubmitting}
-            className="relative w-full"
-          >
-            {isSubmitting ? <LoadingDots /> : "Otprawit"}
-          </Button>
+            <Button
+              onClick={() => setMode("tost")}
+              type="submit"
+              disabled={isSubmitting}
+              className="relative w-full"
+            >
+              {isSubmitting ? <LoadingDots /> : "Otprawit"}
+            </Button>
+          </div>
         </form>
       </Form>
     </>
