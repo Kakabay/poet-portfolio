@@ -1,11 +1,11 @@
-import PageLayout from "@/components/layout/page-layout";
-import BgTexture from "@/components/shared/bg-texture";
-import MomentsCard from "@/components/shared/moments-card";
+import PageLayout from '@/components/layout/page-layout';
+import BgTexture from '@/components/shared/bg-texture';
+import MomentsCard from '@/components/shared/moments-card';
 
-import { cn, scrollTop } from "@/lib/utils";
-import { usePathStore } from "@/store/usePathname";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { cn, scrollTop } from '@/lib/utils';
+import { usePathStore } from '@/store/usePathname';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Carousel,
@@ -13,8 +13,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/carousel';
+import { Button } from '@/components/ui/button';
 
 const MomentsSingle = () => {
   scrollTop();
@@ -22,37 +22,27 @@ const MomentsSingle = () => {
   const setPath = usePathStore().setPath;
 
   useEffect(() => {
-    setPath("moment");
+    setPath('moment');
 
-    return () => setPath("");
+    return () => setPath('');
   }, []);
 
   return (
     <PageLayout
-      title={"Pursatlar"}
+      title={'Pursatlar'}
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-      className="gap-8"
-    >
-      <div className="relative w-full xl:h-[504px] md:h-[436px] md:shadow-bottom py-8 px-6">
+      className="gap-8">
+      <div className="relative w-full xl:h-[504px] md:h-[436px] md:shadow-bottom py-8 md:px-6">
         <BgTexture className="hidden md:block xl:bg-[url('/images/moments/moments-single-shape.svg')] md:bg-[url('/images/moments/main-med-shape.svg')] xl:moments-single-path md:moments-main-med-path" />
 
-        <Link
-          to="/moments"
-          className="flex items-center gap-1 xl:mb-8 md:mb-6 mb-8"
-        >
+        <Link to="/moments" className="flex items-center gap-1 xl:mb-8 md:mb-6 mb-8">
           <img src="/images/arrow.svg" />
-          <h6 className="text-16 !font-normal text-ON_SURFACE_VAR">
-            Wernutsýa nazad
-          </h6>
+          <h6 className="text-16 !font-normal text-ON_SURFACE_VAR">Wernutsýa nazad</h6>
         </Link>
 
         <div className="flex md:flex-row flex-col xl:gap-6 gap-8">
           <div className="xl:flex-[0_0_675px] md:flex-[0_0_420px] xl:h-[379px] md:h-[235px] md:bg-[#7A590C]/[16%]">
-            <img
-              src="/images/poet.png"
-              alt="surat"
-              className="size-full object-contain"
-            />
+            <img src="/images/poet.png" alt="surat" className="size-full object-contain" />
           </div>
 
           <div className="flex flex-col -tracking-wide justify-between">
@@ -61,15 +51,13 @@ const MomentsSingle = () => {
                 Luchshie momenty zhizni
               </h4>
               <p className="xl:text-16 md:text-[14px] md:leading-[145%] text-16 !font-normal md:mb-2 mb-4">
-                Na fotoghrafiyi zobrazhen portret poeta. Na perednem plani viden
-                muzhchina s vyrazitelnym litcom, vozmozhno, s glyubokimi glazami
-                i mudrym vzyglyadom. Yego poza i vyrashcheniye litca mogut
-                peredavat' kakuyu-to ymotsiyu ili nastroyeniye, kharakternyye
-                dlya poetov - naprimer, zadumchivost', vdokhnoveniye ili
-                melan'kholiye. Vozmozhno, na yego litce mozhno uvidet' sledy
-                zhiznennogo opyta i razmyshleniy. Fon na fotoghrafiyi mozhet
-                byt' spokoinym ili simvolichno otrazhat' yego tvorcheskuyu
-                naturu.
+                Na fotoghrafiyi zobrazhen portret poeta. Na perednem plani viden muzhchina s
+                vyrazitelnym litcom, vozmozhno, s glyubokimi glazami i mudrym vzyglyadom. Yego poza
+                i vyrashcheniye litca mogut peredavat' kakuyu-to ymotsiyu ili nastroyeniye,
+                kharakternyye dlya poetov - naprimer, zadumchivost', vdokhnoveniye ili
+                melan'kholiye. Vozmozhno, na yego litce mozhno uvidet' sledy zhiznennogo opyta i
+                razmyshleniy. Fon na fotoghrafiyi mozhet byt' spokoinym ili simvolichno otrazhat'
+                yego tvorcheskuyu naturu.
               </p>
             </div>
 
@@ -90,15 +78,14 @@ const MomentsSingle = () => {
             {[...Array(6)].map((_, i) => (
               <CarouselItem
                 className={cn(
-                  "xl:basis-[372px] md:basis-[352px] !h-[253px]",
-                  6 !== i + 1 && "xl:mr-[18px] mr-4"
+                  'xl:basis-[372px] md:basis-[352px] !h-[253px]',
+                  6 !== i + 1 && 'xl:mr-[18px] mr-4',
                 )}
-                key={i}
-              >
+                key={i}>
                 <MomentsCard
                   textureNone
-                  img={"/images/moments/moments-img.png"}
-                  title={"Zagolovok"}
+                  img={'/images/moments/moments-img.png'}
+                  title={'Zagolovok'}
                   className="md:!w-full"
                 />
               </CarouselItem>
@@ -115,16 +102,15 @@ const MomentsSingle = () => {
             <MomentsCard
               key={i}
               textureNone
-              img={"/images/moments/moments-img.png"}
-              title={"Zagolovok"}
+              img={'/images/moments/moments-img.png'}
+              title={'Zagolovok'}
               className="!p-0"
             />
           ))}
         </div>
         <Button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="w-fit mx-auto"
-        >
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="w-fit mx-auto">
           Zagruzit bolşe
         </Button>
       </div>
