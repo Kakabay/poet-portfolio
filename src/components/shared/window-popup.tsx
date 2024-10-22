@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { usePopupStore } from '@/store/usePopup';
-import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
 
 interface Props {
   setActive: (val: boolean) => void;
@@ -37,6 +37,10 @@ const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) 
       setActive(false);
     }
   };
+
+  const handleClick = () => setActive(false);
+
+  useOnClickOutside(ref, handleClick);
 
   return (
     <motion.div

@@ -45,8 +45,8 @@ const Books = () => {
       className="gap-12"
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy.">
       <div className="flex flex-col gap-6 mx-auto">
-        {booksData.map((item) => (
-          <BookCard key={item.id} {...item} />
+        {booksData.map((item, i) => (
+          <BookCard key={i} {...item} />
         ))}
       </div>
     </PageLayout>

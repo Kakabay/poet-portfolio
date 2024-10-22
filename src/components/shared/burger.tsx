@@ -1,10 +1,10 @@
-import { X } from "lucide-react";
-import { motion } from "framer-motion";
-import EnterBtn from "./enter-btn";
-import { navData, socials } from "../layout/header";
-import { Link } from "react-router-dom";
-import { usePopupStore } from "@/store/usePopup";
-import { useLoginStore } from "@/store/useLogin";
+import { X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import EnterBtn from './enter-btn';
+import { navData, socials } from '../layout/header';
+import { Link } from 'react-router-dom';
+import { usePopupStore } from '@/store/usePopup';
+import { useLoginStore } from '@/store/useLogin';
 
 interface Props {
   setBurger: (val: boolean) => void;
@@ -16,18 +16,16 @@ const Burger = ({ setBurger }: Props) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: "-100%" }}
+      initial={{ opacity: 0, translateY: '-100%' }}
       animate={{ opacity: 1, translateY: 0 }}
-      exit={{ opacity: 0, translateY: "-100%" }}
+      exit={{ opacity: 0, translateY: '-100%' }}
       transition={{ duration: 0.5, ease: [0.55, 0, 0.1, 1] }}
-      className="fixed z-50 top-0 left-0 overflow-y-auto right-0 w-full bg-SURFACE_CONTAINER h-full"
-    >
+      className="fixed z-50 top-0 left-0 overflow-y-auto md:hidden right-0 w-full bg-SURFACE_CONTAINER h-full">
       <div className="flex flex-col gap-6 py-4 container">
         <div className="flex justify-end">
           <button
             onClick={() => setBurger(false)}
-            className="size-12 cursor-pointer"
-          >
+            className="size-12 flex justify-center items-center cursor-pointer">
             <X />
           </button>
         </div>
@@ -44,9 +42,8 @@ const Burger = ({ setBurger }: Props) => {
               <Link
                 to={item.link}
                 key={i}
-                onClick={() => setActive(false)}
-                className="flex gap-2.5"
-              >
+                onClick={() => setBurger(false)}
+                className="flex gap-2.5">
                 <img src="/images/romb.svg" alt="" />
                 {item.view}
               </Link>
@@ -60,11 +57,7 @@ const Burger = ({ setBurger }: Props) => {
 
         <div className="flex flex-col gap-4">
           {socials.map((item, i) => (
-            <Link
-              to={item.link}
-              key={i}
-              className="flex items-center gap-2 text-16"
-            >
+            <Link to={item.link} key={i} className="flex items-center gap-2 text-16">
               <div className="">{item.icon}</div>
               <div className="">{item.name}</div>
             </Link>

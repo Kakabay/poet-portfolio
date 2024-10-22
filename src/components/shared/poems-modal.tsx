@@ -11,7 +11,7 @@ const PoemsModal = () => {
         alt=""
         className="h-full w-full object- absolute top-0 left-0 right-0 "
       />
-      <PoemsItem key={id} id="" />
+      <PoemsItem key={id} id={1} name={''} />
     </div>
   );
 };

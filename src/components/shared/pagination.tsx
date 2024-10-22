@@ -43,9 +43,9 @@ const Pagination = ({ className, totalPages, onChangePage, currentPage, perPage 
         <ChevronLeft className="cursor-pointer stroke-ON_SURFACE_VAR" size={20} />
       </button>
       <div className="flex items-center gap-1 text-[14px] leading-[140%] font-medium">
-        {getPageNumbers().map((item) => (
+        {getPageNumbers().map((item, i) => (
           <button
-            key={item}
+            key={i}
             onClick={() => {
               if (typeof item === 'number') onChangePage(item);
             }}
