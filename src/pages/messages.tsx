@@ -4,8 +4,6 @@ import MobCommentModal from '@/components/shared/mob-comment-modal';
 import Pagination from '@/components/shared/pagination';
 import WindowPopup from '@/components/shared/window-popup';
 import { Button } from '@/components/ui/button';
-import ScrollToTop from '@/hooks/use-scroll-top';
-import { scrollTop } from '@/lib/utils';
 import { usePopupStore } from '@/store/usePopup';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';

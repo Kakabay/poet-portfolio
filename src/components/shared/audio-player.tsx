@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Howl } from 'howler';
-import { Input } from '../ui/input';
-import { CirclePause, CirclePauseIcon, Pause, Play } from 'lucide-react';
-import { Progress } from '../ui/progress';
+import { CirclePauseIcon } from 'lucide-react';
 
 const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);

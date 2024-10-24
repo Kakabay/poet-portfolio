@@ -1,7 +1,6 @@
 import PageLayout from '@/components/layout/page-layout';
 import BookCard from '@/components/shared/book-card';
 import { scrollTop } from '@/lib/utils';
-import { link } from 'fs';
 
 const booksData = [
   {
