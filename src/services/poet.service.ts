@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 class PoetService {
-  private URL = 'http://216.250.8.93:7777/app/api/';
+  private URL = "http://216.250.8.93:7777/app/api/";
 
   postUser = async (body: {
     first_name: string;
@@ -11,7 +11,7 @@ class PoetService {
   }) => {
     return await axios.post(`${this.URL}signup`, body, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "multipart/form-data",
       },
     });
   };
