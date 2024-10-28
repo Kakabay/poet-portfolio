@@ -1,20 +1,13 @@
 import PageLayout from "@/components/layout/page-layout";
 import BgTexture from "@/components/shared/bg-texture";
+import RegisterForm from "@/components/shared/register-form";
 import WindowPopup from "@/components/shared/window-popup";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { cn, scrollTop } from "@/lib/utils";
-import { usePopupStore } from "@/store/usePopup";
+import { scrollTop } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-type Props = {};
-
-const Instruction = ({}: Props) => {
+const Instruction = () => {
   scrollTop();
-
-  const [active, setActive] = useState(false);
-  const setMode = usePopupStore().setMode;
 
   const [open, setOpen] = useState(false);
 
@@ -31,94 +24,7 @@ const Instruction = ({}: Props) => {
       <section className="text-center relative shadow-bottom h-[976px] xl:h-[900px] md:h-[884px] xl:w-[1200px] px-4 xl:px-0 py-8">
         <BgTexture className='xl:bg-[url("/images/faq/register-shape1.svg")] md:bg-[url("/images/faq/register-med-shape.svg")] bg-[url("/images/faq/register-mob-shape.svg")] xl:register-path md:register-med-path register-mob-path' />
 
-        <div className="md:w-[640px] mx-auto flex flex-col xl:gap-6 md:gap-6 gap-8">
-          <h2 className="h2 kaushan">Kak zaregistrirowatsýa</h2>
-
-          <div
-            className={cn(
-              "leading-[150%] transition-opacity",
-              active && "opacity-50 pointer-events-none"
-            )}
-          >
-            <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-              1 shag
-            </div>
-            <h4 className="font-semibold mb-2 leading-[150%] text-[20px] md:text-[24px]">
-              Vvedite vash email
-            </h4>
-            <h5 className="md:text-[18px] text-[16px] font-medium -tracking-wide leading-[145%] mb-6">
-              Ukazhite vash deystvuyushchiy adres elektronnoy pochty. On budet
-              ispol'zovat'sya dlya vkhoda na sayt i polucheniya vazhnykh
-              uvedomleniy.
-            </h5>
-            <div className="text-[16px] font-medium leading-[150%] mb-2">
-              Vvedite email v pole nizhe i nazhmite «Dalee»
-            </div>
-            <Input
-              disabled={active}
-              type="text"
-              placeholder="Подсказка"
-              className="input w-full mb-4"
-            />
-            <Button
-              disabled={active}
-              onClick={() => setActive(true)}
-              className="w-full"
-            >
-              Dalee
-            </Button>
-          </div>
-
-          <div
-            className={cn(
-              "leading-[150%] transition-opacity",
-              !active && "opacity-50 pointer-events-none"
-            )}
-          >
-            <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-              2 shag
-            </div>
-            <h4 className="font-semibold mb-2 md:leading-[150%] leading-[140%] text-[20px] md:text-[24px]">
-              Pridumayte parol'
-            </h4>
-            <h5 className="md:text-[18px] text-[16px] font-medium -tracking-wide leading-[145%] mb-6">
-              Sozdajte parol' dlya vashego akkaunta. Parol' dolzhen soderzhat'
-              ne menee 8 simvolov, vklyuchaya bukvy, tsifry i spetsial'nye
-              simvoly.
-            </h5>
-
-            <div className="text-[16px] font-medium leading-[150%] mb-4">
-              <h5>Vvedite parol'</h5>
-              <Input
-                disabled={!active}
-                type="text"
-                placeholder="Подсказка"
-                className="input w-full mt-2"
-              />
-            </div>
-            <div className="text-[16px] font-medium leading-[150%]">
-              <h5>
-                Powtorite parol' i podtverdite ego, zatem nazhmite «Dalee».
-              </h5>
-              <Input
-                disabled={!active}
-                type="text"
-                placeholder="Подсказка"
-                className="input w-full mt-2 mb-4"
-              />
-              <Button
-                onClick={() => {
-                  setOpen(true);
-                  setMode("tost");
-                }}
-                disabled={!active}
-                className="w-full"
-              >
-                Dalee
-              </Button>
-            </div>
-          </div>
-        </div>
+        <RegisterForm />
       </section>
     </PageLayout>
   );

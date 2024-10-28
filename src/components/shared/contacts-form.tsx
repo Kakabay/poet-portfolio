@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import LoadingDots from "./loading-dots";
 import { useContactsStore } from "@/store/useContacts";
 import { usePopupStore } from "@/store/usePopup";
+import { CloudLightning } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(3, "Imya obyazatelno"),

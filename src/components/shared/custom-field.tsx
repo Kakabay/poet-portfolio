@@ -19,6 +19,8 @@ type Props = {
   error: FieldError | undefined;
   area?: boolean;
   type?: string;
+  className?: string;
+  disabled?: boolean;
 };
 
 const CustomField = ({
@@ -29,6 +31,8 @@ const CustomField = ({
   error,
   area = false,
   type = "text",
+  className,
+  disabled,
 }: Props) => {
   const desktop = useMediaQuery("(min-width: 1280px)");
 
@@ -37,7 +41,7 @@ const CustomField = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col w-full relative">
+        <FormItem className={cn(className, "flex flex-col w-full relative")}>
           <FormLabel className="font-medium text-16 tracking-4">
             {label}
           </FormLabel>
@@ -47,6 +51,7 @@ const CustomField = ({
                 type={type}
                 placeholder={placeholder}
                 {...field}
+                disabled={disabled}
                 className={error?.message && "border-[#BA1A1A]"}
               />
             ) : (
