@@ -133,7 +133,7 @@ const RegisterForm = () => {
           )}
         >
           <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-            1 shag
+            2 shag
           </div>
 
           <h4 className="font-semibold mb-2 leading-[150%] text-[20px] md:text-[24px]">
