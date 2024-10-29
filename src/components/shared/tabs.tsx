@@ -23,8 +23,6 @@ const Tabs = ({ array, active, setActive, className }: Props) => {
   const desktop = useMediaQuery("(min-width: 768px)");
   const { pathname } = useLocation();
 
-  console.log(itemRef.current?.clientWidth);
-
   useEffect(() => {
     if (api) {
       api.scrollTo(active);

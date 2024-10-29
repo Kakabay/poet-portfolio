@@ -1,6 +1,7 @@
 const BackBtn = ({ setActive }: { setActive: (val: boolean) => void }) => {
   return (
     <button
+      type="button"
       onClick={() => setActive(false)}
       className="flex items-center gap-1 h-10 mb-8"
     >

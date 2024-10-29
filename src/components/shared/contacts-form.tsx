@@ -34,7 +34,6 @@ const ContactsForm = () => {
   const { isSubmitting } = form.formState;
   const onSubmit = async (data: FormType) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log(data);
     setSuccess(true);
 
     // form.reset();

@@ -28,8 +28,6 @@ const BookCard = ({ name, text, id, link = "" }: Props) => {
 
   const findId = () => expanded.some((item) => item === id);
 
-  console.log(expanded);
-
   return (
     <article
       className={cn(
