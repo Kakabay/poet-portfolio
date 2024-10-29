@@ -24,7 +24,7 @@ const MobCommentModal = ({ setActive }: Props) => {
         exit={{ opacity: 0 }}
         className="fixed z-[100] top-0 left-0 w-full h-screen py-8  bg-[#EFDEBE] overflow-hidden">
         <img
-          src="/images/texture.png"
+          src="/images/texture047.png"
           className="size-full absolute top-0 left-0 pointer-events-none  object-cover mix-blend-multiply opacity-50"
         />
 

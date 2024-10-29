@@ -15,7 +15,11 @@ function App() {
         'flex flex-col relative xl:min-h-screen h-screen w-full bg-[#EFDEBE] overflow-x-hidden',
       )}>
       <div className="fixed left-0 right-0 bottom-0 pointer-events-none top-0 w-full h-full mix-blend-multiply">
-        <img src="/images/texture.png" alt="" className="w-full h-full object-cover opacity-50" />
+        <img
+          src="/images/texture047.png"
+          alt=""
+          className="w-full h-full object-cover opacity-50"
+        />
       </div>
       {pathname === '/' ? (
         <div className="fixed top-0 left-0 right-0 pointer-events-none mix-blend-soft-light bottom-0 opacity-25">

@@ -29,8 +29,10 @@ const Cabinet = () => {
 
   const favorites = usePoemsStore().favorites;
 
+  const name = sessionStorage.getItem('name');
+
   return (
-    <PageLayout title="Salam Myrat!" className="gap-12">
+    <PageLayout title={`Salam ${name}!`} className="gap-12">
       <Tabs array={cabinetTabs} active={active} setActive={setActive} />
 
       <div

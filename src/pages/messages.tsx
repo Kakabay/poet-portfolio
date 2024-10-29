@@ -4,6 +4,7 @@ import MobCommentModal from '@/components/shared/mob-comment-modal';
 import Pagination from '@/components/shared/pagination';
 import WindowPopup from '@/components/shared/window-popup';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/useAuthStore';
 import { usePopupStore } from '@/store/usePopup';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -76,13 +77,7 @@ const Messages = () => {
   const totalItems = 9;
   const displayedData = data.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  useEffect(() => {
-    console.log('Current Page:', currentPage);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, [currentPage]);
+  const accessToken = useAuthStore().accessToken;
 
   return (
     <>

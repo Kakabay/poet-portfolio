@@ -88,7 +88,7 @@ const WindowPopup = ({ children, setActive, className, setIsSubmitted }: Props) 
           </div>
         )}
         {desktop && mode === 'comment' && (
-          <div className="flex md:bg-none bg-[url('/images/texture.png')] bg-cover md:size-auto h-screen flex-col gap-6 text-center">
+          <div className="flex md:bg-none bg-[url('/images/texture047.png')] bg-cover md:size-auto h-screen flex-col gap-6 text-center">
             <h5 className="font-semibold">Ostaw swoý kommentariý</h5>
 
             <div className="flex flex-col gap-2">
