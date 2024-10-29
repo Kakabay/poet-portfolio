@@ -12,7 +12,7 @@ const usePostUser = (formData: Props) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["postUser"],
     queryFn: () => poetService.postUser(formData),
-    select: ({ data }) => data.data,
+    select: ({ data }) => data,
   });
 
   return {

@@ -91,6 +91,7 @@ const Messages = () => {
       setMode("comment");
     } else if (desktop && !accessToken) {
       setDeskActive(true);
+      setMode("login");
     } else if (!desktop && accessToken) {
       setMobComment(true);
     } else {

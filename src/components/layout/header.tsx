@@ -13,6 +13,7 @@ import EnterBtn from "../shared/enter-btn";
 import MedBurger from "../shared/med-burger";
 import LoginWindowMob from "../shared/login-window-mob";
 import User from "../shared/user";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const navData = [
   {
@@ -143,12 +144,18 @@ const Header = () => {
   const success = useContactsStore().success;
   const setSuccess = useContactsStore().setSuccess;
 
+  const registerSuccess = useAuthStore().registerSuccess;
+  const setRegisterSuccess = useAuthStore().setRegisterSuccess;
+
   const token = sessionStorage.getItem("accessToken");
 
   return (
     <>
       <AnimatePresence>
         {success && <WindowPopup setActive={setSuccess} className="h-full" />}
+        {registerSuccess && (
+          <WindowPopup setActive={setRegisterSuccess} className="h-full" />
+        )}
       </AnimatePresence>
 
       <AnimatePresence>

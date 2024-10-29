@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/store/useAuthStore";
-import axios from "axios";
+import axios from "./axios.config";
 
 interface User {
   id: number;
@@ -66,8 +66,22 @@ class PoetService {
     return userData;
   };
 
-  refreshToken = async (body: RefreshBody) => {
-    const data = await axios.post(`${this.URL}refresh`);
+  refreshToken = async () => {
+    const refreshToken = this.authStore.getState().refreshToken;
+
+    if (!refreshToken) throw new Error("No refresh token available");
+
+    const response = await axios.post<UserData>(`${this.URL}refresh`, {
+      token: refreshToken,
+    });
+
+    const { token } = response.data;
+
+    if (token) {
+      this.authStore.getState().setAuthData(null, token);
+    }
+
+    return token;
   };
 }
 
