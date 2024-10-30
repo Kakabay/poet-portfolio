@@ -10,15 +10,21 @@ import Burger from './burger';
 import MedBurger from './med-burger';
 import PopupMessage from './popup-message';
 
-const Popups = () => {
-  const [burger, setBurger] = useState(false);
-  const [medBurger, setMedBurger] = useState(false);
+interface Burger {
+  burger: boolean;
+  medBurger: boolean;
+  setBurger: (val: boolean) => void;
+  setMedBurger: (val: boolean) => void;
+}
 
+const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
   const contactsSucces = useContactsStore().success;
   const contactsSetSucces = useContactsStore().setSuccess;
 
   const loginActive = useLoginStore().active;
   const mobActive = useLoginStore().mobActive;
+
+  const token = useAuthStore().accessToken;
 
   return (
     <>
@@ -30,9 +36,17 @@ const Popups = () => {
             setActive={contactsSetSucces}
           />
         )}
+
+        {contactsSucces && (
+          <PopupMessage
+            title={'Data was sended!'}
+            text="Спасибо за доверие!"
+            setActive={contactsSetSucces}
+          />
+        )}
       </AnimatePresence>
 
-      <AnimatePresence>{loginActive && <Login />}</AnimatePresence>
+      <AnimatePresence>{!token && loginActive && <Login />}</AnimatePresence>
 
       <AnimatePresence>{mobActive && <LoginWindowMob />}</AnimatePresence>
 

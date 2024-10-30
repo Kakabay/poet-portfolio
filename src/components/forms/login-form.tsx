@@ -8,6 +8,7 @@ import CustomField from '../shared/custom-field';
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
+import LoadingDots from '../shared/loading-dots';
 
 const formsSchema = z.object({
   login: z.string().email(),
@@ -38,7 +39,7 @@ const LoginForm = () => {
     try {
       poetService.loginUser(body);
 
-      if (token) {
+      if (!token) {
         setLoginActive(false);
       }
     } catch (e) {
@@ -70,7 +71,9 @@ const LoginForm = () => {
             />
           </div>
 
-          <Button type="submit">Woýti w swoý akkaunt</Button>
+          <Button type="submit">
+            {form.formState.isSubmitting ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
+          </Button>
 
           <h5 className="text-16">
             Esli net akkaunta,

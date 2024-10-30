@@ -132,24 +132,20 @@ const Header = () => {
   const [medBurger, setMedBurger] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
-  const loginActive = useLoginStore().active;
-  const mobActive = useLoginStore().mobActive;
-  const setMobActive = useLoginStore().setMobActive;
   const setLoginActive = useLoginStore().setActive;
 
   const setMode = usePopupStore().setMode;
-
-  const success = useContactsStore().success;
-  const setSuccess = useContactsStore().setSuccess;
-
-  const registerSuccess = useAuthStore().registerSuccess;
-  const setRegisterSuccess = useAuthStore().setRegisterSuccess;
 
   const token = sessionStorage.getItem('accessToken');
 
   return (
     <>
-      <Popups />
+      <Popups
+        burger={burger}
+        setBurger={setBurger}
+        medBurger={medBurger}
+        setMedBurger={setMedBurger}
+      />
 
       <header className="pt-4 xl:pt-6 flex flex-col gap-4">
         <div className="xl:hidden relative p-4 md:px-6 container h-20 w-[328px] md:w-[768px] shadow-bottom">

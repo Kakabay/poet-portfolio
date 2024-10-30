@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface AuthState {
   name: string | null;
@@ -15,9 +15,9 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  name: sessionStorage.getItem("name"),
-  accessToken: sessionStorage.getItem("accessToken"),
-  refreshToken: sessionStorage.getItem("refreshToken"),
+  name: sessionStorage.getItem('name'),
+  accessToken: sessionStorage.getItem('accessToken'),
+  refreshToken: sessionStorage.getItem('refreshToken'),
 
   registerSuccess: false,
   loginSuccess: false,
@@ -25,18 +25,17 @@ export const useAuthStore = create<AuthState>((set) => ({
   setRegisterSuccess: (val) => set(() => ({ registerSuccess: val })),
   setLoginSuccess: (val) => set(() => ({ loginSuccess: val })),
 
-  // Устанавливаем данные авторизации (имя и accessToken)
   setAuthData: (name, accessToken) => {
     if (accessToken) {
-      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem('accessToken', accessToken);
     } else {
-      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem('accessToken');
     }
 
     if (name) {
-      sessionStorage.setItem("name", name);
+      sessionStorage.setItem('name', name);
     } else {
-      sessionStorage.removeItem("name");
+      sessionStorage.removeItem('name');
     }
 
     set({ name, accessToken });
@@ -44,14 +43,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   // Отдельный метод для установки refreshToken
   setRefreshToken: (refreshToken) => {
-    sessionStorage.setItem("refreshToken", refreshToken);
+    sessionStorage.setItem('refreshToken', refreshToken);
     set({ refreshToken });
   },
 
   clearAuthData: () => {
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("refreshToken");
-    sessionStorage.removeItem("name");
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('name');
     set({ name: null, accessToken: null, refreshToken: null });
   },
 }));
