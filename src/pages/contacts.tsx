@@ -1,6 +1,6 @@
 import PageLayout from '@/components/layout/page-layout';
 import BgTexture from '@/components/shared/bg-texture';
-import ContactsForm from '@/components/shared/contacts-form';
+import ContactsForm from '@/components/forms/contacts-form';
 import ContactsLink from '@/components/shared/contacts-link';
 import { scrollTop } from '@/lib/utils';
 

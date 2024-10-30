@@ -1,18 +1,17 @@
-import { useForm } from "react-hook-form";
-import { Form } from "../ui/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import CustomField from "./custom-field";
-import { Button } from "../ui/button";
-import LoadingDots from "./loading-dots";
-import { useContactsStore } from "@/store/useContacts";
-import { usePopupStore } from "@/store/usePopup";
-import { CloudLightning } from "lucide-react";
+import { useForm } from 'react-hook-form';
+import { Form } from '../ui/form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import CustomField from '../shared/custom-field';
+import { Button } from '../ui/button';
+import LoadingDots from '../shared/loading-dots';
+import { useContactsStore } from '@/store/useContacts';
+import { usePopupStore } from '@/store/usePopup';
 
 const formSchema = z.object({
-  name: z.string().min(3, "Imya obyazatelno"),
+  name: z.string().min(3, 'Imya obyazatelno'),
   email: z.string().email(),
-  message: z.string().min(5, "text requried"),
+  message: z.string().min(5, 'text requried'),
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -25,9 +24,9 @@ const ContactsForm = () => {
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      message: "",
+      name: '',
+      email: '',
+      message: '',
     },
   });
 
@@ -43,9 +42,7 @@ const ContactsForm = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">
-            Maňa hat iberiň
-          </h4>
+          <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">Maňa hat iberiň</h4>
           <div className="flex flex-col xl:gap-10 gap-7 md:gap-10 xl:flex-[0_0_648px]">
             <div className="flex md:flex-row flex-col gap-6">
               <CustomField
@@ -73,12 +70,11 @@ const ContactsForm = () => {
             />
 
             <Button
-              onClick={() => setMode("tost")}
+              onClick={() => setMode('tost')}
               type="submit"
               disabled={isSubmitting}
-              className="relative w-full"
-            >
-              {isSubmitting ? <LoadingDots /> : "Otprawit"}
+              className="relative w-full">
+              {isSubmitting ? <LoadingDots /> : 'Otprawit'}
             </Button>
           </div>
         </form>

@@ -1,5 +1,5 @@
-import poetService from "@/services/poet-post.service";
-import { useQuery } from "@tanstack/react-query";
+import poetService from '@/services/poet.service';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   email: string;
@@ -10,7 +10,7 @@ interface Props {
 
 const usePostUser = (formData: Props) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["postUser"],
+    queryKey: ['postUser'],
     queryFn: () => poetService.postUser(formData),
     select: ({ data }) => data,
   });

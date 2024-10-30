@@ -4,6 +4,7 @@ import { usePoemsStore } from '@/store/usePoems';
 import { ToastAction } from '../ui/toast';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface Props {
   id: number;
@@ -19,7 +20,7 @@ export interface PoemType {
 const PoemsItem = ({ id, name, active = false }: Props) => {
   const setFavorites = usePoemsStore().setFavorites;
 
-  const token = sessionStorage.getItem('accessToken');
+  const token = useAuthStore().accessToken;
 
   const { toast } = useToast();
 
@@ -42,10 +43,8 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
         {token && (
           <button
             onClick={() => {
-              // const isFavorite = favorites.some((item) => item.id === id);
               setFavorites({ id, name });
 
-              // if (!isFavorite) {
               toast({
                 title: 'Wy dobawili stih',
                 action: (
@@ -59,7 +58,6 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
                 ),
                 duration: 3000,
               });
-              // }
             }}
             className="w-5">
             <img
