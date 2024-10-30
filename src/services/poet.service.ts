@@ -83,6 +83,28 @@ class PoetService {
 
     return token;
   };
+
+  // GET
+
+  getUsetComment = async () => {
+    const accessToken = this.authStore.getState().accessToken;
+
+    if (!accessToken) throw new Error("No access token available");
+
+    try {
+      const { data } = await axios.get(`${this.URL}comments`, {
+        headers: {
+          "Content-Type": "raw",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching user comments:", error);
+      throw error;
+    }
+  };
 }
 
 export default new PoetService();

@@ -8,7 +8,7 @@ import { Form } from "../ui/form";
 import { useLoginStore } from "@/store/useLogin";
 import BackBtn from "./back-btn";
 import { motion } from "framer-motion";
-import poetService from "@/services/poet.service";
+import poetService from "@/services/poet-post.service";
 
 const formsSchema = z.object({
   login: z.string().email(),

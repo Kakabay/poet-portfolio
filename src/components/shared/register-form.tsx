@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { usePopupStore } from "@/store/usePopup";
 import CustomField from "./custom-field";
-import poetService from "@/services/poet.service";
+import poetService from "@/services/poet-post.service";
 import LoadingDots from "./loading-dots";
 import { useAuthStore } from "@/store/useAuthStore";
 

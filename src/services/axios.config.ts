@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
-import poetService from "./poet.service";
+import poetService from "./poet-post.service";
 
 // Установите базовый URL для всех запросов
 axios.defaults.baseURL = "http://216.250.8.93:7777/app/api";

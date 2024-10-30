@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { useLoginStore } from "@/store/useLogin";
-import poetService from "@/services/poet.service";
+import poetService from "@/services/poet-post.service";
 
 const formsSchema = z.object({
   login: z.string().email(),

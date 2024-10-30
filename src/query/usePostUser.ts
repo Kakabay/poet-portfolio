@@ -1,4 +1,4 @@
-import poetService from "@/services/poet.service";
+import poetService from "@/services/poet-post.service";
 import { useQuery } from "@tanstack/react-query";
 
 interface Props {
