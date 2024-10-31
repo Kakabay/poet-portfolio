@@ -35,6 +35,7 @@ module.exports = {
         PRIM_CONTAINER: '#665A3D',
         SURFACE_CONTAINER: '#F8ECDF',
         TERTIARY: '#4C6545',
+        ERROR: '#BA1A1A',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

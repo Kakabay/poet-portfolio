@@ -6,7 +6,6 @@ import BgTexture from './bg-texture';
 import { useLoginStore } from '@/store/useLogin';
 import { useOnClickOutside } from 'usehooks-ts';
 import { X } from 'lucide-react';
-import { useAuthStore } from '@/store/useAuthStore';
 
 const Login = () => {
   const ref = useRef<HTMLDivElement>(null);

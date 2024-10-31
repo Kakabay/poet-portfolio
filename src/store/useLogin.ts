@@ -4,6 +4,9 @@ interface Props {
   active: boolean;
   mobActive: boolean;
 
+  loginError: string;
+  setLoginError: (er: string) => void;
+
   success: boolean;
   setSuccess: (val: boolean) => void;
 
@@ -14,6 +17,9 @@ interface Props {
 export const useLoginStore = create<Props>((set) => ({
   active: false,
   mobActive: false,
+
+  loginError: '',
+  setLoginError: (er) => set({ loginError: er }),
 
   success: false,
   setSuccess: (val) => set(() => ({ success: val })),

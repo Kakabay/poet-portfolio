@@ -1,17 +1,14 @@
 import poetService from '@/services/poet.service';
+import { useAuthStore } from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 
-interface Props {
-  email: string;
-  password: string;
-  password_confirmation: string;
-  first_name: string;
-}
+export const useGetUserComments = () => {
+  const token = useAuthStore((state) => state.accessToken);
 
-const usePostUser = (formData: Props) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['postUser'],
-    queryFn: () => poetService.postUser(formData),
+    queryKey: ['userComments'],
+    queryFn: () => poetService.getUserComments(),
+    enabled: !!token,
     select: ({ data }) => data,
   });
 
@@ -22,5 +19,3 @@ const usePostUser = (formData: Props) => {
     isSuccess,
   };
 };
-
-export default usePostUser;

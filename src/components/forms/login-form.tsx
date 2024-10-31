@@ -7,8 +7,8 @@ import { useLoginStore } from '@/store/useLogin';
 import CustomField from '../shared/custom-field';
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
-import { useAuthStore } from '@/store/useAuthStore';
 import LoadingDots from '../shared/loading-dots';
+import { delay, motion } from 'framer-motion';
 
 const formsSchema = z.object({
   login: z.string().email(),
@@ -28,7 +28,10 @@ const LoginForm = () => {
 
   const setLoginActive = useLoginStore().setActive;
 
-  const token = useAuthStore().accessToken;
+  const loginError = useLoginStore().loginError;
+  const setLoginError = useLoginStore().setLoginError;
+
+  console.log(loginError);
 
   const onSubmit = async (data: FormTypes) => {
     const body = {
@@ -39,18 +42,16 @@ const LoginForm = () => {
     try {
       poetService.loginUser(body);
 
-      if (!token) {
-        setLoginActive(false);
-      }
+      setLoginError('');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 relative">
           <h3 className="text-center font-semibold">Woýti</h3>
 
           <div className="flex flex-col gap-6">
@@ -72,18 +73,28 @@ const LoginForm = () => {
           </div>
 
           <Button type="submit">
-            {form.formState.isSubmitting ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
+            {form.formState.isLoading ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
           </Button>
 
-          <h5 className="text-16">
-            Esli net akkaunta,
-            <Link
-              onClick={() => setLoginActive(false)}
-              className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
-              to="/instruction">
-              zaregistriruýsýa.
-            </Link>
-          </h5>
+          <div className="">
+            <motion.h3
+              initial={{ height: 0 }}
+              animate={loginError ? { height: 20 } : {}}
+              transition={{ delay: 0.2, duration: 0.1 }}
+              className="text-ERROR text-[14px] font-medium leading-[130%]">
+              {loginError}
+            </motion.h3>
+
+            <h5 className="text-16 transition-all">
+              Esli net akkaunta,
+              <Link
+                onClick={() => setLoginActive(false)}
+                className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
+                to="/instruction">
+                zaregistriruýsýa.
+              </Link>
+            </h5>
+          </div>
         </div>
       </form>
     </Form>

@@ -15,10 +15,10 @@ interface Props {
 const User = ({ active, setActive, className }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const name = useAuthStore().name;
-  const clearAuthData = useAuthStore().clearAuthData;
+  const clearAuthData = useAuthStore((state) => state.clearAuthData);
 
   const token = useAuthStore().accessToken;
+  const name = useAuthStore().name;
 
   return (
     <div

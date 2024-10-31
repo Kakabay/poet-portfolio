@@ -1,5 +1,7 @@
 import { useAuthStore } from '@/store/useAuthStore';
-import axios from './axios.config';
+import axios from '@/services/axios.config';
+import { UserCommentsType } from './types/get-comments.type';
+import { useLoginStore } from '@/store/useLogin';
 
 interface User {
   id: number;
@@ -26,13 +28,10 @@ interface LoginBody {
   password: string;
 }
 
-interface RefreshBody {
-  token: string;
-}
-
 class PoetService {
   private URL = 'http://216.250.8.93:7777/app/api/';
   private authStore = useAuthStore;
+  private loginStore = useLoginStore;
 
   postUser = async (body: RegisterBody) => {
     const userData = await axios.post<UserData>(`${this.URL}signup`, body, {
@@ -49,39 +48,41 @@ class PoetService {
   };
 
   loginUser = async (body: LoginBody) => {
-    const userData = await axios.post<UserData>(`${this.URL}login`, body, {
+    const setLoginError = this.loginStore.getState().setLoginError;
+
+    try {
+      const response = await axios.post<UserData>(`${this.URL}login`, body, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.error) {
+        setLoginError(response.data.error); // Ошибка от сервера
+      } else if (response.data.token) {
+        this.authStore.getState().setAuthData(response.data.user.first_name, response.data.token);
+      }
+
+      return response;
+    } catch (error) {
+      setLoginError('Ошибка входа, попробуйте снова.');
+      console.error('Ошибка в loginUser:', error);
+      throw error;
+    }
+  };
+
+  refreshToken = async (token: string | null) => {
+    const { data } = await axios.post(`${this.URL}refresh`, token, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
 
-    if (userData.data.token) {
-      this.authStore.getState().setAuthData(userData.data.user.first_name, userData.data.token);
-    }
-
-    return userData;
-  };
-
-  refreshToken = async () => {
-    const refreshToken = this.authStore.getState().refreshToken;
-
-    if (!refreshToken) throw new Error('No refresh token available');
-
-    const response = await axios.post<UserData>(`${this.URL}refresh`, {
-      token: refreshToken,
-    });
-
-    const { token } = response.data;
-
-    if (token) {
-      this.authStore.getState().setAuthData(null, token);
-    }
-
-    return token;
+    return data;
   };
 
   postComment = async (body: { comment_text: string }) => {
-    const token = sessionStorage.getItem('accessToken');
+    const token = useAuthStore().accessToken;
 
     return await axios.post(`${this.URL}comments`, body, {
       headers: {
@@ -93,36 +94,17 @@ class PoetService {
 
   // GET
 
-  getComments = async () => {
-    const token = sessionStorage.getItem('accessToken');
-
-    const { data } = await axios.get(`${this.URL}comments`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return data;
-  };
-
   getUserComments = async () => {
-    const token = this.authStore().accessToken;
+    const token = this.authStore((state) => state.accessToken);
 
     if (!token) throw new Error('No access token available');
 
-    try {
-      const { data } = await axios.get(`${this.URL}comments`, {
-        headers: {
-          'Content-Type': 'raw',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      return data;
-    } catch (error) {
-      console.error('Error fetching user comments:', error);
-      throw error;
-    }
+    return await axios.get<UserCommentsType>(`${this.URL}comments`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 }
 

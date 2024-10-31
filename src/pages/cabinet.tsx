@@ -1,25 +1,24 @@
-import PageLayout from "@/components/layout/page-layout";
-import CommentCard from "@/components/shared/comment-card";
-import NotificationCard from "@/components/shared/notification-card";
-import PoemsItem from "@/components/shared/poems-item";
-import Tabs from "@/components/shared/tabs";
-import { cn, scrollTop } from "@/lib/utils";
-import poetService from "@/services/poet.service";
-import { useCommentsStore } from "@/store/useComments";
-import { usePoemsStore } from "@/store/usePoems";
-import { useState } from "react";
+import PageLayout from '@/components/layout/page-layout';
+import CommentCard from '@/components/shared/comment-card';
+import PoemsItem from '@/components/shared/poems-item';
+import Tabs from '@/components/shared/tabs';
+import { cn, scrollTop } from '@/lib/utils';
+import { useGetUserComments } from '@/query/use-get-user-comments';
+import { useAuthStore } from '@/store/useAuthStore';
+import { usePoemsStore } from '@/store/usePoems';
+import { useState } from 'react';
 
 const cabinetTabs = [
   {
-    view: "Moi zakladki",
+    view: 'Moi zakladki',
     id: 0,
   },
   {
-    view: "Moi kommentarii",
+    view: 'Moi kommentarii',
     id: 1,
   },
   {
-    view: "Uwedomleniýa",
+    view: 'Uwedomleniýa',
     id: 2,
   },
 ];
@@ -31,11 +30,11 @@ const Cabinet = () => {
 
   const favorites = usePoemsStore().favorites;
 
-  const name = sessionStorage.getItem("name");
+  const name = useAuthStore((state) => state.name);
 
-  const setComments = useCommentsStore().setComments;
+  const { data: userComments } = useGetUserComments();
 
-  const comments = poetService.getUsetComment();
+  console.log(userComments);
 
   return (
     <PageLayout title={`Salam ${name}!`} className="gap-12">
@@ -43,28 +42,23 @@ const Cabinet = () => {
 
       <div
         className={cn(
-          "",
+          '',
           active === 0
-            ? "grid md:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center"
-            : "flex flex-col items-center gap-6"
-        )}
-      >
-        {favorites.map((item, i) =>
-          active === 0 ? (
-            <PoemsItem active {...item} key={item.id} id={item.id} />
-          ) : active === 1 ? (
+            ? 'grid md:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center'
+            : 'flex flex-col items-center gap-6',
+        )}>
+        {active === 0 &&
+          favorites.map((item, i) => <PoemsItem active {...item} key={item.id} id={item.id} />)}
+
+        {active === 1 &&
+          userComments?.comments.map((item, i) => (
             <CommentCard
               key={i}
-              name={"Batyr"}
-              date={"09.10.2024"}
-              text={
-                "Hawa, bu hakykatdanam, şeýle. Meşhur çaga lukmany, lukmançylyk ylymlarynyň doktory, zehinli, özboluşly şahyr Ezizgeldi Helleňowy halypalyga ýetişen şahyr diýip atlandyrsak, öte geçdigimiz bolmaz. Çünki, şeýle diýmäge bize onuň soňky ýyllarda ýazan goşgulary esas döredýär."
-              }
+              name={item.id.toString()}
+              date={'09.10.2024'}
+              text={item.comment_text}
             />
-          ) : (
-            <NotificationCard key={i} />
-          )
-        )}
+          ))}
       </div>
     </PageLayout>
   );

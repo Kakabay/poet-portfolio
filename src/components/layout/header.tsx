@@ -136,7 +136,7 @@ const Header = () => {
 
   const setMode = usePopupStore().setMode;
 
-  const token = sessionStorage.getItem('accessToken');
+  const token = useAuthStore((state) => state.accessToken);
 
   return (
     <>

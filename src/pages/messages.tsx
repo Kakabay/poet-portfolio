@@ -89,7 +89,9 @@ const Messages = () => {
   const totalItems = 9;
   const displayedData = data.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  const accessToken = useAuthStore().accessToken;
+  const accessToken = useAuthStore((state) => state.accessToken);
+
+  console.log(accessToken);
 
   const onComment = () => {
     if (desktop && accessToken) {
@@ -104,10 +106,6 @@ const Messages = () => {
       setLoginMob(true);
     }
   };
-
-  const comments = poetService.getUserComments();
-
-  console.log(comments);
 
   return (
     <>
