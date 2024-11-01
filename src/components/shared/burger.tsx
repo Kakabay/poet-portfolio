@@ -7,6 +7,7 @@ import { usePopupStore } from '@/store/usePopup';
 import { useLoginStore } from '@/store/useLogin';
 import User from './user';
 import { useState } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface Props {
   setBurger: (val: boolean) => void;
@@ -16,7 +17,7 @@ const Burger = ({ setBurger }: Props) => {
   const setMode = usePopupStore().setMode;
   const setMobActive = useLoginStore().setMobActive;
 
-  const token = sessionStorage.getItem('accessToken');
+  const token = useAuthStore((state) => state.accessToken);
 
   const [openUser, setOpenUser] = useState(false);
 

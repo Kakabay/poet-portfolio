@@ -1,21 +1,13 @@
 import { Link } from 'react-router-dom';
 import BgTexture from '../shared/bg-texture';
 import { cn } from '@/lib/utils';
-import LoginWindow from '../shared/login';
 import { useLoginStore } from '@/store/useLogin';
-import WindowPopup from '../shared/window-popup';
-import { useContactsStore } from '@/store/useContacts';
-import { AnimatePresence } from 'framer-motion';
-import { usePopupStore } from '@/store/usePopup';
 import { useState } from 'react';
-import Burger from '../shared/burger';
 import EnterBtn from '../shared/enter-btn';
-import MedBurger from '../shared/med-burger';
-import LoginWindowMob from '../shared/login-window-mob';
 import User from '../shared/user';
 import { useAuthStore } from '@/store/useAuthStore';
-import Login from '../shared/login';
 import Popups from '../shared/popups';
+import { usePopupStore } from '@/store/usePopup';
 
 export const navData = [
   {
@@ -148,7 +140,7 @@ const Header = () => {
       />
 
       <header className="pt-4 xl:pt-6 flex flex-col gap-4">
-        <div className="xl:hidden relative p-4 md:px-6 container h-20 w-[328px] md:w-[768px] shadow-bottom">
+        <div className="xl:hidden relative z-50 p-4 md:px-6 container h-20 w-[328px] md:w-[768px] shadow-bottom">
           <BgTexture className="bg-[url('/images/header-mob-shape.svg')] md:bg-[url('/images/header-med-shape.svg')] header-mob-path md:header-med-path" />
 
           <div className="flex leading-[120%] justify-between items-center">

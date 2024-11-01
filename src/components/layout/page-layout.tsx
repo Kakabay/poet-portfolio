@@ -16,7 +16,7 @@ const PageLayout = ({ className, title, children, text, audio, star = '' }: Prop
   const [active, setActive] = useState(false);
 
   return (
-    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative')}>
+    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30')}>
       <div className="container">
         <div className="flex justify-center items-start gap-4">
           <h1 className="h1 kaushan text-center xl:mb-12 mb-6">{title}</h1>

@@ -17,6 +17,7 @@ import Synlar from './pages/synlar';
 import Cabinet from './pages/cabinet';
 import MomentsSingle from './pages/moments-single';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ProtectedRoute from './pages/protected-route';
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'cabinet',
-        element: <Cabinet />,
+        element: (
+          <ProtectedRoute>
+            <Cabinet />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

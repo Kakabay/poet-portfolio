@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useOnClickOutside } from 'usehooks-ts';
 
 interface Props {
   active: boolean;
@@ -14,6 +15,8 @@ interface Props {
 
 const User = ({ active, setActive, className }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(ref, () => setActive(false));
 
   const clearAuthData = useAuthStore((state) => state.clearAuthData);
 
@@ -28,7 +31,7 @@ const User = ({ active, setActive, className }: Props) => {
         'relative z-[100] text-[14px] font-medium min-w-[60px] overflow-visible',
       )}>
       <div
-        onClick={() => setActive(!active)}
+        onClick={() => setActive(true)}
         className="px-4 h-10 items-center gap-4 text-PRIM cursor-pointer flex justify-between border border-OUTLINE rounded-[4px]">
         <h4>{token && name}</h4>
         <ChevronUp size={16} className={cn(active && 'rotate-180', 'transition-all')} />
@@ -41,7 +44,7 @@ const User = ({ active, setActive, className }: Props) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="bg-[#ECE1D4] rounded-[4px] text-left absolute top-10 left-0 w-full flex flex-col items-start">
+            className="bg-[#ECE1D4] rounded-[4px] !drop-shadow-none pointer-events-auto text-left absolute top-10 left-0 w-full flex flex-col items-start">
             <Link to="/cabinet" onClick={() => setActive(false)} className="py-2 px-6">
               Kabinet
             </Link>

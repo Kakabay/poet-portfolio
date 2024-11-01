@@ -21,6 +21,12 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
   const contactsSucces = useContactsStore().success;
   const contactsSetSucces = useContactsStore().setSuccess;
 
+  const registerSuccess = useAuthStore().registerSuccess;
+  const setRegisterSuccess = useAuthStore().setRegisterSuccess;
+
+  const loginSuccess = useLoginStore().loginSuccess;
+  const setLoginSuccess = useLoginStore().setLoginSuccess;
+
   const loginActive = useLoginStore().active;
   const mobActive = useLoginStore().mobActive;
 
@@ -42,6 +48,22 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
             title={'Data was sended!'}
             text="Спасибо за доверие!"
             setActive={contactsSetSucces}
+          />
+        )}
+
+        {registerSuccess && (
+          <PopupMessage
+            title={'Data was sended!'}
+            text="Спасибо за доверие!"
+            setActive={setRegisterSuccess}
+          />
+        )}
+
+        {loginSuccess && (
+          <PopupMessage
+            title={'Вы успешно вошли!'}
+            text="Спасибо за доверие!"
+            setActive={setLoginSuccess}
           />
         )}
       </AnimatePresence>

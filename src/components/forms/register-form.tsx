@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import { usePopupStore } from '@/store/usePopup';
 import CustomField from '../shared/custom-field';
 import LoadingDots from '../shared/loading-dots';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -31,7 +30,6 @@ type FormType = z.infer<typeof signUpSchema>;
 
 const RegisterForm = () => {
   const [step, setStep] = useState(1);
-  const setMode = usePopupStore().setMode;
   const setRegisterSuccess = useAuthStore().setRegisterSuccess;
 
   const form = useForm({
@@ -54,10 +52,9 @@ const RegisterForm = () => {
 
     try {
       await poetService.postUser(body);
-      setMode('tost');
-      setRegisterSuccess(true);
 
-      form.reset();
+      setRegisterSuccess(true);
+      // form.reset();
     } catch (e) {
       console.log(e);
     }
@@ -81,7 +78,7 @@ const RegisterForm = () => {
 
   const accessToken = useAuthStore().accessToken;
 
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, errors } = form.formState;
 
   useEffect(() => {
     if (!accessToken) setStep(1);
@@ -118,7 +115,7 @@ const RegisterForm = () => {
             control={form.control}
             placeholder="Подсказка"
             type="text"
-            error={form.formState.errors.email}
+            error={errors.email}
             name="email"
             className="mb-8"
           />
@@ -156,7 +153,7 @@ const RegisterForm = () => {
             control={form.control}
             placeholder="Подсказка"
             type="text"
-            error={form.formState.errors.first_name}
+            error={errors.first_name}
             name="first_name"
             className="mb-8"
           />
@@ -192,7 +189,7 @@ const RegisterForm = () => {
               control={form.control}
               placeholder="Подсказка"
               type="text"
-              error={form.formState.errors.password}
+              error={errors.password}
               name="password"
             />
           </div>
@@ -205,18 +202,12 @@ const RegisterForm = () => {
               control={form.control}
               placeholder="Подсказка"
               type="text"
-              error={form.formState.errors.password_confirmation}
+              error={errors.password_confirmation}
               name="password_confirmation"
             />
 
-            <Button
-              type="submit"
-              onClick={() => {
-                setMode('tost');
-              }}
-              disabled={step !== 3}
-              className="w-full">
-              {isSubmitting ? <LoadingDots /> : 'Dalee'}
+            <Button type="submit" disabled={step !== 3 || isSubmitting} className="w-full">
+              {isSubmitting ? <LoadingDots /> : 'Register'}
             </Button>
           </div>
         </div>

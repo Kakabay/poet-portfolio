@@ -8,11 +8,10 @@ import CustomField from '../shared/custom-field';
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 import LoadingDots from '../shared/loading-dots';
-import { delay, motion } from 'framer-motion';
 
 const formsSchema = z.object({
   login: z.string().email(),
-  password: z.string(),
+  password: z.string().min(8),
 });
 
 type FormTypes = z.infer<typeof formsSchema>;
@@ -31,7 +30,9 @@ const LoginForm = () => {
   const loginError = useLoginStore().loginError;
   const setLoginError = useLoginStore().setLoginError;
 
-  console.log(loginError);
+  const setLoginSuccess = useLoginStore().setLoginSuccess;
+
+  const { isSubmitting, errors } = form.formState;
 
   const onSubmit = async (data: FormTypes) => {
     const body = {
@@ -40,18 +41,19 @@ const LoginForm = () => {
     };
 
     try {
-      poetService.loginUser(body);
+      await poetService.loginUser(body);
 
-      setLoginError('');
+      setLoginSuccess(true);
     } catch (e) {
       console.error(e);
+      setLoginError('Неверный пароль');
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-6 relative">
+        <div className="flex flex-col gap-8 relative">
           <h3 className="text-center font-semibold">Woýti</h3>
 
           <div className="flex flex-col gap-6">
@@ -60,7 +62,7 @@ const LoginForm = () => {
               name={'login'}
               label={'Login'}
               placeholder={'Подсказка'}
-              error={form.formState.errors.login}
+              error={errors.login}
             />
             <CustomField
               type="password"
@@ -68,33 +70,27 @@ const LoginForm = () => {
               name={'password'}
               label={'Parol'}
               placeholder={'Wwedite swoý parol'}
-              error={form.formState.errors.password}
+              error={errors.password}
             />
           </div>
 
-          <Button type="submit">
-            {form.formState.isLoading ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
           </Button>
 
-          <div className="">
-            <motion.h3
-              initial={{ height: 0 }}
-              animate={loginError ? { height: 20 } : {}}
-              transition={{ delay: 0.2, duration: 0.1 }}
-              className="text-ERROR text-[14px] font-medium leading-[130%]">
-              {loginError}
-            </motion.h3>
+          {loginError && (
+            <h5 className="absolute bottom-5 text-ERROR text-[14px] font-medium">{loginError}</h5>
+          )}
 
-            <h5 className="text-16 transition-all">
-              Esli net akkaunta,
-              <Link
-                onClick={() => setLoginActive(false)}
-                className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
-                to="/instruction">
-                zaregistriruýsýa.
-              </Link>
-            </h5>
-          </div>
+          <h5 className="text-16 transition-all">
+            Esli net akkaunta,
+            <Link
+              onClick={() => setLoginActive(false)}
+              className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
+              to="/instruction">
+              zaregistriruýsýa.
+            </Link>
+          </h5>
         </div>
       </form>
     </Form>

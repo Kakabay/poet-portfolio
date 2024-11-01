@@ -1,7 +1,6 @@
-import { useAuthStore } from "@/store/useAuthStore";
-import axios from "@/services/axios.config";
-import { UserCommentsType } from "./types/get-comments.type";
-import { useLoginStore } from "@/store/useLogin";
+import { useAuthStore } from '@/store/useAuthStore';
+import axios from '@/services/axios.config';
+import { UserCommentsType } from './types/get-comments.type';
 
 interface User {
   id: number;
@@ -29,56 +28,40 @@ interface LoginBody {
 }
 
 class PoetService {
-  private URL = "http://216.250.8.93:7777/app/api/";
+  private URL = 'http://216.250.8.93:7777/app/api/';
   private authStore = useAuthStore;
-  private loginStore = useLoginStore;
 
   postUser = async (body: RegisterBody) => {
-    const userData = await axios.post<UserData>(`${this.URL}signup`, body, {
+    const { data } = await axios.post<UserData>(`${this.URL}signup`, body, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
 
-    if (userData.data.token) {
-      this.authStore
-        .getState()
-        .setAuthData(userData.data.user.first_name, userData.data.token);
+    if (data.token) {
+      this.authStore.getState().setAuthData(data.user.first_name, data.token);
     }
-
-    return userData;
+    return data;
   };
 
   loginUser = async (body: LoginBody) => {
-    const setLoginError = this.loginStore.getState().setLoginError;
+    const { data } = await axios.post<UserData>(`${this.URL}login`, body, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
-    try {
-      const response = await axios.post<UserData>(`${this.URL}login`, body, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (response.data.error) {
-        setLoginError(response.data.error); // Ошибка от сервера
-      } else if (response.data.token) {
-        this.authStore
-          .getState()
-          .setAuthData(response.data.user.first_name, response.data.token);
-      }
-
-      return response;
-    } catch (error) {
-      setLoginError("Ошибка входа, попробуйте снова.");
-      console.error("Ошибка в loginUser:", error);
-      throw error;
+    if (data.token) {
+      this.authStore.getState().setAuthData(data.user.first_name, data.token);
     }
+
+    return data;
   };
 
   refreshToken = async (token: string | null) => {
     const { data } = await axios.post(`${this.URL}refresh`, token, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
 
@@ -90,7 +73,7 @@ class PoetService {
 
     return await axios.post(`${this.URL}comments`, body, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     });
@@ -99,12 +82,14 @@ class PoetService {
   postPoem = async (body: { poem_id: string }) => {
     const token = this.authStore.getState().accessToken;
 
-    return await axios.post(`${this.URL}pin`, body, {
+    const { data } = await axios.post(`${this.URL}pin`, body, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     });
+
+    return data;
   };
 
   // GET
@@ -112,14 +97,27 @@ class PoetService {
   getUserComments = async () => {
     const token = this.authStore.getState().accessToken;
 
-    if (!token) throw new Error("No access token available");
+    if (!token) throw new Error('No access token available');
 
     return await axios.get<UserCommentsType>(`${this.URL}comments`, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     });
+  };
+
+  getPinPoems = async () => {
+    const token = this.authStore.getState().accessToken;
+
+    const { data } = await axios.get(`${this.URL}pinned`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
   };
 }
 
