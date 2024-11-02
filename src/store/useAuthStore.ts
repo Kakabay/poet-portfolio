@@ -4,6 +4,7 @@ interface AuthState {
   name: string | null;
   accessToken: string | null;
 
+  setAccessToken: (token: string | null) => void;
   registerSuccess: boolean;
   setRegisterSuccess: (val: boolean) => void;
 
@@ -14,6 +15,8 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   name: localStorage.getItem('name') || null,
   accessToken: localStorage.getItem('accessToken') || null,
+
+  setAccessToken: (token) => set({ accessToken: token }),
 
   registerSuccess: false,
   setRegisterSuccess: (val) => set({ registerSuccess: val }),
@@ -28,7 +31,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   clearAuthData: () => {
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
     localStorage.removeItem('name');
     set({ name: null, accessToken: null });
   },

@@ -50,15 +50,7 @@ const Cabinet = () => {
         {active === 0 &&
           favorites.map((item, i) => <PoemsItem active {...item} key={item.id} id={item.id} />)}
 
-        {active === 1 &&
-          userComments?.comments.map((item, i) => (
-            <CommentCard
-              key={i}
-              name={item.id.toString()}
-              date={'09.10.2024'}
-              text={item.comment_text}
-            />
-          ))}
+        {active === 1 && userComments?.comments.map((item, i) => <CommentCard key={i} {...item} />)}
       </div>
     </PageLayout>
   );
