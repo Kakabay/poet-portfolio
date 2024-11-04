@@ -1,7 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
 import { useContactsStore } from '@/store/useContacts';
-import { usePopupStore } from '@/store/usePopup';
 import { useLoginStore } from '@/store/useLogin';
 import { useAuthStore } from '@/store/useAuthStore';
 import Login from './login';

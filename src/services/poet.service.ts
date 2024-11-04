@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/store/useAuthStore';
 import axios from 'axios';
-import { UserCommentsType } from './types/get-comments.type';
+import { PageCommentsType, UserCommentsType } from './types/get-comments.type';
 
 interface User {
   id: number;
@@ -28,7 +28,9 @@ interface LoginBody {
 }
 
 class PoetService {
-  private URL = 'http://216.250.8.93:7777/app/api/';
+  private URl = 'http://216.250.8.93:7777/app/api/v1/';
+  private URL_TOKEN = 'http://216.250.8.93:7777/app/api/';
+
   private authStore = useAuthStore;
 
   constructor() {
@@ -55,7 +57,7 @@ class PoetService {
   }
 
   postUser = async (body: RegisterBody) => {
-    const { data } = await axios.post<UserData>(`${this.URL}signup`, body, {
+    const { data } = await axios.post<UserData>(`${this.URL_TOKEN}signup`, body, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -68,7 +70,7 @@ class PoetService {
   };
 
   loginUser = async (body: LoginBody) => {
-    const { data } = await axios.post<UserData>(`${this.URL}login`, body, {
+    const { data } = await axios.post<UserData>(`${this.URL_TOKEN}login`, body, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -86,7 +88,7 @@ class PoetService {
     if (!token) throw new Error('Нет токена для обновления');
 
     const { data } = await axios.post(
-      `${this.URL}refresh`,
+      `${this.URL_TOKEN}refresh`,
       { token },
       {
         headers: {
@@ -101,7 +103,7 @@ class PoetService {
   postComment = async (body: { comment_text: string }) => {
     const token = this.authStore.getState().accessToken;
 
-    return await axios.post(`${this.URL}comments`, body, {
+    return await axios.post(`${this.URL_TOKEN}comments`, body, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
@@ -112,7 +114,7 @@ class PoetService {
   postPoem = async (body: { poem_id: string }) => {
     const token = this.authStore.getState().accessToken;
 
-    const { data } = await axios.post(`${this.URL}pin`, body, {
+    const { data } = await axios.post(`${this.URL_TOKEN}pin`, body, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
@@ -125,33 +127,63 @@ class PoetService {
   // GET
 
   getComments = async () => {
-    const { data } = await axios.get<UserCommentsType>(`${this.URL}comments`);
+    const { data } = await axios.get<PageCommentsType>(`${this.URl}comments`);
 
-    return data.comments;
+    return data.data;
   };
 
   getUserComments = async () => {
     const token = this.authStore.getState().accessToken;
 
-    if (!token) throw new Error('No access token available');
-
-    return await axios.get<UserCommentsType>(`${this.URL}comments`, {
+    const { data } = await axios.get<UserCommentsType>(`${this.URL_TOKEN}comments`, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     });
+
+    return data.comments;
   };
 
   getPinPoems = async () => {
     const token = this.authStore.getState().accessToken;
 
-    const { data } = await axios.get(`${this.URL}pinned`, {
+    const { data } = await axios.get(`${this.URL_TOKEN}pinned`, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     });
+
+    return data;
+  };
+
+  getReviews = async () => {
+    const { data } = await axios.get(`${this.URl}reviews`);
+
+    return data;
+  };
+
+  getAbout = async () => {
+    const { data } = await axios.get(`${this.URl}about_me`);
+
+    return data;
+  };
+
+  getBooks = async () => {
+    const { data } = await axios.get(`${this.URl}books`);
+
+    return data;
+  };
+
+  getMoments = async () => {
+    const { data } = await axios.get(`${this.URl}moments`);
+
+    return data;
+  };
+
+  getPoems = async () => {
+    const { data } = await axios.get(`${this.URl}poems`);
 
     return data;
   };

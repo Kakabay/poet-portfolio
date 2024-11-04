@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
-import BgTexture from './bg-texture';
 import { usePoemsStore } from '@/store/usePoems';
 import { ToastAction } from '../ui/toast';
-import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
+import { BgTexture } from './bg-texture';
 
 interface Props {
   id: number;
@@ -18,11 +17,28 @@ export interface PoemType {
 }
 
 const PoemsItem = ({ id, name, active = false }: Props) => {
+  const token = useAuthStore().accessToken;
   const setFavorites = usePoemsStore().setFavorites;
 
-  const token = useAuthStore().accessToken;
+  const onFavorite = async () => {
+    const { toast } = await import('@/hooks/use-toast');
 
-  const { toast } = useToast();
+    setFavorites({ id, name });
+
+    toast({
+      title: 'Wy dobawili stih',
+      action: (
+        <ToastAction
+          onClick={() => {
+            setFavorites({ id, name });
+          }}
+          altText="message">
+          Otmenit
+        </ToastAction>
+      ),
+      duration: 3000,
+    });
+  };
 
   return (
     <motion.div className="xl:w-[458px] md:w-[372px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
@@ -41,25 +57,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button
-            onClick={() => {
-              setFavorites({ id, name });
-
-              toast({
-                title: 'Wy dobawili stih',
-                action: (
-                  <ToastAction
-                    onClick={() => {
-                      setFavorites({ id, name });
-                    }}
-                    altText="message">
-                    Otmenit
-                  </ToastAction>
-                ),
-                duration: 3000,
-              });
-            }}
-            className="w-5">
+          <button onClick={onFavorite} className="w-5">
             <img
               src={active ? '/images/star-fill.svg' : '/images/star.svg'}
               className="mr-1 size-5"

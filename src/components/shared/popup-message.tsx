@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
-import BgTexture from './bg-texture';
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useOnClickOutside } from 'usehooks-ts';
 import { Button } from '../ui/button';
+import { BgTexture } from './bg-texture';
 
 interface Props {
   className?: string;

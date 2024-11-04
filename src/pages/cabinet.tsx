@@ -32,9 +32,7 @@ const Cabinet = () => {
 
   const name = useAuthStore((state) => state.name);
 
-  const { data: userComments } = useGetUserComments();
-
-  console.log(userComments);
+  const { data } = useGetUserComments();
 
   return (
     <PageLayout title={`Salam ${name}!`} className="gap-12">
@@ -48,9 +46,9 @@ const Cabinet = () => {
             : 'flex flex-col items-center gap-6',
         )}>
         {active === 0 &&
-          favorites.map((item, i) => <PoemsItem active {...item} key={item.id} id={item.id} />)}
+          favorites.map((item, i) => <PoemsItem key={i} active {...item} id={item.id} />)}
 
-        {active === 1 && userComments?.comments.map((item, i) => <CommentCard key={i} {...item} />)}
+        {active === 1 && data?.map((item, i) => <CommentCard key={i} {...item} />)}
       </div>
     </PageLayout>
   );

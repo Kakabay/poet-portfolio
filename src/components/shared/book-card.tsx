@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import BgTexture from "./bg-texture";
-import DownloadLink from "./download-link";
-import { useState } from "react";
+import { cn } from '@/lib/utils';
+import DownloadLink from './download-link';
+import { useState } from 'react';
+import { BgTexture } from './bg-texture';
 
 type Props = {
   name: string;
@@ -10,7 +10,7 @@ type Props = {
   id: number;
 };
 
-const BookCard = ({ name, text, id, link = "" }: Props) => {
+export const BookCard = ({ name, text, id, link = '' }: Props) => {
   const [expanded, setExpanded] = useState<number[]>([]);
 
   const onExpand = () => {
@@ -31,18 +31,17 @@ const BookCard = ({ name, text, id, link = "" }: Props) => {
   return (
     <article
       className={cn(
-        "md:py-12 py-3 px-4 md:pl-6 md:pr-6 xl:w-[756px] md:w-[767px] md:h-[354px] w-[328px] xl:h-[349px] overflow-hidden group relative md:after:book-med-path xl:after:book-path shadow-bottom book-hover ",
+        'md:py-12 py-3 px-4 md:pl-6 md:pr-6 xl:w-[756px] md:w-[767px] md:h-[354px] w-[328px] xl:h-[349px] overflow-hidden group relative md:after:book-med-path xl:after:book-path shadow-bottom book-hover ',
         findId()
-          ? "h-[296px] after:book-expanded-path after:transition-none"
-          : "h-[226px] after:book-mob-path"
-      )}
-    >
+          ? 'h-[296px] after:book-expanded-path after:transition-none'
+          : 'h-[226px] after:book-mob-path',
+      )}>
       <BgTexture
         className={cn(
           'xl:bg-[url("/images/books/book-shape.svg")] md:bg-[url("/images/books/book-med-shape.svg")] bg-[url("/images/books/book-mob-shape.svg")] md:book-med-path xl:book-path',
           findId()
             ? 'bg-[url("/images/books/book-expanded-shape.svg")] book-expanded-path'
-            : 'bg-[url("/images/books/book-mob-shape.svg")] book-mob-path'
+            : 'bg-[url("/images/books/book-mob-shape.svg")] book-mob-path',
         )}
       />
       <div className="flex items-center md:items-stretch md:gap-6 gap-2">
@@ -53,19 +52,17 @@ const BookCard = ({ name, text, id, link = "" }: Props) => {
             </h4>
             <div
               className={cn(
-                "md:text-[14px] text-[12px] -tracking-[0.3px] text-ON_SURFACE_VAR font-medium italic leading-[140%] md:line-clamp-none ",
-                !findId() && "line-clamp-2"
-              )}
-            >
+                'md:text-[14px] text-[12px] -tracking-[0.3px] text-ON_SURFACE_VAR font-medium italic leading-[140%] md:line-clamp-none ',
+                !findId() && 'line-clamp-2',
+              )}>
               {text}
             </div>
             <button
               onClick={onExpand}
               className={cn(
-                "md:hidden block text-TERTIARY text-[12px] font-medium leading-[140%]"
-              )}
-            >
-              {findId() ? "pokazat menshe..." : "pokazat bolshe"}
+                'md:hidden block text-TERTIARY text-[12px] font-medium leading-[140%]',
+              )}>
+              {findId() ? 'pokazat menshe...' : 'pokazat bolshe'}
             </button>
           </div>
           <DownloadLink className="hidden md:flex" link={link} />
@@ -85,5 +82,3 @@ const BookCard = ({ name, text, id, link = "" }: Props) => {
     </article>
   );
 };
-
-export default BookCard;

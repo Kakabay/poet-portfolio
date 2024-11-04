@@ -1,12 +1,12 @@
 import { X } from 'lucide-react';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import BgTexture from './bg-texture';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { usePopupStore } from '@/store/usePopup';
 import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
+import { BgTexture } from './bg-texture';
 
 interface Props {
   setActive: (val: boolean) => void;

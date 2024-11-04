@@ -86,11 +86,9 @@ const Messages = () => {
     setCurrentPage(page);
   };
 
-  const displayedData = data?.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const displayedData = data ? data.slice((currentPage - 1) * perPage, currentPage * perPage) : [];
 
   const accessToken = useAuthStore((state) => state.accessToken);
-
-  console.log(accessToken);
 
   const onComment = () => {
     if (desktop && accessToken) {
@@ -105,6 +103,8 @@ const Messages = () => {
       setLoginMob(true);
     }
   };
+
+  console.log(data);
 
   return (
     <>
@@ -121,22 +121,22 @@ const Messages = () => {
         <div className="">
           <div className="mx-auto w-[892px] flex flex-col gap-6">
             {displayedData?.map((item, i) => (
-              <CommentCard key={i} {...item} />
+              <CommentCard key={i} comment={item.comment_text} id={item.id} />
             ))}
           </div>
 
-          {data && (
+          {data && data?.length > 10 && (
             <Pagination
               perPage={perPage}
               currentPage={currentPage}
               totalPages={data?.length || 0}
               onChangePage={handlePageChange}
-              className="mt-8 mb-16"
+              className="mt-8"
             />
           )}
 
           <div className="flex justify-center">
-            <Button onClick={onComment} className="px-6">
+            <Button onClick={onComment} className="px-6 mt-16">
               Ostawit swoý kommentariý
             </Button>
           </div>

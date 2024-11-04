@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { usePopupStore } from '@/store/usePopup';
 import { cn } from '@/lib/utils';
-import BgTexture from './bg-texture';
+import { BgTexture } from './bg-texture';
 
 interface Props {
   setActive: (v: boolean) => void;

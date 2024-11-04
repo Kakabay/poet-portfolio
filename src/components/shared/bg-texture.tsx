@@ -5,7 +5,7 @@ type Props = {
   png?: boolean;
 };
 
-const BgTexture = ({ className, png }: Props) => {
+export const BgTexture = ({ className, png }: Props) => {
   return (
     <div
       className={cn(
@@ -21,5 +21,3 @@ const BgTexture = ({ className, png }: Props) => {
     </div>
   );
 };
-
-export default BgTexture;

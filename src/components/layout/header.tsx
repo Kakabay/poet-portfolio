@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import BgTexture from '../shared/bg-texture';
 import { cn } from '@/lib/utils';
 import { useLoginStore } from '@/store/useLogin';
 import { useState } from 'react';
@@ -8,6 +7,7 @@ import User from '../shared/user';
 import { useAuthStore } from '@/store/useAuthStore';
 import Popups from '../shared/popups';
 import { usePopupStore } from '@/store/usePopup';
+import { BgTexture } from '../shared';
 
 export const navData = [
   {

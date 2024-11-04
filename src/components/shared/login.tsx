@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useRef } from 'react';
 import LoginForm from '../forms/login-form';
-import BgTexture from './bg-texture';
 import { useLoginStore } from '@/store/useLogin';
 import { useOnClickOutside } from 'usehooks-ts';
 import { X } from 'lucide-react';
+import { BgTexture } from './bg-texture';
 
 const Login = () => {
   const ref = useRef<HTMLDivElement>(null);

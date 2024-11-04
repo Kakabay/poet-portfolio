@@ -1,4 +1,4 @@
-import BgTexture from "./bg-texture";
+import { BgTexture } from './bg-texture';
 
 const NotificationCard = () => {
   return (
@@ -15,8 +15,7 @@ const NotificationCard = () => {
 
           <div className="flex justify-between items-center">
             <p className="italic text-14 !leading-[140%]">
-              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye
-              perenosyat menya.
+              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye perenosyat menya.
             </p>
             <h6 className="text-[12px] font-medium leading-[130%] text-ON_SURFACE_VAR">
               01.09.2024 ý.
@@ -37,8 +36,7 @@ const NotificationCard = () => {
               01.09.2024 ý.
             </h6>
             <p className="italic text-14 !leading-[140%]">
-              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye
-              perenosyat menya.
+              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye perenosyat menya.
             </p>
           </div>
         </div>

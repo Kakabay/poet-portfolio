@@ -1,10 +1,10 @@
 import poetService from '@/services/poet.service';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetUserComments = () => {
+export const useGetPoems = () => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['userComments'],
-    queryFn: () => poetService.getUserComments(),
+    queryKey: ['poems'],
+    queryFn: () => poetService.getComments(),
     select: (data) => data,
   });
 
