@@ -1,4 +1,4 @@
-import BgTexture from "../shared/bg-texture";
+import { BgTexture } from "../shared";
 
 const Footer = () => {
   return (
