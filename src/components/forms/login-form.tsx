@@ -1,13 +1,13 @@
-import { z } from 'zod';
-import { Form } from '../ui/form';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import poetService from '@/services/poet.service';
-import { useLoginStore } from '@/store/useLogin';
-import CustomField from '../shared/custom-field';
-import { Button } from '../ui/button';
-import { Link } from 'react-router-dom';
-import LoadingDots from '../shared/loading-dots';
+import { z } from "zod";
+import { Form } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import poetService from "@/services/poet.service";
+import { useLoginStore } from "@/store/useLogin";
+import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
+import LoadingDots from "../shared/loading-dots";
+import { CustomField } from "../shared/custom-field";
 
 const formsSchema = z.object({
   login: z.string().email(),
@@ -20,8 +20,8 @@ const LoginForm = () => {
   const form = useForm({
     resolver: zodResolver(formsSchema),
     defaultValues: {
-      login: '',
-      password: '',
+      login: "",
+      password: "",
     },
   });
 
@@ -46,7 +46,7 @@ const LoginForm = () => {
       setLoginSuccess(true);
     } catch (e) {
       console.error(e);
-      setLoginError('Неверный пароль');
+      setLoginError("Неверный пароль");
     }
   };
 
@@ -59,27 +59,29 @@ const LoginForm = () => {
           <div className="flex flex-col gap-6">
             <CustomField
               control={form.control}
-              name={'login'}
-              label={'Login'}
-              placeholder={'Подсказка'}
+              name={"login"}
+              label={"Login"}
+              placeholder={"Подсказка"}
               error={errors.login}
             />
             <CustomField
               type="password"
               control={form.control}
-              name={'password'}
-              label={'Parol'}
-              placeholder={'Wwedite swoý parol'}
+              name={"password"}
+              label={"Parol"}
+              placeholder={"Wwedite swoý parol"}
               error={errors.password}
             />
           </div>
 
           <Button disabled={isSubmitting} type="submit">
-            {isSubmitting ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
+            {isSubmitting ? <LoadingDots /> : "Woýti w swoý akkaunt"}
           </Button>
 
           {loginError && (
-            <h5 className="absolute bottom-5 text-ERROR text-[14px] font-medium">{loginError}</h5>
+            <h5 className="absolute bottom-5 text-ERROR text-[14px] font-medium">
+              {loginError}
+            </h5>
           )}
 
           <h5 className="text-16 transition-all">
@@ -87,7 +89,8 @@ const LoginForm = () => {
             <Link
               onClick={() => setLoginActive(false)}
               className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
-              to="/instruction">
+              to="/instruction"
+            >
               zaregistriruýsýa.
             </Link>
           </h5>

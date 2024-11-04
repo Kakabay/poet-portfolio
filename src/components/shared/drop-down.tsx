@@ -19,7 +19,7 @@ const sortData = [
   },
 ];
 
-const DropDown = ({ className, sort, setSort }: Props) => {
+export const DropDown = ({ className, sort, setSort }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -88,5 +88,3 @@ const DropDown = ({ className, sort, setSort }: Props) => {
     </div>
   );
 };
-
-export default DropDown;

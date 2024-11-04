@@ -1,4 +1,3 @@
-import CustomField from "./custom-field";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { z } from "zod";
@@ -9,6 +8,7 @@ import { useLoginStore } from "@/store/useLogin";
 import { motion } from "framer-motion";
 import poetService from "@/services/poet.service";
 import { BackBtn } from "./back-btn";
+import { CustomField } from "./custom-field";
 
 const formsSchema = z.object({
   login: z.string().email(),

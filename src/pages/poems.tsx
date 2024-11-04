@@ -3,6 +3,7 @@ import Pagination from "@/components/shared/pagination";
 import PoemsItem from "@/components/shared/poems-item";
 import SortModal from "@/components/shared/sort-modal";
 import { cn, scrollTop } from "@/lib/utils";
+import { useGetPoems } from "@/query/use-get-poems";
 import { usePoemsStore } from "@/store/usePoems";
 import { useState } from "react";
 
@@ -140,22 +141,24 @@ const Poems = () => {
     view: "Snaçala nowye",
   });
 
+  const { data: poems } = useGetPoems();
+
   const perPage = 10;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const filterData = data.filter((item) =>
-    item.name.toLowerCase().includes(searchValue.toLowerCase())
+  const filterData = poems?.filter((item) =>
+    item.poem_name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const displayedData = filterData.slice(
+  const displayedData = filterData?.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
 
-  const sortData = [...displayedData].reverse();
+  const sortData = displayedData && [...displayedData].reverse();
 
   const favorites = usePoemsStore().favorites;
 
@@ -188,7 +191,7 @@ const Poems = () => {
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-8 gap-6 md:w-[768px] xl:w-[948px] mx-auto">
-          {getSortData().map((item, i) => (
+          {getSortData()?.map((item, i) => (
             <PoemsItem
               key={i}
               active={favorites.some((obj) => obj.id === item.id)}
@@ -197,11 +200,11 @@ const Poems = () => {
           ))}
         </div>
 
-        {filterData.length > 0 && (
+        {poems && poems.length > 10 && (
           <Pagination
             perPage={perPage}
             currentPage={currentPage}
-            totalPages={filterData.length}
+            totalPages={poems?.length || 1}
             onChangePage={handlePageChange}
           />
         )}

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import SectionLine from "./section-line";
-import BorderImg from "./border-img";
-import LineRombs from "./line-rombs";
+import { BorderImg } from "./border-img";
+import { LineRombs } from "./line-rombs";
 
 interface Props {
   title: string;
@@ -13,7 +13,7 @@ interface Props {
   rombs?: boolean;
 }
 
-const InfoBlock = ({
+export const InfoBlock = ({
   text,
   title,
   img,
@@ -49,5 +49,3 @@ const InfoBlock = ({
     </section>
   );
 };
-
-export default InfoBlock;

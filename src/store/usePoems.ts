@@ -1,6 +1,6 @@
-import { PoemType } from '@/components/shared/poems-item';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { PoemType } from "@/components/shared/poems-item";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface ActiveSort {
   id: string;
@@ -19,8 +19,8 @@ export const usePoemsStore = create<Props>()(
   persist(
     (set) => ({
       activeSort: {
-        id: 'new',
-        view: 'Snaçala nowye',
+        id: "new",
+        view: "Snaçala nowye",
       },
       favorites: [],
 
@@ -39,7 +39,7 @@ export const usePoemsStore = create<Props>()(
       },
     }),
     {
-      name: 'poems-store', // имя ключа в localStorage
-    },
-  ),
+      name: "poems-store", // имя ключа в localStorage
+    }
+  )
 );

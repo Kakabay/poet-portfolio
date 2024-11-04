@@ -1,43 +1,48 @@
-import { Link } from 'react-router-dom';
-import { usePoemsStore } from '@/store/usePoems';
-import { ToastAction } from '../ui/toast';
-import { motion } from 'framer-motion';
-import { useAuthStore } from '@/store/useAuthStore';
-import { BgTexture } from './bg-texture';
+import { Link } from "react-router-dom";
+import { usePoemsStore } from "@/store/usePoems";
+import { ToastAction } from "../ui/toast";
+import { motion } from "framer-motion";
+import { useAuthStore } from "@/store/useAuthStore";
+import { BgTexture } from "./bg-texture";
+import poetService from "@/services/poet.service";
 
 interface Props {
-  id: number;
-  name: string;
+  id: string;
+  poem_name: string;
   active?: boolean;
 }
 
 export interface PoemType {
-  id: number;
-  name: string;
+  id: string;
+  poem_name: string;
 }
 
-const PoemsItem = ({ id, name, active = false }: Props) => {
+const PoemsItem = ({ id, poem_name, active = false }: Props) => {
   const token = useAuthStore().accessToken;
   const setFavorites = usePoemsStore().setFavorites;
 
   const onFavorite = async () => {
-    const { toast } = await import('@/hooks/use-toast');
+    try {
+      const { toast } = await import("@/hooks/use-toast");
+      await poetService.postPoem({ poem_id: id });
 
-    setFavorites({ id, name });
-
-    toast({
-      title: 'Wy dobawili stih',
-      action: (
-        <ToastAction
-          onClick={() => {
-            setFavorites({ id, name });
-          }}
-          altText="message">
-          Otmenit
-        </ToastAction>
-      ),
-      duration: 3000,
-    });
+      toast({
+        title: "Wy dobawili stih",
+        action: (
+          <ToastAction
+            onClick={() => {
+              setFavorites({ id, poem_name });
+            }}
+            altText="message"
+          >
+            Otmenit
+          </ToastAction>
+        ),
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -45,11 +50,12 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] md:bg-[url('/images/poems/poem-med-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path md:poems-med-path xl:poem-path" />
       <Link
         to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
+      >
         <div className="flex items-center w-full">
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
-            <h4 className="kaushan mr-3">{name}</h4>
+            <h4 className="kaushan mr-3">{poem_name}</h4>
             <img src="/images/play.svg" alt="play" />
           </div>
         </div>
@@ -59,7 +65,7 @@ const PoemsItem = ({ id, name, active = false }: Props) => {
         {token && (
           <button onClick={onFavorite} className="w-5">
             <img
-              src={active ? '/images/star-fill.svg' : '/images/star.svg'}
+              src={active ? "/images/star-fill.svg" : "/images/star.svg"}
               className="mr-1 size-5"
             />
           </button>

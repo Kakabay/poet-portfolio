@@ -1,12 +1,12 @@
-import { AnimatePresence } from 'framer-motion';
-import { useContactsStore } from '@/store/useContacts';
-import { useLoginStore } from '@/store/useLogin';
-import { useAuthStore } from '@/store/useAuthStore';
-import Login from './login';
-import LoginWindowMob from './login-window-mob';
-import Burger from './burger';
-import MedBurger from './med-burger';
-import PopupMessage from './popup-message';
+import { AnimatePresence } from "framer-motion";
+import { useContactsStore } from "@/store/useContacts";
+import { useLoginStore } from "@/store/useLogin";
+import { useAuthStore } from "@/store/useAuthStore";
+import Login from "./login";
+import LoginWindowMob from "./login-window-mob";
+import MedBurger from "./med-burger";
+import PopupMessage from "./popup-message";
+import { Burger } from "./burger";
 
 interface Burger {
   burger: boolean;
@@ -35,7 +35,7 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
       <AnimatePresence>
         {contactsSucces && (
           <PopupMessage
-            title={'Data was sended!'}
+            title={"Data was sended!"}
             text="Спасибо за доверие!"
             setActive={contactsSetSucces}
           />
@@ -43,7 +43,7 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
         {contactsSucces && (
           <PopupMessage
-            title={'Data was sended!'}
+            title={"Data was sended!"}
             text="Спасибо за доверие!"
             setActive={contactsSetSucces}
           />
@@ -51,7 +51,7 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
         {registerSuccess && (
           <PopupMessage
-            title={'Data was sended!'}
+            title={"Data was sended!"}
             text="Спасибо за доверие!"
             setActive={setRegisterSuccess}
           />
@@ -59,7 +59,7 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
         {loginSuccess && (
           <PopupMessage
-            title={'Вы успешно вошли!'}
+            title={"Вы успешно вошли!"}
             text="Спасибо за доверие!"
             setActive={setLoginSuccess}
           />
@@ -70,9 +70,13 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
       <AnimatePresence>{mobActive && <LoginWindowMob />}</AnimatePresence>
 
-      <AnimatePresence>{burger && <Burger setBurger={setBurger} />}</AnimatePresence>
+      <AnimatePresence>
+        {burger && <Burger setBurger={setBurger} />}
+      </AnimatePresence>
 
-      <AnimatePresence>{medBurger && <MedBurger setBurger={setMedBurger} />}</AnimatePresence>
+      <AnimatePresence>
+        {medBurger && <MedBurger setBurger={setMedBurger} />}
+      </AnimatePresence>
     </>
   );
 };

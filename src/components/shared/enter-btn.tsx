@@ -6,7 +6,7 @@ interface Props {
   setMode: (str: string) => void;
 }
 
-const EnterBtn = ({ className, setActive, setMode }: Props) => {
+export const EnterBtn = ({ className, setActive, setMode }: Props) => {
   return (
     <button
       onClick={() => {
@@ -34,5 +34,3 @@ const EnterBtn = ({ className, setActive, setMode }: Props) => {
     </button>
   );
 };
-
-export default EnterBtn;

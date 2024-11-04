@@ -23,7 +23,7 @@ type Props = {
   disabled?: boolean;
 };
 
-const CustomField = ({
+export const CustomField = ({
   control,
   name,
   label,
@@ -75,5 +75,3 @@ const CustomField = ({
     />
   );
 };
-
-export default CustomField;

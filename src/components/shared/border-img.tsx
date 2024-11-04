@@ -6,7 +6,7 @@ interface Props {
   img: string;
 }
 
-const BorderImg = ({ className, imgClassName, img }: Props) => {
+export const BorderImg = ({ className, imgClassName, img }: Props) => {
   return (
     <div
       className={cn(
@@ -38,5 +38,3 @@ const BorderImg = ({ className, imgClassName, img }: Props) => {
     </div>
   );
 };
-
-export default BorderImg;

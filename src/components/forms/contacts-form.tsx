@@ -1,17 +1,18 @@
-import { useForm } from 'react-hook-form';
-import { Form } from '../ui/form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import CustomField from '../shared/custom-field';
-import { Button } from '../ui/button';
-import LoadingDots from '../shared/loading-dots';
-import { useContactsStore } from '@/store/useContacts';
-import { usePopupStore } from '@/store/usePopup';
+import { useForm } from "react-hook-form";
+import { Form } from "../ui/form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "../ui/button";
+import LoadingDots from "../shared/loading-dots";
+import { useContactsStore } from "@/store/useContacts";
+import { usePopupStore } from "@/store/usePopup";
+import { CustomField } from "../shared/custom-field";
+import poetService from "@/services/poet.service";
 
 const formSchema = z.object({
-  name: z.string().min(3, 'Imya obyazatelno'),
+  name: z.string().min(3, "Imya obyazatelno"),
   email: z.string().email(),
-  message: z.string().min(5, 'text requried'),
+  text: z.string().min(5, "text requried"),
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -24,25 +25,38 @@ const ContactsForm = () => {
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      message: '',
+      name: "",
+      email: "",
+      text: "",
     },
   });
 
   const { isSubmitting } = form.formState;
-  const onSubmit = async (data: FormType) => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setSuccess(true);
 
-    // form.reset();
+  const onSubmit = async (data: FormType) => {
+    const body = {
+      name: data.name,
+      email: data.email,
+      text: data.text,
+    };
+
+    try {
+      await poetService.postContacts(body);
+
+      setSuccess(true);
+      // form.reset();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">Maňa hat iberiň</h4>
+          <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">
+            Maňa hat iberiň
+          </h4>
           <div className="flex flex-col xl:gap-10 gap-7 md:gap-10 xl:flex-[0_0_648px]">
             <div className="flex md:flex-row flex-col gap-6">
               <CustomField
@@ -63,18 +77,19 @@ const ContactsForm = () => {
             <CustomField
               control={form.control}
               label="Tema soobşeniýa"
-              name="message"
+              name="text"
               placeholder="Kuda otprawit otwet?"
-              error={form.formState.errors.message}
+              error={form.formState.errors.text}
               area
             />
 
             <Button
-              onClick={() => setMode('tost')}
+              onClick={() => setMode("tost")}
               type="submit"
               disabled={isSubmitting}
-              className="relative w-full">
-              {isSubmitting ? <LoadingDots /> : 'Otprawit'}
+              className="relative w-full"
+            >
+              {isSubmitting ? <LoadingDots /> : "Otprawit"}
             </Button>
           </div>
         </form>

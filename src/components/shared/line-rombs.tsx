@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-const LineRombs = ({ className }: { className?: string }) => {
+export const LineRombs = ({ className }: { className?: string }) => {
   return (
     <div className={cn("flex justify-between w-full items-center", className)}>
       {[...Array(10)].map((_, i) => (
@@ -21,5 +21,3 @@ const LineRombs = ({ className }: { className?: string }) => {
     </div>
   );
 };
-
-export default LineRombs;

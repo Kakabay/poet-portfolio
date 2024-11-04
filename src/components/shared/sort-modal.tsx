@@ -1,6 +1,6 @@
-import DropDown from "./drop-down";
 import { Input } from "../ui/input";
 import { ActiveSort } from "@/store/useSynlar";
+import { DropDown } from "./drop-down";
 
 interface Props {
   search: string;
