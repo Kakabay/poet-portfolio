@@ -1,11 +1,11 @@
 import poetService from "@/services/poet.service";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetBooks = () => {
+export const useGetPinPoems = () => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["books"],
-    queryFn: () => poetService.getBooks(),
-    select: ({ data }) => data,
+    queryKey: ["pinPoems"],
+    queryFn: () => poetService.getPinPoems(),
+    select: (data) => data,
   });
 
   return {

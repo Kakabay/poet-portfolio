@@ -4,23 +4,27 @@ import { useState } from "react";
 import { BgTexture } from "./bg-texture";
 
 type Props = {
-  name: string;
-  text: string;
-  link: string;
+  book_name: string;
+  book_text: string;
+  path: string;
+  link?: string;
   id: number;
 };
 
-export const BookCard = ({ name, text, id, link = "" }: Props) => {
+export const BookCard = ({
+  book_name,
+  book_text,
+  path = "",
+  id,
+  link = "",
+}: Props) => {
   const [expanded, setExpanded] = useState<number[]>([]);
 
   const onExpand = () => {
     setExpanded((prev) => {
-      // Проверяем, есть ли элемент в массиве
       if (prev.includes(id)) {
-        // Если элемент уже есть, удаляем его из массива
         return prev.filter((item) => item !== id);
       } else {
-        // Если элемента нет, добавляем его в массив
         return [...prev, id];
       }
     });
@@ -49,7 +53,7 @@ export const BookCard = ({ name, text, id, link = "" }: Props) => {
         <div className="flex flex-col gap-0 justify-between">
           <div>
             <h4 className="font-semibold md:mb-4 mb-2 group-hover:text-PRIM transition-all">
-              {name}
+              {book_name}
             </h4>
             <div
               className={cn(
@@ -57,7 +61,7 @@ export const BookCard = ({ name, text, id, link = "" }: Props) => {
                 !findId() && "line-clamp-2"
               )}
             >
-              {text}
+              {book_text}
             </div>
             <button
               onClick={onExpand}
@@ -72,7 +76,11 @@ export const BookCard = ({ name, text, id, link = "" }: Props) => {
         </div>
 
         <div className="md:flex-[0_0_180px] flex-[0_0_104px] w-[104px] h-[146px] md:w-[180px] md:h-[252px] text-ellipsis">
-          <img src="/images/book.png" alt="" />
+          <img
+            src={path ? path : "/images/book.png"}
+            alt="kitap"
+            className="size-full object-cover"
+          />
         </div>
       </div>
 

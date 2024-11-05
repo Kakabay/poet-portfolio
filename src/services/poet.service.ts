@@ -2,6 +2,8 @@ import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import { PageCommentsType, UserCommentsType } from "./types/get-comments.type";
 import { PoemsType } from "./types/poems.type";
+import { BooksType } from "./types/books.type";
+import { PinnedPoem } from "./types/pin-poems.type";
 
 interface User {
   id: number;
@@ -131,10 +133,21 @@ class PoetService {
     });
   };
 
-  postPoem = async (body: { poem_id: string }) => {
+  postPoem = async (body: { poem_id: number | string }) => {
     const token = this.authStore.getState().accessToken;
 
-    return await axios.post(`${this.URL_TOKEN}pin`, body, {
+    return await axios.post(`${this.URL_TOKEN}poems/pin`, body, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
+  unPinPoem = async (body: { poem_id: number | string }) => {
+    const token = this.authStore.getState().accessToken;
+
+    return await axios.post(`${this.URL_TOKEN}poems/unpin`, body, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
@@ -169,12 +182,15 @@ class PoetService {
   getPinPoems = async () => {
     const token = this.authStore.getState().accessToken;
 
-    const { data } = await axios.get(`${this.URL_TOKEN}pinned`, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await axios.get<PinnedPoem>(
+      `${this.URL_TOKEN}poems/pinned`,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return data;
   };
@@ -192,7 +208,7 @@ class PoetService {
   };
 
   getBooks = async () => {
-    const { data } = await axios.get(`${this.URl}books`);
+    const { data } = await axios.get<BooksType>(`${this.URl}books`);
 
     return data;
   };

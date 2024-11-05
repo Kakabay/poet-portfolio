@@ -1,6 +1,5 @@
 import { PoemType } from "@/components/shared/poems-item";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface ActiveSort {
   id: string;
@@ -15,31 +14,24 @@ interface Props {
   setFavorites: (obj: PoemType) => void;
 }
 
-export const usePoemsStore = create<Props>()(
-  persist(
-    (set) => ({
-      activeSort: {
-        id: "new",
-        view: "Snaçala nowye",
-      },
-      favorites: [],
+export const usePoemsStore = create<Props>()((set) => ({
+  activeSort: {
+    id: "new",
+    view: "Snaçala nowye",
+  },
+  favorites: [],
 
-      setActiveSort: (value) => set(() => ({ activeSort: value })),
+  setActiveSort: (value) => set(() => ({ activeSort: value })),
 
-      setFavorites: (obj) => {
-        set((state) => {
-          const isFavorite = state.favorites.some((item) => item.id === obj.id);
+  setFavorites: (obj) => {
+    set((state) => {
+      const isFavorite = state.favorites.some((item) => item.id === obj.id);
 
-          return {
-            favorites: isFavorite
-              ? state.favorites.filter((favorite) => favorite.id !== obj.id)
-              : [...state.favorites, obj],
-          };
-        });
-      },
-    }),
-    {
-      name: "poems-store", // имя ключа в localStorage
-    }
-  )
-);
+      return {
+        favorites: isFavorite
+          ? state.favorites.filter((favorite) => favorite.id !== obj.id)
+          : [...state.favorites, obj],
+      };
+    });
+  },
+}));

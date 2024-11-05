@@ -7,13 +7,13 @@ import { BgTexture } from "./bg-texture";
 import poetService from "@/services/poet.service";
 
 interface Props {
-  id: string;
+  id: number | string;
   poem_name: string;
   active?: boolean;
 }
 
 export interface PoemType {
-  id: string;
+  id: number | string;
   poem_name: string;
 }
 
@@ -24,14 +24,19 @@ const PoemsItem = ({ id, poem_name, active = false }: Props) => {
   const onFavorite = async () => {
     try {
       const { toast } = await import("@/hooks/use-toast");
-      await poetService.postPoem({ poem_id: id });
+      await poetService.postPoem({ poem_id: Number(id) });
 
       toast({
         title: "Wy dobawili stih",
         action: (
           <ToastAction
-            onClick={() => {
-              setFavorites({ id, poem_name });
+            onClick={async () => {
+              try {
+                await poetService.unPinPoem({ poem_id: Number(id) });
+                setFavorites({ id, poem_name });
+              } catch (error) {
+                console.log(error);
+              }
             }}
             altText="message"
           >
@@ -41,7 +46,7 @@ const PoemsItem = ({ id, poem_name, active = false }: Props) => {
         duration: 3000,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 

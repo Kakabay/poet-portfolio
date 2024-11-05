@@ -1,6 +1,7 @@
 import PageLayout from "@/components/layout/page-layout";
 import { BookCard } from "@/components/shared";
 import { scrollTop } from "@/lib/utils";
+import { useGetBooks } from "@/query/use-get-books";
 
 const booksData = [
   {
@@ -38,6 +39,8 @@ const booksData = [
 const Books = () => {
   scrollTop();
 
+  const { data: books } = useGetBooks();
+
   return (
     <PageLayout
       title="Kitaplar"
@@ -45,9 +48,10 @@ const Books = () => {
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
     >
       <div className="flex flex-col gap-6 mx-auto">
-        {booksData.map((item, i) => (
-          <BookCard key={i} {...item} />
-        ))}
+        {books &&
+          books.map((item, i) => (
+            <BookCard path={item.image?.path || ""} key={i} {...item} />
+          ))}
       </div>
     </PageLayout>
   );
