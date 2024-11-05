@@ -3,7 +3,8 @@ import axios from "axios";
 import { PageCommentsType, UserCommentsType } from "./types/get-comments.type";
 import { PoemsType } from "./types/poems.type";
 import { BooksType } from "./types/books.type";
-import { PinnedPoem } from "./types/pin-poems.type";
+import { PinnedPoems } from "./types/pin-poems.type";
+import { Reviews } from "./types/reviews.type";
 
 interface User {
   id: number;
@@ -182,7 +183,7 @@ class PoetService {
   getPinPoems = async () => {
     const token = this.authStore.getState().accessToken;
 
-    const { data } = await axios.get<PinnedPoem>(
+    const { data } = await axios.get<PinnedPoems>(
       `${this.URL_TOKEN}poems/pinned`,
       {
         headers: {
@@ -196,7 +197,7 @@ class PoetService {
   };
 
   getReviews = async () => {
-    const { data } = await axios.get(`${this.URl}reviews`);
+    const { data } = await axios.get<Reviews>(`${this.URl}reviews`);
 
     return data;
   };

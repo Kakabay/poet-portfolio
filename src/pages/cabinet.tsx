@@ -46,7 +46,7 @@ const Cabinet = () => {
         )}
       >
         {active === 0 &&
-          poems?.map((item, i) => (
+          poems?.pinned_poems?.map((item, i) => (
             <PoemsItem key={i} active {...item} id={item.id} />
           ))}
 
