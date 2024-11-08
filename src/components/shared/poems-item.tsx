@@ -1,62 +1,87 @@
-import { Link } from "react-router-dom";
-import { usePoemsStore } from "@/store/usePoems";
-import { ToastAction } from "../ui/toast";
-import { motion } from "framer-motion";
-import { useAuthStore } from "@/store/useAuthStore";
-import { BgTexture } from "./bg-texture";
-import poetService from "@/services/poet.service";
+import { Link } from 'react-router-dom';
+import { ToastAction } from '../ui/toast';
+import { motion } from 'framer-motion';
+import { useAuthStore } from '@/store/useAuthStore';
+import { BgTexture } from './bg-texture';
+import poetService from '@/services/poet.service';
+import { useGetPinPoems } from '@/query/use-get-pin-poems';
+import { useState } from 'react';
 
 interface Props {
-  id: number | string;
+  id: number;
   poem_name: string;
+  link: string;
+
   active?: boolean;
+  onFavoriteChange?: (id: number, isPinned: boolean) => void;
 }
-
 export interface PoemType {
-  id: number | string;
+  id: number;
   poem_name: string;
 }
 
-const PoemsItem = ({ id, poem_name, active = false }: Props) => {
+const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Props) => {
   const token = useAuthStore().accessToken;
-  const setFavorites = usePoemsStore().setFavorites;
+  const [isPinned, setIsPinned] = useState(active);
+  const [loading, setLoading] = useState(false);
+
+  const { data: pinPoems } = useGetPinPoems();
+
+  const pinned = pinPoems?.pinned_poems || [];
+
+  console.log(pinned);
 
   const onFavorite = async () => {
     try {
-      const { toast } = await import("@/hooks/use-toast");
-      await poetService.postPoem({ poem_id: Number(id) });
+      setLoading(true);
+      const { toast } = await import('@/hooks/use-toast');
+
+      const originalState = isPinned;
 
       toast({
-        title: "Wy dobawili stih",
+        title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
         action: (
           <ToastAction
             onClick={async () => {
               try {
-                await poetService.unPinPoem({ poem_id: Number(id) });
-                setFavorites({ id, poem_name });
+                if (originalState) {
+                  await poetService.postPoem({ poem_id: id });
+                } else {
+                  await poetService.unPinPoem({ poem_id: id });
+                }
+                setIsPinned(originalState);
+                onFavoriteChange?.(id, originalState);
               } catch (error) {
                 console.log(error);
               }
             }}
-            altText="message"
-          >
-            Otmenit
+            altText="Отменить">
+            Отменить
           </ToastAction>
         ),
         duration: 3000,
       });
+
+      if (isPinned) {
+        await poetService.unPinPoem({ poem_id: id });
+      } else {
+        await poetService.postPoem({ poem_id: id });
+      }
+
+      setIsPinned(!isPinned);
+      onFavoriteChange?.(id, !isPinned);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <motion.div className="xl:w-[458px] md:w-[372px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] md:bg-[url('/images/poems/poem-med-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path md:poems-med-path xl:poem-path" />
-      <Link
-        to={`/poems/${id}`}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
-      >
+
+      <Link to={link} className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
         <div className="flex items-center w-full">
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
@@ -68,9 +93,9 @@ const PoemsItem = ({ id, poem_name, active = false }: Props) => {
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button onClick={onFavorite} className="w-5">
+          <button disabled={loading} onClick={onFavorite} className="w-5 disabled:opacity-50">
             <img
-              src={active ? "/images/star-fill.svg" : "/images/star.svg"}
+              src={isPinned ? '/images/star-fill.svg' : '/images/star.svg'}
               className="mr-1 size-5"
             />
           </button>

@@ -68,7 +68,7 @@ const Messages = () => {
   const [mobComment, setMobComment] = useState(false);
   const desktop = useMediaQuery('(min-width: 768px)');
 
-  const { data } = useGetComments();
+  const { data, isLoading } = useGetComments();
 
   const setMode = usePopupStore().setMode;
   const setLoginMob = useLoginStore().setMobActive;
@@ -115,13 +115,15 @@ const Messages = () => {
       </AnimatePresence>
 
       <PageLayout
+        loading={isLoading}
         title="Teswirler"
-        text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
+        messagesText="Hormatly muşdaklar!"
+        text="Sahypadaky eserler barada seljerlenen teswirlerlerňizi, pikirleňizii hem-de tekliplerňizi aşakda goýup bilersiňiz. Siz bilen gatnaşykda bolar ýaly, elektron adresiňizi goýmany hem unutmaň!"
         className="gap-12">
         <div className="">
           <div className="mx-auto w-[892px] flex flex-col gap-6">
             {displayedData?.map((item, i) => (
-              <CommentCard key={i} comment={item.comment_text} id={item.id} />
+              <CommentCard key={i} {...item} />
             ))}
           </div>
 

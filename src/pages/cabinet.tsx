@@ -1,24 +1,24 @@
-import PageLayout from "@/components/layout/page-layout";
-import CommentCard from "@/components/shared/comment-card";
-import PoemsItem from "@/components/shared/poems-item";
-import Tabs from "@/components/shared/tabs";
-import { cn, scrollTop } from "@/lib/utils";
-import { useGetPinPoems } from "@/query/use-get-pin-poems";
-import { useGetUserComments } from "@/query/use-get-user-comments";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useState } from "react";
+import PageLayout from '@/components/layout/page-layout';
+import CommentCard from '@/components/shared/comment-card';
+import PoemsItem from '@/components/shared/poems-item';
+import Tabs from '@/components/shared/tabs';
+import { cn, scrollTop } from '@/lib/utils';
+import { useGetPinPoems } from '@/query/use-get-pin-poems';
+import { useGetUserComments } from '@/query/use-get-user-comments';
+import { useAuthStore } from '@/store/useAuthStore';
+import { useState } from 'react';
 
 const cabinetTabs = [
   {
-    view: "Moi zakladki",
+    name: 'Moi zakladki',
     id: 0,
   },
   {
-    view: "Moi kommentarii",
+    name: 'Moi kommentarii',
     id: 1,
   },
   {
-    view: "Uwedomleniýa",
+    name: 'Uwedomleniýa',
     id: 2,
   },
 ];
@@ -35,23 +35,26 @@ const Cabinet = () => {
 
   return (
     <PageLayout title={`Salam ${name}!`} className="gap-12">
-      <Tabs array={cabinetTabs} active={active} setActive={setActive} />
+      <Tabs
+        renderName={(item) => item.name}
+        array={Array.isArray(cabinetTabs) ? cabinetTabs : []}
+        active={active}
+        setActive={setActive}
+      />
 
       <div
         className={cn(
-          "",
+          '',
           active === 0
-            ? "grid md:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center"
-            : "flex flex-col items-center gap-6"
-        )}
-      >
+            ? 'grid md:grid-cols-2 grid-cols-1 gap-8 xl:w-[948px] mx-auto place-items-center'
+            : 'flex flex-col items-center gap-6',
+        )}>
         {active === 0 &&
           poems?.pinned_poems?.map((item, i) => (
             <PoemsItem key={i} active {...item} id={item.id} />
           ))}
 
-        {active === 1 &&
-          comments?.map((item, i) => <CommentCard key={i} {...item} />)}
+        {active === 1 && comments?.map((item, i) => <CommentCard key={i} {...item} />)}
       </div>
     </PageLayout>
   );

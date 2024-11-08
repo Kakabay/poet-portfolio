@@ -1,65 +1,54 @@
-import { AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
-import { useOnClickOutside } from 'usehooks-ts';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
 
 interface Props {
-  active: boolean;
-  setActive: (val: boolean) => void;
   className?: string;
 }
 
-const User = ({ active, setActive, className }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(ref, () => setActive(false));
-
+const User = ({ className }: Props) => {
   const clearAuthData = useAuthStore((state) => state.clearAuthData);
 
   const token = useAuthStore().accessToken;
   const name = useAuthStore().name;
 
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        className,
-        'relative z-[100] text-[14px] font-medium min-w-[60px] overflow-visible',
-      )}>
-      <div
-        onClick={() => setActive(true)}
-        className="px-4 h-10 items-center gap-4 text-PRIM cursor-pointer flex justify-between border border-OUTLINE rounded-[4px]">
-        <h4>{token && name}</h4>
-        <ChevronUp size={16} className={cn(active && 'rotate-180', 'transition-all')} />
-      </div>
+  const [isOpen, setIsOpen] = useState(false);
 
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="bg-[#ECE1D4] rounded-[4px] !drop-shadow-none pointer-events-auto text-left absolute top-10 left-0 w-full flex flex-col items-start">
-            <Link to="/cabinet" onClick={() => setActive(false)} className="py-2 px-6">
-              Kabinet
-            </Link>
-            <button
-              onClick={() => {
-                clearAuthData();
-                setActive(false);
-              }}
-              className="py-3 px-6">
-              Exit
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+  return (
+    <DropdownMenu modal={false} open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+      <DropdownMenuTrigger
+        className={cn(
+          'px-4 h-10 items-center text-[14px] font-medium  min-w-[60px] gap-4 text-PRIM cursor-pointer flex justify-between border border-OUTLINE rounded-[4px]',
+          className,
+        )}>
+        {token && name}
+        <ChevronUp size={16} className={cn(isOpen && 'rotate-180', 'transition-all')} />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="bg-[#ECE1D4] md:w-fit w-[328px] relative z-[70] border-none rounded-[4px]">
+        <DropdownMenuItem>
+          <Link to="/cabinet" onClick={() => setIsOpen(false)} className="py-2 px-4 w-full">
+            Kabinet
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <button
+            onClick={() => {
+              clearAuthData();
+            }}
+            className="py-3 px-4">
+            Exit
+          </button>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

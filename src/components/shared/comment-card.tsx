@@ -1,4 +1,4 @@
-import { BgTexture } from "./bg-texture";
+import { BgTexture } from './bg-texture';
 
 interface Props {
   comment_text: string;
@@ -12,10 +12,10 @@ const CommentCard = ({ comment_text }: Props) => {
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 items-center">
           <h5 className="text-[14px] text-ON_SURFACE_VAR font-medium leading-[145%]">
-            {"example"}
+            {'example'}
           </h5>
           <div className="text-ON_SURFACE_VAR_LOW text-[12px] font-medium leading-[130%]">
-            {"10.10.2129"}
+            {'10.10.2129'}
           </div>
         </div>
 

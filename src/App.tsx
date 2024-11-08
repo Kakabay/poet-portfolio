@@ -11,6 +11,7 @@ function App() {
 
   return (
     <div
+      id="main"
       className={cn(
         'flex flex-col relative xl:min-h-screen h-screen w-full bg-[#EFDEBE] overflow-x-hidden',
       )}>
