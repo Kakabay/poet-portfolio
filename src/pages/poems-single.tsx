@@ -1,12 +1,13 @@
-import PageLayout from '@/components/layout/page-layout';
-import PoemSwitch from '@/components/shared/poem-switch';
-import SectionLine from '@/components/shared/section-line';
-import { useGetPinPoems } from '@/query/use-get-pin-poems';
-import { useGetPoemsSingle } from '@/query/use-get-poems-single';
-import poetService from '@/services/poet.service';
-import { usePathStore } from '@/store/usePathname';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import PageLayout from "@/components/layout/page-layout";
+import PoemSwitch from "@/components/shared/poem-switch";
+import SectionLine from "@/components/shared/section-line";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
+import { useGetPoems } from "@/query/use-get-poems";
+import { useGetPoemsSingle } from "@/query/use-get-poems-single";
+import poetService from "@/services/poet.service";
+import { usePathStore } from "@/store/usePathname";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const poem = [
   {
@@ -42,6 +43,8 @@ const poem = [
 const PoemsSingle = () => {
   const { id } = useParams();
   const poemId = Number(id);
+  const { data: poems } = useGetPoems();
+
   const { data } = useGetPoemsSingle(Number(id || 1));
   const info = data || [];
 
@@ -51,15 +54,11 @@ const PoemsSingle = () => {
 
   const isPinned = pinItems?.pinned_poems.some((item) => item.id === poemId);
 
-  console.log(isPinned);
-
   useEffect(() => {
-    setPath('poem');
+    setPath("poem");
 
-    return () => setPath('');
+    return () => setPath("");
   }, []);
-
-  console.log(pinItems?.pinned_poems);
 
   const onStar = async () => {
     try {
@@ -73,13 +72,21 @@ const PoemsSingle = () => {
     }
   };
 
+  const currentIndex =
+    poems?.findIndex((poem) => poem.id === poemId) || poemId - 1;
+  const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
+  const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
+
+  console.log(nextPoemName);
+
   return (
     <PageLayout
       onStar={onStar}
       title={info[0]?.poem_name}
       className="xl:gap-12 gap-8 container"
-      star={isPinned ? 'active' : 'none'}
-      audio>
+      star={isPinned ? "active" : "none"}
+      audio
+    >
       <section className="container">
         <div className="flex flex-col gap-4 xl:gap-12 md:gap-6 text-[16px] xl:text-[20px] leading-[140%] text-ON_SURFACE_VAR">
           {info[0]?.couplets_poem.map(({ textarea1 }, i) => (
@@ -107,7 +114,12 @@ const PoemsSingle = () => {
         <div className="container flex justify-center xl:mt-16 mt-8">
           <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
             <h5 className="text-16 font-semibold">Kakamyň sagady</h5>
-            <audio id="player" controls src="/images/sound.mp3" className="bg-transparent" />
+            <audio
+              id="player"
+              controls
+              src="/images/sound.mp3"
+              className="bg-transparent"
+            />
           </div>
         </div>
 
@@ -115,15 +127,15 @@ const PoemsSingle = () => {
 
         <div className="flex gap-4 md:gap-8 xl:gap-0 items-center xl:justify-between">
           <PoemSwitch
-            link={`${poemId - 1}`}
-            disable={Number(id) === 1}
+            link={`/poems/${poemId - 1}`}
+            disable={poemId === 1}
             prev
-            name="Ýaşyl Tugly Türkmenistan "
+            name={prevPoemName || ""}
           />
           <PoemSwitch
-            link={`${poemId + 1}`}
-            disable={Number(id) === 5}
-            name="Ýaşyl Tugly Türkmenistan "
+            link={`/poems/${poemId + 1}`}
+            disable={poemId === poems?.length}
+            name={nextPoemName || ""}
           />
         </div>
       </section>

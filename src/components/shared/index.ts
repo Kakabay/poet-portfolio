@@ -1,3 +1,4 @@
+export { Spin } from "./spin";
 export { LineRombs } from "./line-rombs";
 export { Burger } from "./burger";
 export { EnterBtn } from "./enter-btn";

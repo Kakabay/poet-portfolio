@@ -1,13 +1,12 @@
-import { cn } from '@/lib/utils';
-import { ReactNode, useState } from 'react';
-import { PoemType } from '../shared/poems-item';
-import Loader from 'rsuite/Loader';
-import 'rsuite/Loader/styles/index.css';
+import { cn } from "@/lib/utils";
+import { ReactNode, useState } from "react";
+import { PoemType } from "../shared/poems-item";
+import { Spin } from "../shared";
 interface Props {
   className?: string;
   title: string;
   text?: string;
-  star?: 'active' | 'none' | '';
+  star?: "active" | "none" | "";
   messagesText?: string;
   setFavorite?: (item: PoemType) => void;
   children: ReactNode;
@@ -23,14 +22,14 @@ const PageLayout = ({
   text,
   audio,
   messagesText,
-  star = '',
+  star = "",
   loading = false,
   onStar,
 }: Props) => {
   const [active, setActive] = useState(false);
 
   return (
-    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30')}>
+    <main className={cn("pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30")}>
       <div className="container">
         {!loading ? (
           <>
@@ -41,7 +40,7 @@ const PageLayout = ({
                 {star && (
                   <img
                     className="cursor-pointer p-1"
-                    src={active ? '/images/star.svg' : '/images/star-fill.svg'}
+                    src={active ? "/images/star.svg" : "/images/star-fill.svg"}
                     onClick={onStar}
                   />
                 )}
@@ -49,7 +48,7 @@ const PageLayout = ({
               </div>
             </div>
 
-            <div className={cn('flex flex-col xl:gap-12 gap-8')}>
+            <div className={cn("flex flex-col xl:gap-12 gap-8")}>
               {text && (
                 <div>
                   {messagesText && (
@@ -62,11 +61,13 @@ const PageLayout = ({
                   </p>
                 </div>
               )}
-              <section className={cn('flex flex-col', className)}>{children}</section>
+              <section className={cn("flex flex-col", className)}>
+                {children}
+              </section>
             </div>
           </>
         ) : (
-          <Loader size="lg" className="h-full text-PRIM" speed="slow" center />
+          <Spin />
         )}
       </div>
     </main>

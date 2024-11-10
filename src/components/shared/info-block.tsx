@@ -8,7 +8,7 @@ interface Props {
   text?: string;
   img?: string;
   imgClassName?: string;
-  arr?: string[];
+  arr?: any[];
   line?: boolean;
   rombs?: boolean;
 }
@@ -39,7 +39,7 @@ export const InfoBlock = ({
       {arr && (
         <div className="flex flex-col gap-6">
           {arr?.map((item, i) => (
-            <p key={i}>{item}</p>
+            <p key={i}>{item.text}</p>
           ))}
         </div>
       )}

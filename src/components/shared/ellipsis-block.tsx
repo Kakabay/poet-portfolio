@@ -1,29 +1,13 @@
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import TextRomb from "./text-romb";
-
-const data = [
-  {
-    name: "Turkmenistan",
-  },
-  {
-    name: "Sudan (Darfur ülkesi)",
-  },
-  {
-    name: "Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar",
-  },
-  {
-    name: "Ýemen",
-  },
-  {
-    name: "Keniýa",
-  },
-  {
-    name: "Malawi",
-  },
-];
+import { useGetAbout } from "@/query/use-get-about";
 
 export const EllipsisBlock = () => {
+  const { data } = useGetAbout();
+
+  const info = data?.[0].countries_visited_json || [];
+
   return (
     <>
       <Carousel
@@ -31,14 +15,15 @@ export const EllipsisBlock = () => {
         className="md:hidden overflow-visible"
       >
         <CarouselContent className="overflow-visible">
-          {data.map(({ name }, i) => (
+          {info.map(({ name }, i) => (
             <CarouselItem
+              key={i}
               className={cn(
                 "basis-[296px] overflow-visible",
                 6 !== i + 1 && "mr-4"
               )}
             >
-              <TextRomb key={i} text={name} ellips></TextRomb>
+              <TextRomb text={name} ellips></TextRomb>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -57,23 +42,20 @@ export const EllipsisBlock = () => {
         />
 
         <div className="flex gap-6 relative">
-          <TextRomb ellips text="Turkmenistan" />
+          <TextRomb ellips text={info[0]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
             className="absolute left-[27%] -top-[12%] -rotate-[35deg]"
           />
-          <TextRomb className="-mt-10" ellips text="Sudan (Darfur ülkesi)" />
+          <TextRomb className="-mt-10" ellips text={info[1]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
             className="absolute bottom-4 right-[30%] -rotate-[180deg]"
           />
 
-          <TextRomb
-            ellips
-            text="Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar"
-          />
+          <TextRomb ellips text={info[2]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
@@ -82,28 +64,28 @@ export const EllipsisBlock = () => {
         </div>
 
         <div className="flex gap-6 relative">
-          <TextRomb ellips text="Malawi" />
+          <TextRomb ellips text={info[3]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
             className="absolute bottom-[11%] right-[26.5%] -rotate-[210deg]"
           />
 
-          <TextRomb className="mt-10" ellips text="Keniýa" />
+          <TextRomb className="mt-10" ellips text={info[4]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
             className="absolute top-[7%] left-[29.5%]"
           />
 
-          <TextRomb ellips text="Ýemen" />
+          <TextRomb ellips text={info[5]?.name} />
         </div>
       </div>
 
       <div className="hidden md:block xl:hidden relative h-[540px]">
         <TextRomb
           ellips
-          text="Sudan (Darfur ülkesi)"
+          text={info[0]?.name}
           className="absolute top-0 left-1/2 -translate-x-1/2"
         />
         <img
@@ -113,12 +95,12 @@ export const EllipsisBlock = () => {
 
         <TextRomb
           ellips
-          text="Turkmenistan"
+          text={info[1]?.name}
           className="absolute left-0 top-[126px]"
         />
         <TextRomb
           ellips
-          text="Ýemen"
+          text={info[2]?.name}
           className="absolute right-0 bottom-[126px]"
         />
         <img
@@ -137,7 +119,7 @@ export const EllipsisBlock = () => {
 
         <TextRomb
           ellips
-          text="Gündogar Ýewropa we Orta Aziya sebitindäki 18 ýurtlar"
+          text={info[3]?.name}
           className="absolute right-0 top-[126px]"
         />
         <img
@@ -147,7 +129,7 @@ export const EllipsisBlock = () => {
 
         <TextRomb
           ellips
-          text="Malawi"
+          text={info[4]?.name}
           className="absolute left-0 bottom-[126px]"
         />
         <img
@@ -157,7 +139,7 @@ export const EllipsisBlock = () => {
 
         <TextRomb
           ellips
-          text="Keniýa"
+          text={info[5]?.name}
           className="absolute bottom-0 left-1/2 -translate-x-1/2"
         />
       </div>
