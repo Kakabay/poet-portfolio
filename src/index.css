@@ -2,10 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-.kaushan {
-  font-family: 'Kaushan Script', cursive;
+@font-face {
+  font-family: 'Kaushan';
+  src: url('./fonts/kaushan.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-Regular.woff') format('woff');
   font-weight: 400;
-  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-Medium.woff') format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-SemiBold.woff') format('woff');
+  font-weight: 600;
+}
+
+.kaushan {
+  font-family: 'Kaushan', cursive;
 }
 
 .grypen {
@@ -16,7 +37,6 @@
 
 .inter {
   font-family: 'Inter', cursive;
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -41,7 +61,7 @@
   }
 
   body {
-    @apply text-ON_SURFACE text-[24px] leading-[135%] h-full font-[inter];
+    @apply text-ON_SURFACE text-[24px] leading-[135%];
   }
 
   audio::-webkit-media-controls-enclosure {

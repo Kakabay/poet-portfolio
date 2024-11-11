@@ -10,20 +10,20 @@ import { useEffect, useState } from 'react';
 
 export const tabs = [
   {
-    view: 'Wsýo',
-    id: 'all',
+    name: 'Wsýo',
+    id: 0,
   },
   {
-    view: 'Synlar',
-    id: 'comments',
+    name: 'Synlar',
+    id: 1,
   },
   {
-    view: 'Ýatlamar',
-    id: 'moments',
+    name: 'Ýatlamar',
+    id: 2,
   },
   {
-    view: 'Gutlaglar',
-    id: 'congr',
+    name: 'Gutlaglar',
+    id: 3,
   },
 ];
 
@@ -54,15 +54,23 @@ const Synlar = () => {
 
   const filteredData =
     (reviews &&
-      reviews.filter((item) =>
-        searchValue
-          ? item.position_author_review
-              .toLocaleLowerCase()
-              .includes(searchValue.toLocaleLowerCase())
-          : active === 0
-          ? item
-          : item.id === active,
-      )) ??
+      reviews
+        .filter(
+          (item) =>
+            (active === 0 && item) ||
+            (active === 1 && item.reviews_category_id === 1) ||
+            (active === 2 && item.reviews_category_id === 2) ||
+            (active === 3 && item.reviews_category_id === 3),
+        )
+        .filter((item) =>
+          searchValue
+            ? item.position_author_review
+                .toLocaleLowerCase()
+                .includes(searchValue.toLocaleLowerCase())
+            : active === 0
+            ? item
+            : item.id === active,
+        )) ??
     [];
 
   const sortData = [...filteredData].reverse();
@@ -91,7 +99,7 @@ const Synlar = () => {
           ) : (
             <Tabs
               renderName={(item) => item.name}
-              array={Array.isArray(categories) ? categories : []}
+              array={tabs}
               setActive={setActive}
               active={active}
               className="absolute xl:top-12 top-6 left-1/2 -translate-x-1/2"
