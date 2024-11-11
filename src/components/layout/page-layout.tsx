@@ -26,8 +26,6 @@ const PageLayout = ({
   loading = false,
   onStar,
 }: Props) => {
-  const [active, setActive] = useState(false);
-
   return (
     <main className={cn("pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30")}>
       <div className="container">
@@ -40,7 +38,13 @@ const PageLayout = ({
                 {star && (
                   <img
                     className="cursor-pointer p-1"
-                    src={active ? "/images/star.svg" : "/images/star-fill.svg"}
+                    src={
+                      star === "none"
+                        ? "/images/star.svg"
+                        : star === "active"
+                        ? "/images/star-fill.svg"
+                        : "none"
+                    }
                     onClick={onStar}
                   />
                 )}

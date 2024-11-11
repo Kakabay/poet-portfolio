@@ -60,9 +60,11 @@ const PoemsSingle = () => {
     return () => setPath("");
   }, []);
 
+  console.log(isPinned);
+
   const onStar = async () => {
     try {
-      if (isPinned) {
+      if (!isPinned) {
         await poetService.postPoem({ poem_id: poemId });
       } else {
         await poetService.unPinPoem({ poem_id: poemId });
@@ -130,12 +132,12 @@ const PoemsSingle = () => {
             link={`/poems/${poemId - 1}`}
             disable={poemId === 1}
             prev
-            name={prevPoemName || ""}
+            name={prevPoemName || poems?.[0]?.poem_name || ""}
           />
           <PoemSwitch
             link={`/poems/${poemId + 1}`}
             disable={poemId === poems?.length}
-            name={nextPoemName || ""}
+            name={nextPoemName || poems?.[5]?.poem_name || ""}
           />
         </div>
       </section>
