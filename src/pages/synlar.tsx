@@ -18,7 +18,7 @@ export const tabs = [
     id: 1,
   },
   {
-    name: "Ýatlamar",
+    name: "Ýatlamalar",
     id: 2,
   },
   {
