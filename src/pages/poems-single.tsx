@@ -87,7 +87,9 @@ const PoemsSingle = () => {
   const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
   const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
 
-  const [isPinned, setIsPinned] = useState<boolean>(false);
+  const [isPinned, setIsPinned] = useState<boolean>(
+    pinItems?.pinned_poems.some((item) => item.id === poemId) || false
+  );
 
   const onFavorite = async () => {
     try {
@@ -95,7 +97,9 @@ const PoemsSingle = () => {
 
       const { toast } = await import("@/hooks/use-toast");
 
-      const originalState = isPinned;
+      const originalState = pinItems?.pinned_poems.some(
+        (item) => item.id === poemId
+      );
 
       toast({
         title: isPinned
@@ -110,8 +114,6 @@ const PoemsSingle = () => {
                 } else {
                   await poetService.unPinPoem({ poem_id: Number(id) });
                 }
-                setIsPinned(originalState);
-                handleFavoriteChange?.(Number(id), originalState);
               } catch (error) {
                 console.log(error);
               }

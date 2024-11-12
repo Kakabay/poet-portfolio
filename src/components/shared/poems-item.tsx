@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { ToastAction } from '../ui/toast';
-import { motion } from 'framer-motion';
-import { useAuthStore } from '@/store/useAuthStore';
-import { BgTexture } from './bg-texture';
-import poetService from '@/services/poet.service';
-import { useGetPinPoems } from '@/query/use-get-pin-poems';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { ToastAction } from "../ui/toast";
+import { motion } from "framer-motion";
+import { useAuthStore } from "@/store/useAuthStore";
+import { BgTexture } from "./bg-texture";
+import poetService from "@/services/poet.service";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
+import { useState } from "react";
 
 interface Props {
   id: number;
@@ -20,7 +20,13 @@ export interface PoemType {
   poem_name: string;
 }
 
-const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Props) => {
+const PoemsItem = ({
+  id,
+  poem_name,
+  active = false,
+  onFavoriteChange,
+  link,
+}: Props) => {
   const token = useAuthStore().accessToken;
   const [isPinned, setIsPinned] = useState(active);
   const [loading, setLoading] = useState(false);
@@ -34,12 +40,14 @@ const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Pr
   const onFavorite = async () => {
     try {
       setLoading(true);
-      const { toast } = await import('@/hooks/use-toast');
+      const { toast } = await import("@/hooks/use-toast");
 
       const originalState = isPinned;
 
       toast({
-        title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
+        title: isPinned
+          ? "Стих удален из избранного"
+          : "Стих добавлен в избранное",
         action: (
           <ToastAction
             onClick={async () => {
@@ -55,7 +63,8 @@ const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Pr
                 console.log(error);
               }
             }}
-            altText="Отменить">
+            altText="Отменить"
+          >
             Отменить
           </ToastAction>
         ),
@@ -81,7 +90,10 @@ const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Pr
     <motion.div className="xl:w-[458px] md:w-[372px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] md:bg-[url('/images/poems/poem-med-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path md:poems-med-path xl:poem-path" />
 
-      <Link to={link} className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
+      <Link
+        to={link}
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
+      >
         <div className="flex items-center w-full">
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
@@ -93,9 +105,13 @@ const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Pr
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button disabled={loading} onClick={onFavorite} className="w-5 disabled:opacity-50">
+          <button
+            disabled={loading}
+            onClick={onFavorite}
+            className="w-5 disabled:opacity-50"
+          >
             <img
-              src={isPinned ? '/images/star-fill.svg' : '/images/star.svg'}
+              src={isPinned ? "/images/star-fill.svg" : "/images/star.svg"}
               className="mr-1 size-5"
             />
           </button>
