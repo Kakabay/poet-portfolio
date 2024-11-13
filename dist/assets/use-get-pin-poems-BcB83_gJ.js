@@ -1,0 +1,1 @@
+import{p as i}from"./index-DHVO_Rqi.js";import{u}from"./useQuery-ShPTI-yv.js";const a=()=>{const{data:e,isLoading:s,isError:r,isSuccess:o}=u({queryKey:["pinPoems"],queryFn:()=>i.getPinPoems(),select:t=>t});return{data:e,isLoading:s,isError:r,isSuccess:o}};export{a as u};
