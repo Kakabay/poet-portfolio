@@ -34,8 +34,8 @@ interface LoginBody {
 }
 
 class PoetService {
-  private URl = "http://ezizhellen.com.tm/app/api/v1/";
-  private URL_TOKEN = "http://ezizhellen.com.tm/app/api/";
+  private URl = "https://ezizhellen.com.tm/app/api/v1/";
+  private URL_TOKEN = "https://ezizhellen.com.tm/app/api/";
 
   private authStore = useAuthStore;
 
