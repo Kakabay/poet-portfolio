@@ -1,88 +1,49 @@
-import { Link } from "react-router-dom";
-import { ToastAction } from "../ui/toast";
-import { motion } from "framer-motion";
-import { useAuthStore } from "@/store/useAuthStore";
-import { BgTexture } from "./bg-texture";
-import poetService from "@/services/poet.service";
-import { useGetPinPoems } from "@/query/use-get-pin-poems";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useAuthStore } from '@/store/useAuthStore';
+import { BgTexture } from './bg-texture';
+import { usePinPoemsStore } from '@/store/use-pin-poems';
+import { ToastAction } from '../ui/toast';
 
-interface Props {
-  id: number;
-  poem_name: string;
-  link: string;
-
-  active?: boolean;
-  onFavoriteChange?: (id: number, isPinned: boolean) => void;
-}
 export interface PoemType {
   id: number;
   poem_name: string;
 }
 
-const PoemsItem = ({
-  id,
-  poem_name,
-  active = false,
-  onFavoriteChange,
-  link,
-}: Props) => {
-  const token = useAuthStore().accessToken;
-  const [isPinned, setIsPinned] = useState(active);
-  const [loading, setLoading] = useState(false);
+interface Props extends PoemType {
+  link: string;
 
-  const { data: pinPoems } = useGetPinPoems();
+  active?: boolean;
+  onFavoriteChange?: (id: number, isPinned: boolean) => void;
+}
 
-  const pinned = pinPoems?.pinned_poems || [];
+const PoemsItem = ({ id, poem_name, link }: Props) => {
+  const token = useAuthStore((state) => state.accessToken);
 
-  console.log(pinned);
+  const setPinPoems = usePinPoemsStore((state) => state.setPinPoems);
+  const pinPoems = usePinPoemsStore((state) => state.pinPoems);
 
-  const onFavorite = async () => {
+  const isPinned = pinPoems.some((item) => item.id === id);
+
+  const onStar = async (obj: PoemType) => {
     try {
-      setLoading(true);
-      const { toast } = await import("@/hooks/use-toast");
-
-      const originalState = isPinned;
+      const { toast } = await import('@/hooks/use-toast');
+      setPinPoems(obj);
 
       toast({
-        title: isPinned
-          ? "Стих удален из избранного"
-          : "Стих добавлен в избранное",
+        title: isPinned ? 'Открепленно' : 'Закрепленно',
         action: (
           <ToastAction
-            onClick={async () => {
-              try {
-                if (originalState) {
-                  await poetService.postPoem({ poem_id: id });
-                } else {
-                  await poetService.unPinPoem({ poem_id: id });
-                }
-                setIsPinned(originalState);
-                onFavoriteChange?.(id, originalState);
-              } catch (error) {
-                console.log(error);
-              }
+            onClick={() => {
+              setPinPoems(obj);
             }}
-            altText="Отменить"
-          >
-            Отменить
+            altText="Отмена">
+            Try again
           </ToastAction>
         ),
-        duration: 3000,
       });
-
-      if (isPinned) {
-        await poetService.unPinPoem({ poem_id: id });
-      } else {
-        await poetService.postPoem({ poem_id: id });
-      }
-
-      setIsPinned(!isPinned);
-      onFavoriteChange?.(id, !isPinned);
     } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+      console.error(error);
     }
   };
 
@@ -90,10 +51,7 @@ const PoemsItem = ({
     <motion.div className="xl:w-[458px] md:w-[372px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] md:bg-[url('/images/poems/poem-med-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path md:poems-med-path xl:poem-path" />
 
-      <Link
-        to={link}
-        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
-      >
+      <Link to={link} className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
         <div className="flex items-center w-full">
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
@@ -105,13 +63,9 @@ const PoemsItem = ({
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button
-            disabled={loading}
-            onClick={onFavorite}
-            className="w-5 disabled:opacity-50"
-          >
+          <button onClick={() => onStar({ id, poem_name })} className="w-5 disabled:opacity-50">
             <img
-              src={isPinned ? "/images/star-fill.svg" : "/images/star.svg"}
+              src={isPinned ? '/images/star-fill.svg' : '/images/star.svg'}
               className="mr-1 size-5"
             />
           </button>

@@ -1,28 +1,28 @@
-import PageLayout from "@/components/layout/page-layout";
-import Pagination from "@/components/shared/pagination";
-import SortModal from "@/components/shared/sort-modal";
-import SynlarCard from "@/components/shared/synlar-card";
-import Tabs from "@/components/shared/tabs";
-import { cn, scrollTop } from "@/lib/utils";
-import { useGetReviews } from "@/query/use-get-reviews";
-import { AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import PageLayout from '@/components/layout/page-layout';
+import Pagination from '@/components/shared/pagination';
+import SortModal from '@/components/shared/sort-modal';
+import SynlarCard from '@/components/shared/synlar-card';
+import Tabs from '@/components/shared/tabs';
+import { cn, scrollTop } from '@/lib/utils';
+import { useGetReviews } from '@/query/use-get-reviews';
+import { AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export const tabs = [
   {
-    name: "Wsýo",
+    name: 'Wsýo',
     id: 0,
   },
   {
-    name: "Synlar",
+    name: 'Synlar',
     id: 1,
   },
   {
-    name: "Ýatlamalar",
+    name: 'Ýatlamalar',
     id: 2,
   },
   {
-    name: "Gutlaglar",
+    name: 'Gutlaglar',
     id: 3,
   },
 ];
@@ -32,11 +32,11 @@ const Synlar = () => {
   scrollTop(currentPage);
 
   const [active, setActive] = useState(0);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const perPage = 3;
   const [sort, setSort] = useState({
-    id: "new",
-    view: "Snaçala nowye",
+    id: 'new',
+    view: 'Snaçala nowye',
   });
 
   useEffect(() => {
@@ -56,44 +56,40 @@ const Synlar = () => {
           (active === 0 && item) ||
           (active === 1 && item.reviews_category_id === 1) ||
           (active === 2 && item.reviews_category_id === 2) ||
-          (active === 3 && item.reviews_category_id === 3)
+          (active === 3 && item.reviews_category_id === 3),
       )) ??
     [];
+
+  const synlar = filteredData.filter((item) =>
+    item.position_author_review.toLowerCase().includes(searchValue.toLowerCase()),
+  );
 
   console.log(filteredData);
 
   const sortData = [...filteredData].reverse();
 
-  const getSortData = () => (sort.id === "new" ? filteredData : sortData);
+  const getSortData = () => (sort.id === 'new' ? synlar : sortData);
 
-  const displayedData = getSortData().slice(
-    (currentPage - 1) * perPage,
-    currentPage * perPage
-  );
+  const displayedData = getSortData().slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  const getCat = (id: number) => (id === 1 ? 'Synlar' : id === 2 ? 'Ýatlamalar' : 'Gutlaglar');
 
   return (
     <PageLayout
       title="Synlar, ýatlamar, gutlaglar"
-      text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-    >
-      <SortModal
-        search={searchValue}
-        setSearch={setSearchValue}
-        sort={sort}
-        setSort={setSort}
-      />
+      text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy.">
+      <SortModal search={searchValue} setSearch={setSearchValue} sort={sort} setSort={setSort} />
       <section>
         <div className="relative flex flex-col justify-center transition-all">
           {searchValue ? (
             <div
               className={cn(
-                "absolute w-full left-1/2 -translate-x-1/2 xl:top-12 top-6 text-center pb-4 h-[50px]",
-                filteredData.length > 0 && "border-b border-OUTLINE"
-              )}
-            >
+                'absolute w-full left-1/2 -translate-x-1/2 xl:top-12 top-6 text-center pb-4 h-[50px]',
+                filteredData.length > 0 && 'border-b border-OUTLINE',
+              )}>
               {filteredData.length > 0
                 ? `Po «${searchValue}» zaprosy naýdeno:`
-                : "Niçego ne naýdeno!"}
+                : 'Niçego ne naýdeno!'}
             </div>
           ) : (
             <Tabs
@@ -108,22 +104,21 @@ const Synlar = () => {
           <div className="grid grid-cols-1 w-full md:grid-cols-2 xl:grid-cols-3 mt-[100px] xl:mt-[140px] gap-6">
             <AnimatePresence>
               {displayedData.map((item, i) => (
-                <SynlarCard categ={"Synlar"} key={i} {...item} />
+                <SynlarCard categ={getCat(item.reviews_category_id)} key={i} {...item} />
               ))}
             </AnimatePresence>
           </div>
         </div>
 
-        {displayedData.length > 0 &&
-          displayedData.length < getSortData().length && (
-            <Pagination
-              className="mt-8"
-              currentPage={currentPage}
-              totalPages={getSortData().length}
-              perPage={perPage}
-              onChangePage={handlePageChange}
-            />
-          )}
+        {displayedData.length > 0 && displayedData.length < getSortData().length && (
+          <Pagination
+            className="mt-8"
+            currentPage={currentPage}
+            totalPages={getSortData().length}
+            perPage={perPage}
+            onChangePage={handlePageChange}
+          />
+        )}
       </section>
     </PageLayout>
   );

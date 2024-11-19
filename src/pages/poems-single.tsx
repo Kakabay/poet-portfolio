@@ -7,6 +7,7 @@ import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useGetPoems } from '@/query/use-get-poems';
 import { useGetPoemsSingle } from '@/query/use-get-poems-single';
 import poetService from '@/services/poet.service';
+import { usePinPoemsStore } from '@/store/use-pin-poems';
 import { usePathStore } from '@/store/usePathname';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -45,15 +46,19 @@ const poem = [
 
 const PoemsSingle = () => {
   const { id } = useParams();
+  const { data, isLoading } = useGetPoemsSingle(Number(id || 1));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [data]);
+
   const poemId = Number(id);
   const { data: poems } = useGetPoems();
 
-  const { data, isLoading } = useGetPoemsSingle(Number(id || 1));
   const info = data || [];
 
   const setPath = usePathStore((state) => state.setPath);
 
-  const { data: pinItems } = useGetPinPoems();
   const [loading, setLoading] = useState(false);
 
   const queryClient = useQueryClient();
@@ -62,7 +67,8 @@ const PoemsSingle = () => {
     try {
       if (isPinned) {
         await poetService.unPinPoem({ poem_id: poemId });
-      } else {
+      }
+      if (!isPinned) {
         await poetService.postPoem({ poem_id: poemId });
       }
 
@@ -85,32 +91,27 @@ const PoemsSingle = () => {
   const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
   const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
 
-  const [isPinned, setIsPinned] = useState<boolean>(
-    pinItems?.pinned_poems.some((item) => item.id === poemId) || false,
-  );
+  const [isPinned, setIsPinned] = useState<boolean>(false);
+
+  const setPinPoems = usePinPoemsStore((state) => state.setPinPoems);
 
   const onFavorite = async () => {
     try {
-      setLoading(true);
-
       const { toast } = await import('@/hooks/use-toast');
 
-      const originalState = pinItems?.pinned_poems.some((item) => item.id === poemId);
+      const obj = {
+        poem_name: info[0].poem_name,
+        id: poemId,
+      };
+
+      setPinPoems(obj);
 
       toast({
         title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
         action: (
           <ToastAction
-            onClick={async () => {
-              try {
-                if (originalState) {
-                  await poetService.postPoem({ poem_id: Number(id) });
-                } else {
-                  await poetService.unPinPoem({ poem_id: Number(id) });
-                }
-              } catch (error) {
-                console.log(error);
-              }
+            onClick={() => {
+              setPinPoems(obj);
             }}
             altText="Отменить">
             Отменить
@@ -118,12 +119,6 @@ const PoemsSingle = () => {
         ),
         duration: 3000,
       });
-
-      if (isPinned) {
-        await poetService.unPinPoem({ poem_id: Number(id) });
-      } else {
-        await poetService.postPoem({ poem_id: Number(id) });
-      }
 
       setIsPinned(!isPinned);
       handleFavoriteChange?.(Number(id), !isPinned);
