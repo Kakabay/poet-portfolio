@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
 import { BgTexture } from './bg-texture';
-import { usePinPoemsStore } from '@/store/use-pin-poems';
 import { ToastAction } from '../ui/toast';
+import poetService from '@/services/poet.service';
+import { useGetPinPoems } from '@/query/use-get-pin-poems';
+import { useState } from 'react';
 
 export interface PoemType {
   id: number;
@@ -19,31 +21,64 @@ interface Props extends PoemType {
 
 const PoemsItem = ({ id, poem_name, link }: Props) => {
   const token = useAuthStore((state) => state.accessToken);
+  const [loading, setLoading] = useState(false);
 
-  const setPinPoems = usePinPoemsStore((state) => state.setPinPoems);
-  const pinPoems = usePinPoemsStore((state) => state.pinPoems);
+  const { data: pinned, refetch } = useGetPinPoems();
 
-  const isPinned = pinPoems.some((item) => item.id === id);
+  const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === id);
 
-  const onStar = async (obj: PoemType) => {
+  const handlePin = async () => {
     try {
-      const { toast } = await import('@/hooks/use-toast');
-      setPinPoems(obj);
-
-      toast({
-        title: isPinned ? 'Открепленно' : 'Закрепленно',
-        action: (
-          <ToastAction
-            onClick={() => {
-              setPinPoems(obj);
-            }}
-            altText="Отмена">
-            Try again
-          </ToastAction>
-        ),
-      });
+      await poetService.postPoem({ poem_id: id });
+      await refetch();
     } catch (error) {
-      console.error(error);
+      console.error('Ошибка при закреплении:', error);
+    }
+  };
+
+  const handleUnpin = async () => {
+    try {
+      await poetService.unPinPoem({ poem_id: id });
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при откреплении:', error);
+    }
+  };
+
+  const onStar = async () => {
+    try {
+      setLoading(true);
+      const { toast } = await import('@/hooks/use-toast');
+
+      if (isPinnedBack) {
+        await handleUnpin();
+        toast({
+          title: 'Открепленно',
+          action: (
+            <ToastAction
+              onClick={handlePin} // Явное закрепление
+              altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
+      } else {
+        await handlePin();
+        toast({
+          title: 'Закрепленно',
+          action: (
+            <ToastAction
+              onClick={handleUnpin} // Явное открепление
+              altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Ошибка при изменении закрепления:', error);
+      setLoading(false);
     }
   };
 
@@ -63,9 +98,9 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button onClick={() => onStar({ id, poem_name })} className="w-5 disabled:opacity-50">
+          <button disabled={loading} onClick={() => onStar()} className="w-5 disabled:opacity-50">
             <img
-              src={isPinned ? '/images/star-fill.svg' : '/images/star.svg'}
+              src={isPinnedBack ? '/images/star-fill.svg' : '/images/star.svg'}
               className="mr-1 size-5"
             />
           </button>

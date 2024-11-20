@@ -9,7 +9,6 @@ import { useGetPoemsSingle } from '@/query/use-get-poems-single';
 import poetService from '@/services/poet.service';
 import { usePinPoemsStore } from '@/store/use-pin-poems';
 import { usePathStore } from '@/store/usePathname';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -54,31 +53,13 @@ const PoemsSingle = () => {
 
   const poemId = Number(id);
   const { data: poems } = useGetPoems();
+  const { data: pinned } = useGetPinPoems();
 
   const info = data || [];
 
   const setPath = usePathStore((state) => state.setPath);
 
   const [loading, setLoading] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  const handleFavoriteChange = async (poemId: number, isPinned: boolean) => {
-    try {
-      if (isPinned) {
-        await poetService.unPinPoem({ poem_id: poemId });
-      }
-      if (!isPinned) {
-        await poetService.postPoem({ poem_id: poemId });
-      }
-
-      queryClient.invalidateQueries({ queryKey: ['pinPoems'] });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     setPath('poem');
@@ -91,9 +72,19 @@ const PoemsSingle = () => {
   const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
   const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
 
-  const [isPinned, setIsPinned] = useState<boolean>(false);
+  const [isPinned, setIsPinned] = useState(false);
 
   const setPinPoems = usePinPoemsStore((state) => state.setPinPoems);
+
+  const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === poemId);
+
+  const handlePoem = async (id: number) => {
+    if (isPinnedBack) {
+      await poetService.unPinPoem({ poem_id: id });
+    } else {
+      await poetService.postPoem({ poem_id: id });
+    }
+  };
 
   const onFavorite = async () => {
     try {
@@ -105,6 +96,8 @@ const PoemsSingle = () => {
       };
 
       setPinPoems(obj);
+
+      handlePoem(poemId);
 
       toast({
         title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
@@ -121,7 +114,6 @@ const PoemsSingle = () => {
       });
 
       setIsPinned(!isPinned);
-      handleFavoriteChange?.(Number(id), !isPinned);
     } catch (error) {
       console.log(error);
     } finally {
@@ -173,7 +165,7 @@ const PoemsSingle = () => {
                   </div>
                 </div>
 
-                <div className="container flex justify-center xl:mt-16 mt-8">
+                {/* <div className="container flex justify-center xl:mt-16 mt-8" aria-disabled>
                   <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
                     <h5 className="text-16 font-semibold">Kakamyň sagady</h5>
                     <audio
@@ -183,7 +175,7 @@ const PoemsSingle = () => {
                       className="bg-transparent"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <SectionLine className="xl:mt-16 xl:mb-12 my-8" />
 
