@@ -4,7 +4,7 @@ import { PoemType } from '../shared/poems-item';
 import { Spin } from '../shared';
 interface Props {
   className?: string;
-  title: string;
+  title?: string;
   text?: string;
   star?: 'active' | 'none' | '';
   messagesText?: string;

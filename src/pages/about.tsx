@@ -1,14 +1,15 @@
-import PageLayout from "@/components/layout/page-layout";
-import { BorderImg, EllipsisBlock, InfoBlock } from "@/components/shared";
-import RombsBlock from "@/components/shared/rombs-block";
-import SectionLine from "@/components/shared/section-line";
-import { useGetAbout } from "@/query/use-get-about";
+import PageLayout from '@/components/layout/page-layout';
+import { BorderImg, EllipsisBlock, InfoBlock } from '@/components/shared';
+import RombsBlock from '@/components/shared/rombs-block';
+import SectionLine from '@/components/shared/section-line';
+import { useGetAbout } from '@/query/use-get-about';
+import { useGetStatic } from '@/query/use-get-static-words';
 
 const About = () => {
   // scrollTop();
   const { data } = useGetAbout();
 
-  console.log(data);
+  const { data: staticWords } = useGetStatic(2);
 
   const info = data || [];
 
@@ -16,19 +17,13 @@ const About = () => {
     <PageLayout
       title={info[0]?.header}
       text={info[0]?.header_text}
-      className="xl:gap-12 gap-8 pb-[30px] container"
-    >
-      <BorderImg
-        className="max-w-[616px] max-h-[340px] mx-auto"
-        img="/images/about/suprugi.png"
-      />
+      className="xl:gap-12 gap-8 pb-[30px] container">
+      <BorderImg className="max-w-[616px] max-h-[340px] mx-auto" img="/images/about/suprugi.png" />
 
       <SectionLine />
 
       <section className="flex flex-col gap-6 xl:gap-12">
-        <h2 className="h2 kaushan xl:text-center pr-4">
-          Ynha meniň geçen durmuş ýolum:
-        </h2>
+        <h2 className="h2 kaushan xl:text-center pr-4">{staticWords?.[0]?.word?.[0].word}</h2>
 
         <RombsBlock />
       </section>
@@ -66,9 +61,7 @@ const About = () => {
       <SectionLine />
 
       <section className="flex flex-col overflow-visible">
-        <h2 className="h2 kaushan xl:mb-20 mb-6 text-center">
-          Ynha meniň geçen durmuş ýolum:
-        </h2>
+        <h2 className="h2 kaushan xl:mb-20 mb-6 text-center">Ynha meniň geçen durmuş ýolum:</h2>
 
         <EllipsisBlock />
       </section>

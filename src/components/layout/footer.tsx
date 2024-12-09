@@ -1,23 +1,26 @@
-import { BgTexture } from "../shared";
+import { useGetStatic } from '@/query/use-get-static-words';
+import { BgTexture } from '../shared';
 
 const Footer = () => {
+  const { data: footerData } = useGetStatic(1);
+
+  console.log(footerData?.[0]?.word[0]?.word);
+
+  console.log(footerData);
+
   return (
     <footer className="relative shadow-top h-[164px] md:h-[123px] py-4 md:py-6">
       <BgTexture png className='bg-[url("/images/footer-shape.png")] ' />
       <div className="container top-0 left-0 bottom-0 relative flex flex-col gap-4">
         <div className="flex flex-col md:flex-row md:gap-0 gap-4 text-center md:text-left items-center justify-between">
-          <div className="kaushan md:text-left text-center">
-            Ezizgeldi Helleňow
-          </div>
-          <div className="text-14 !leading-[140%]">
-            Pri ispolzowanii materiala ssylka na istoçnik obýazatelna
-          </div>
+          <div className="kaushan md:text-left text-center">Ezizgeldi Helleňow</div>
+          <div className="text-14 !leading-[140%]">{footerData?.[0]?.word[0]?.word}</div>
         </div>
 
         <hr className="text-OUTLINE_VAR" />
 
         <span className="text-14 !leading-[140%] text-center text-ON_SURFACE_VAR">
-          2024© Wse prawa zaşişeny
+          {footerData?.[0]?.word?.[1]?.word}
         </span>
       </div>
     </footer>

@@ -1,65 +1,65 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-import Home from "./pages/home";
-const About = lazy(() => import("./pages/about"));
-const Poems = lazy(() => import("./pages/poems"));
-const PoemsSingle = lazy(() => import("./pages/poems-single"));
-const Synlar = lazy(() => import("./pages/synlar"));
-const Moments = lazy(() => import("./pages/moments"));
-const MomentsSingle = lazy(() => import("./pages/moments-single"));
-const Books = lazy(() => import("./pages/books"));
-const Messages = lazy(() => import("./pages/messages"));
-const Contacts = lazy(() => import("./pages/contacts"));
-const Register = lazy(() => import("./pages/register"));
-const Cabinet = lazy(() => import("./pages/cabinet"));
+import Home from './pages/home';
+const About = lazy(() => import('./pages/about'));
+const Poems = lazy(() => import('./pages/poems'));
+const PoemsSingle = lazy(() => import('./pages/poems-single'));
+const Synlar = lazy(() => import('./pages/synlar'));
+const Moments = lazy(() => import('./pages/moments'));
+const MomentsSingle = lazy(() => import('./pages/moments-single'));
+const Books = lazy(() => import('./pages/books'));
+const Messages = lazy(() => import('./pages/messages'));
+const Contacts = lazy(() => import('./pages/contacts'));
+const Register = lazy(() => import('./pages/register'));
+const Cabinet = lazy(() => import('./pages/cabinet'));
 
 export const routes = [
   {
-    path: "",
+    path: '',
     element: Home,
   },
   {
-    path: "about",
+    path: 'about',
     element: About,
   },
   {
-    path: "poems",
+    path: 'poems',
     element: Poems,
   },
   {
-    path: "/poems/:id",
+    path: '/poems/:id',
     element: PoemsSingle,
   },
   {
-    path: "comments",
+    path: 'comments',
     element: Synlar,
   },
   {
-    path: "moments",
+    path: 'moments',
     element: Moments,
   },
   {
-    path: "moments/:id",
+    path: 'moments/:id',
     element: MomentsSingle,
   },
   {
-    path: "books",
+    path: 'books',
     element: Books,
   },
   {
-    path: "messages",
+    path: 'messages',
     element: Messages,
   },
   {
-    path: "contacts",
+    path: 'contacts',
     element: Contacts,
   },
   {
-    path: "instruction",
+    path: 'instruction',
     element: Register,
   },
   {
-    path: "cabinet",
+    path: 'cabinet',
     element: Cabinet,
   },
 ];

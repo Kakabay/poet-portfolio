@@ -5,6 +5,7 @@ import SynlarCard from '@/components/shared/synlar-card';
 import Tabs from '@/components/shared/tabs';
 import { cn, scrollTop } from '@/lib/utils';
 import { useGetReviews } from '@/query/use-get-reviews';
+import { useGetStatic } from '@/query/use-get-static-words';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -39,6 +40,8 @@ const Synlar = () => {
     view: 'Snaçala nowye',
   });
 
+  const { data: staticWords } = useGetStatic(5);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [active]);
@@ -64,8 +67,6 @@ const Synlar = () => {
     item.position_author_review.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
-  console.log(filteredData);
-
   const sortData = [...filteredData].reverse();
 
   const getSortData = () => (sort.id === 'new' ? synlar : sortData);
@@ -76,7 +77,7 @@ const Synlar = () => {
 
   return (
     <PageLayout
-      title="Synlar, ýatlamar, gutlaglar"
+      title={staticWords?.[0]?.word?.[0]?.word}
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy.">
       <SortModal search={searchValue} setSearch={setSearchValue} sort={sort} setSort={setSort} />
       <section>
