@@ -1,78 +1,83 @@
 import { Link } from 'react-router-dom';
-import { ToastAction } from '../ui/toast';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
 import { BgTexture } from './bg-texture';
+import { ToastAction } from '../ui/toast';
 import poetService from '@/services/poet.service';
 import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useState } from 'react';
 
-interface Props {
-  id: number;
-  poem_name: string;
-  link: string;
-
-  active?: boolean;
-  onFavoriteChange?: (id: number, isPinned: boolean) => void;
-}
 export interface PoemType {
   id: number;
   poem_name: string;
 }
 
-const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Props) => {
-  const token = useAuthStore().accessToken;
-  const [isPinned, setIsPinned] = useState(active);
+interface Props extends PoemType {
+  link: string;
+
+  active?: boolean;
+  onFavoriteChange?: (id: number, isPinned: boolean) => void;
+}
+
+const PoemsItem = ({ id, poem_name, link }: Props) => {
+  const token = useAuthStore((state) => state.accessToken);
   const [loading, setLoading] = useState(false);
 
-  const { data: pinPoems } = useGetPinPoems();
+  const { data: pinned, refetch } = useGetPinPoems();
 
-  const pinned = pinPoems?.pinned_poems || [];
+  const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === id);
 
-  console.log(pinned);
+  const handlePin = async () => {
+    try {
+      await poetService.postPoem({ poem_id: id });
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при закреплении:', error);
+    }
+  };
 
-  const onFavorite = async () => {
+  const handleUnpin = async () => {
+    try {
+      await poetService.unPinPoem({ poem_id: id });
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при откреплении:', error);
+    }
+  };
+
+  const onStar = async () => {
     try {
       setLoading(true);
       const { toast } = await import('@/hooks/use-toast');
 
-      const originalState = isPinned;
-
-      toast({
-        title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
-        action: (
-          <ToastAction
-            onClick={async () => {
-              try {
-                if (originalState) {
-                  await poetService.postPoem({ poem_id: id });
-                } else {
-                  await poetService.unPinPoem({ poem_id: id });
-                }
-                setIsPinned(originalState);
-                onFavoriteChange?.(id, originalState);
-              } catch (error) {
-                console.log(error);
-              }
-            }}
-            altText="Отменить">
-            Отменить
-          </ToastAction>
-        ),
-        duration: 3000,
-      });
-
-      if (isPinned) {
-        await poetService.unPinPoem({ poem_id: id });
+      if (isPinnedBack) {
+        await handleUnpin();
+        toast({
+          title: 'Открепленно',
+          action: (
+            <ToastAction
+              onClick={handlePin} // Явное закрепление
+              altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
       } else {
-        await poetService.postPoem({ poem_id: id });
+        await handlePin();
+        toast({
+          title: 'Закрепленно',
+          action: (
+            <ToastAction
+              onClick={handleUnpin} // Явное открепление
+              altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
       }
-
-      setIsPinned(!isPinned);
-      onFavoriteChange?.(id, !isPinned);
+      setLoading(false);
     } catch (error) {
-      console.log(error);
-    } finally {
+      console.error('Ошибка при изменении закрепления:', error);
       setLoading(false);
     }
   };
@@ -93,9 +98,9 @@ const PoemsItem = ({ id, poem_name, active = false, onFavoriteChange, link }: Pr
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button disabled={loading} onClick={onFavorite} className="w-5 disabled:opacity-50">
+          <button disabled={loading} onClick={() => onStar()} className="w-5 disabled:opacity-50">
             <img
-              src={isPinned ? '/images/star-fill.svg' : '/images/star.svg'}
+              src={isPinnedBack ? '/images/star-fill.svg' : '/images/star.svg'}
               className="mr-1 size-5"
             />
           </button>

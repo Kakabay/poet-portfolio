@@ -1,0 +1,1 @@
+import{j as s,c as t}from"./index-DUSLFOFJ.js";const r=({className:e})=>s.jsx("div",{className:t("w-full h-[1px] relative bg-OUTLINE_VAR",e),children:s.jsx("img",{src:"/images/romb.svg",alt:"",className:"absolute -top-[3.5px] left-1/2 -translate-x-1/2"})});export{r as S};

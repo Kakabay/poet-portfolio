@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
-import PoemsItem from './poems-item';
+import { useParams } from "react-router-dom";
+import PoemsItem from "./poems-item";
 
 const PoemsModal = () => {
   const { id } = useParams();
@@ -11,7 +11,7 @@ const PoemsModal = () => {
         alt=""
         className="h-full w-full object- absolute top-0 left-0 right-0 "
       />
-      <PoemsItem key={id} id={1} name={''} />
+      <PoemsItem key={id} id={1} poem_name={""} link={""} />
     </div>
   );
 };

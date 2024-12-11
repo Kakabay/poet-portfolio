@@ -5,6 +5,7 @@ import SynlarCard from "@/components/shared/synlar-card";
 import Tabs from "@/components/shared/tabs";
 import { cn, scrollTop } from "@/lib/utils";
 import { useGetReviews } from "@/query/use-get-reviews";
+import { useGetStatic } from "@/query/use-get-static-words";
 import { useGetUserNotifications } from "@/query/use-get-user-notifications";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -19,7 +20,7 @@ export const tabs = [
     id: 1,
   },
   {
-    name: "Ýatlamar",
+    name: "Ýatlamalar",
     id: 2,
   },
   {
@@ -39,6 +40,8 @@ const Synlar = () => {
     id: "new",
     view: "Snaçala nowye",
   });
+
+  const { data: staticWords } = useGetStatic(5);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -64,20 +67,27 @@ const Synlar = () => {
       )) ??
     [];
 
-  console.log(filteredData);
+  const synlar = filteredData.filter((item) =>
+    item.position_author_review
+      .toLowerCase()
+      .includes(searchValue.toLowerCase())
+  );
 
   const sortData = [...filteredData].reverse();
 
-  const getSortData = () => (sort.id === "new" ? filteredData : sortData);
+  const getSortData = () => (sort.id === "new" ? synlar : sortData);
 
   const displayedData = getSortData().slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
 
+  const getCat = (id: number) =>
+    id === 1 ? "Synlar" : id === 2 ? "Ýatlamalar" : "Gutlaglar";
+
   return (
     <PageLayout
-      title="Synlar, ýatlamar, gutlaglar"
+      title={staticWords?.[0]?.word?.[0]?.word}
       text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
     >
       <SortModal
@@ -112,7 +122,11 @@ const Synlar = () => {
           <div className="grid grid-cols-1 w-full md:grid-cols-2 xl:grid-cols-3 mt-[100px] xl:mt-[140px] gap-6">
             <AnimatePresence>
               {displayedData.map((item, i) => (
-                <SynlarCard categ={"Synlar"} key={i} {...item} />
+                <SynlarCard
+                  categ={getCat(item.reviews_category_id)}
+                  key={i}
+                  {...item}
+                />
               ))}
             </AnimatePresence>
           </div>

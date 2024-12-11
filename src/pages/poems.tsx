@@ -2,18 +2,15 @@ import PageLayout from '@/components/layout/page-layout';
 import Pagination from '@/components/shared/pagination';
 import PoemsItem from '@/components/shared/poems-item';
 import SortModal from '@/components/shared/sort-modal';
-import { cn, scrollTop } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useGetPoems } from '@/query/use-get-poems';
 import poetService from '@/services/poet.service';
-import { usePageIdStore } from '@/store/usePageId';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 const Poems = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  scrollTop(currentPage);
 
   const [searchValue, setSearchValue] = useState('');
   const [sort, setSort] = useState({

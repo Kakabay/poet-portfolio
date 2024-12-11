@@ -2,16 +2,6 @@ type Lifestyle = {
   name: string;
 };
 
-type ChildhoodAndSchoolYears = {
-  header: string;
-  text: string;
-};
-
-type StudentYears = {
-  header: string;
-  text: string;
-};
-
 type MedicalPeriod = {
   header: string;
   text: string;

@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils";
-import { ReactNode, useState } from "react";
-import { PoemType } from "../shared/poems-item";
-import { Spin } from "../shared";
+import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
+import { PoemType } from '../shared/poems-item';
+import { Spin } from '../shared';
 interface Props {
   className?: string;
-  title: string;
+  title?: string;
   text?: string;
-  star?: "active" | "none" | "";
+  star?: 'active' | 'none' | '';
   messagesText?: string;
   setFavorite?: (item: PoemType) => void;
   children: ReactNode;
@@ -22,12 +22,12 @@ const PageLayout = ({
   text,
   audio,
   messagesText,
-  star = "",
+  star = '',
   loading = false,
   onStar,
 }: Props) => {
   return (
-    <main className={cn("pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30")}>
+    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30')}>
       <div className="container">
         {!loading ? (
           <>
@@ -39,11 +39,11 @@ const PageLayout = ({
                   <img
                     className="cursor-pointer p-1"
                     src={
-                      star === "none"
-                        ? "/images/star.svg"
-                        : star === "active"
-                        ? "/images/star-fill.svg"
-                        : "none"
+                      star === 'none'
+                        ? '/images/star.svg'
+                        : star === 'active'
+                        ? '/images/star-fill.svg'
+                        : 'none'
                     }
                     onClick={onStar}
                   />
@@ -52,7 +52,7 @@ const PageLayout = ({
               </div>
             </div>
 
-            <div className={cn("flex flex-col xl:gap-12 gap-8")}>
+            <div className={cn('flex flex-col xl:gap-12 gap-8')}>
               {text && (
                 <div>
                   {messagesText && (
@@ -65,9 +65,7 @@ const PageLayout = ({
                   </p>
                 </div>
               )}
-              <section className={cn("flex flex-col", className)}>
-                {children}
-              </section>
+              <section className={cn('flex flex-col', className)}>{children}</section>
             </div>
           </>
         ) : (
