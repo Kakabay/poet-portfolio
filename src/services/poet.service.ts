@@ -166,6 +166,17 @@ class PoetService {
     return data.data;
   };
 
+  getUserNotifications = async () => {
+    const token = this.authStore.getState().accessToken;
+
+    const { data } = await axios.get(`${this.URL_TOKEN}notifications`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   getUserComments = async () => {
     const token = this.authStore.getState().accessToken;
 

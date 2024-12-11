@@ -5,6 +5,7 @@ import SynlarCard from "@/components/shared/synlar-card";
 import Tabs from "@/components/shared/tabs";
 import { cn, scrollTop } from "@/lib/utils";
 import { useGetReviews } from "@/query/use-get-reviews";
+import { useGetUserNotifications } from "@/query/use-get-user-notifications";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -48,6 +49,9 @@ const Synlar = () => {
   };
 
   const { data: reviews } = useGetReviews();
+
+  const { data } = useGetUserNotifications();
+  console.log(data);
 
   const filteredData =
     (reviews &&
