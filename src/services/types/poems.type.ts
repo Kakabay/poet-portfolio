@@ -8,7 +8,7 @@ interface CoupletPoem {
   textarea1: string;
 }
 
-interface Poem {
+export interface Poem {
   id: number;
   poem_name: string;
   couplets_poem: CoupletPoem[];
