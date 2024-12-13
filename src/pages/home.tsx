@@ -1,9 +1,6 @@
-import { scrollTop } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
 
 const Home = () => {
-  scrollTop();
-
   const tab = useMediaQuery('(min-width: 768px)');
 
   return (
@@ -24,7 +21,7 @@ const Home = () => {
           <div className="px-8 md:px-14 w-full pb-20 md:pt-16 pt-12 flex flex-col relative z-20 md:gap-6 gap-8">
             <div className="flex flex-col gap-4">
               <h3 className="kaushan text-PRIM text-[18px] md:text-[24px] leading-[130%]">
-                Hormaly, şygyrýetiň muşdagy! <br /> Meniň Internet sahypama hoş geldiňiz!
+                Hormatly, şygyrýetiň muşdagy! <br /> Meniň Internet sahypama hoş geldiňiz!
               </h3>
               <p className="text-[12px] md:text-[14px] font-medium md:font-normal leading-[130%] md:leading-[145%] -tracking-wide">
                 Men Siz bilen göni aragatnaşykda boljakdygyma gaty begenýärin. Siziň pikirňizi,

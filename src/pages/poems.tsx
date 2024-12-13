@@ -11,8 +11,8 @@ import { useState } from 'react';
 
 const Poems = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-
   const [searchValue, setSearchValue] = useState('');
+
   const [sort, setSort] = useState({
     id: 'new',
     view: 'Snaçala nowye',
