@@ -6,12 +6,14 @@ type Props = {
   categ: string;
   position_author_review: string;
   review_author: string;
+  btnText?: string;
 };
 
 const SynlarCard = ({
   position_author_review,
   categ,
   review_author,
+  btnText,
 }: Props) => {
   return (
     <motion.div
@@ -37,7 +39,7 @@ const SynlarCard = ({
           <h5 className="font-semibold  uppercase mb-2">{review_author}</h5>
           {/* <h6 className="text-ON_SURFACE_VAR font-medium italic">{print}</h6> */}
         </div>
-        <Button>Pereýti k istoçniku</Button>
+        <Button>{btnText}</Button>
       </div>
     </motion.div>
   );

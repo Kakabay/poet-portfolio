@@ -8,6 +8,7 @@ import { useContactsStore } from "@/store/useContacts";
 import { usePopupStore } from "@/store/usePopup";
 import { CustomField } from "../shared/custom-field";
 import poetService from "@/services/poet.service";
+import { useGetStatic } from "@/query/use-get-static-words";
 
 const formSchema = z.object({
   name: z.string().min(3, "Imya obyazatelno"),
@@ -18,9 +19,10 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 const ContactsForm = () => {
-  const setMode = usePopupStore().setMode;
+  const setMode = usePopupStore((state) => state.setMode);
+  const setSuccess = useContactsStore((state) => state.setSuccess);
 
-  const setSuccess = useContactsStore().setSuccess;
+  const { data } = useGetStatic(14, "contactsData");
 
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -55,30 +57,30 @@ const ContactsForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <h4 className="xl:text-20 text-[18px] xl:mb-6 mb-8">
-            Maňa hat iberiň
+            {data?.[3]?.word}
           </h4>
           <div className="flex flex-col xl:gap-10 gap-7 md:gap-10 xl:flex-[0_0_648px]">
             <div className="flex md:flex-row flex-col gap-6">
               <CustomField
                 control={form.control}
-                label="Waşe imýa"
+                label={data?.[4]?.word}
                 name="name"
-                placeholder="Kak was zowut?"
+                placeholder={data?.[6]?.word}
                 error={form.formState.errors.name}
               />
               <CustomField
                 control={form.control}
-                label="Waş email"
+                label={data?.[5]?.word}
                 name="email"
-                placeholder="Kuda otprawit otwet?"
+                placeholder={data?.[7]?.word}
                 error={form.formState.errors.email}
               />
             </div>
             <CustomField
               control={form.control}
-              label="Tema soobşeniýa"
+              label={data?.[9]?.word}
               name="text"
-              placeholder="Kuda otprawit otwet?"
+              placeholder={data?.[8]?.word}
               error={form.formState.errors.text}
               area
             />
@@ -89,7 +91,7 @@ const ContactsForm = () => {
               disabled={isSubmitting}
               className="relative w-full"
             >
-              {isSubmitting ? <LoadingDots /> : "Otprawit"}
+              {isSubmitting ? <LoadingDots /> : data?.[10]?.word}
             </Button>
           </div>
         </form>

@@ -1,6 +1,5 @@
-import { useGetPoems } from "@/query/use-get-poems";
-import { Poem } from "@/services/types/poems.type";
 import { useState } from "react";
+import { Poem } from "@/services/types/poems.type";
 
 interface SortType {
   id: string;
@@ -9,13 +8,14 @@ interface SortType {
 
 interface ReturnProps {
   sort: SortType;
-  setSort: (obj: SortType) => void;
   searchValue: string;
-  setSearchValue: (value: string) => void;
   currentPage: number;
-  setCurrentPage: (num: number) => void;
-  displayedData: Poem[] | undefined;
+
   filterData: Poem[] | undefined;
+  setSort: (obj: SortType) => void;
+  setCurrentPage: (num: number) => void;
+  setSearchValue: (value: string) => void;
+  getSortData: () => Poem[] | undefined;
 }
 
 export const getSortPoems = (
@@ -38,14 +38,18 @@ export const getSortPoems = (
     currentPage * perPage
   );
 
+  const sortData = displayedData && [...displayedData].reverse();
+
+  const getSortData = () => (sort.id === "old" ? sortData : displayedData);
+
   return {
     sort,
     setSort,
-    searchValue,
-    setSearchValue,
-    currentPage,
-    setCurrentPage,
-    displayedData,
     filterData,
+    getSortData,
+    searchValue,
+    currentPage,
+    setSearchValue,
+    setCurrentPage,
   };
 };

@@ -1,29 +1,34 @@
-import PageLayout from "@/components/layout/page-layout";
-import Pagination from "@/components/shared/pagination";
-import PoemsItem from "@/components/shared/poems-item";
-import SortModal from "@/components/shared/sort-modal";
-import { getSortPoems } from "@/lib/get-sort-data-poems";
 import { cn } from "@/lib/utils";
-import { useGetPinPoems } from "@/query/use-get-pin-poems";
 import { useGetPoems } from "@/query/use-get-poems";
-import poetService from "@/services/poet.service";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { getSortPoems } from "@/lib/get-sort-data-poems";
+import { useGetStatic } from "@/query/use-get-static-words";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
+
+import poetService from "@/services/poet.service";
+import SortModal from "@/components/shared/sort-modal";
+import PoemsItem from "@/components/shared/poems-item";
+import Pagination from "@/components/shared/pagination";
+import PageLayout from "@/components/layout/page-layout";
 
 const Poems = () => {
-  const { data: pinned } = useGetPinPoems();
   const { data: poems } = useGetPoems();
+  const { data: pinned } = useGetPinPoems();
+  const { data: staticData } = useGetStatic(3, "poemsData");
+
   const perPage = 10;
 
+  console.log(staticData);
+
   const {
-    currentPage,
-    displayedData,
+    sort,
+    setSort,
     filterData,
     searchValue,
+    getSortData,
+    currentPage,
     setCurrentPage,
     setSearchValue,
-    setSort,
-    sort,
   } = getSortPoems(poems, perPage);
 
   const pinPoems = pinned?.pinned_poems || [];
@@ -31,10 +36,6 @@ const Poems = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
-  const sortData = displayedData && [...displayedData].reverse();
-
-  const getSortData = () => (sort.id === "old" ? sortData : displayedData);
 
   const queryClient = useQueryClient();
 
@@ -59,6 +60,7 @@ const Poems = () => {
       className="xl:gap-[64px] gap-8"
     >
       <SortModal
+        data={[]}
         search={searchValue}
         setSearch={setSearchValue}
         sort={sort}

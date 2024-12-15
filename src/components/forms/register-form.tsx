@@ -9,6 +9,7 @@ import LoadingDots from "../shared/loading-dots";
 import { useAuthStore } from "@/store/useAuthStore";
 import poetService from "@/services/poet.service";
 import { CustomField } from "../shared/custom-field";
+import { useGetStatic } from "@/query/use-get-static-words";
 
 const signUpSchema = z
   .object({
@@ -84,6 +85,8 @@ const RegisterForm = () => {
     if (!accessToken) setStep(1);
   }, [accessToken]);
 
+  const { data } = useGetStatic(13, "registerData");
+
   return (
     <Form {...form}>
       <form
@@ -92,7 +95,7 @@ const RegisterForm = () => {
           "md:w-[640px] mx-auto flex flex-col xl:gap-6 md:gap-6 gap-8"
         )}
       >
-        <h2 className="h2 kaushan">Kak zaregistrirowatsýa</h2>
+        <h2 className="h2 kaushan">{data?.[2]?.word}</h2>
 
         <div
           className={cn(
@@ -101,24 +104,22 @@ const RegisterForm = () => {
           )}
         >
           <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-            1 shag
+            {data?.[3]?.word}
           </div>
 
           <h4 className="font-semibold mb-2 leading-[150%] text-[20px] md:text-[24px]">
-            Vvedite vash email
+            {data?.[4]?.word}
           </h4>
 
           <h5 className="md:text-[18px] text-[16px] font-medium -tracking-wide leading-[145%] mb-6">
-            Ukazhite vash deystvuyushchiy adres elektronnoy pochty. On budet
-            ispol'zovat'sya dlya vkhoda na sayt i polucheniya vazhnykh
-            uvedomleniy.
+            {data?.[5]?.word}
           </h5>
 
           <CustomField
             disabled={step !== 1 || !!accessToken}
-            label="Vvedite email v pole nizhe i nazhmite «Dalee»"
+            label={data?.[6]?.word}
             control={form.control}
-            placeholder="Подсказка"
+            placeholder={data?.[7]?.word}
             type="text"
             error={errors.email}
             name="email"
@@ -131,7 +132,7 @@ const RegisterForm = () => {
             onClick={handleEmailNextStep}
             className="w-full"
           >
-            Dalee
+            {data?.[13]?.word}
           </Button>
         </div>
 
@@ -142,24 +143,22 @@ const RegisterForm = () => {
           )}
         >
           <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-            2 shag
+            {data?.[8]?.word}
           </div>
 
           <h4 className="font-semibold mb-2 leading-[150%] text-[20px] md:text-[24px]">
-            Vvedite vash email
+            {data?.[9]?.word}
           </h4>
 
           <h5 className="md:text-[18px] text-[16px] font-medium -tracking-wide leading-[145%] mb-6">
-            Ukazhite vash deystvuyushchiy adres elektronnoy pochty. On budet
-            ispol'zovat'sya dlya vkhoda na sayt i polucheniya vazhnykh
-            uvedomleniy.
+            {data?.[10]?.word}
           </h5>
 
           <CustomField
             disabled={step !== 2}
-            label="Pridumayte username"
+            label={data?.[11]?.word}
             control={form.control}
-            placeholder="Подсказка"
+            placeholder={data?.[12]?.word}
             type="text"
             error={errors.first_name}
             name="first_name"
@@ -172,7 +171,7 @@ const RegisterForm = () => {
             onClick={handleNameValid}
             className="w-full"
           >
-            Dalee
+            {data?.[13]?.word}
           </Button>
         </div>
 
@@ -183,25 +182,24 @@ const RegisterForm = () => {
           )}
         >
           <div className="mb-4 text-[18px] leading-[110%] md:leading-[150%] font-medium md:font-normal md:text-[24px]">
-            3 shag
+            {data?.[14]?.word}
           </div>
 
           <h4 className="font-semibold mb-2 md:leading-[150%] leading-[140%] text-[20px] md:text-[24px]">
-            Pridumayte parol'
+            {data?.[15]?.word}
           </h4>
 
           <h5 className="md:text-[18px] text-[16px] font-medium -tracking-wide leading-[145%] mb-6">
-            Sozdajte parol' dlya vashego akkaunta. Parol' dolzhen soderzhat' ne
-            menee 8 simvolov, vklyuchaya bukvy, tsifry i spetsial'nye simvoly.
+            {data?.[16]?.word}
           </h5>
 
           <div className="text-[16px] font-medium leading-[150%] mb-4">
             <CustomField
               disabled={step !== 3 || !!accessToken}
               className="w-full mt-2 mb-8"
-              label="Vvedite parol'"
+              label={data?.[17]?.word}
               control={form.control}
-              placeholder="Подсказка"
+              placeholder={data?.[18]?.word}
               type="text"
               error={errors.password}
               name="password"
@@ -212,9 +210,9 @@ const RegisterForm = () => {
             <CustomField
               disabled={step !== 3}
               className=" w-full mt-2 mb-8"
-              label="Powtorite parol' i podtverdite ego, zatem nazhmite «Dalee»."
+              label={data?.[19]?.word}
               control={form.control}
-              placeholder="Подсказка"
+              placeholder={data?.[20]?.word}
               type="text"
               error={errors.password_confirmation}
               name="password_confirmation"
@@ -225,7 +223,7 @@ const RegisterForm = () => {
               disabled={step !== 3 || isSubmitting}
               className="w-full"
             >
-              {isSubmitting ? <LoadingDots /> : "Register"}
+              {isSubmitting ? <LoadingDots /> : data?.[21]?.word}
             </Button>
           </div>
         </div>

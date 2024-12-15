@@ -4,8 +4,10 @@ import MobCommentModal from "@/components/shared/mob-comment-modal";
 import Pagination from "@/components/shared/pagination";
 import PopupComment from "@/components/shared/popup-comment";
 import PopupMessage from "@/components/shared/popup-message";
+
 import { Button } from "@/components/ui/button";
 import { useGetComments } from "@/query/use-get-comments";
+import { useGetStatic } from "@/query/use-get-static-words";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCommentsStore } from "@/store/useComments";
 import { useLoginStore } from "@/store/useLogin";
@@ -21,7 +23,9 @@ const Messages = () => {
   const desktop = useMediaQuery("(min-width: 768px)");
 
   const commentSuccess = useCommentsStore((state) => state.commentSucces);
-  const setCommentSuccess = useCommentsStore().setCommentSuccess;
+  const setCommentSuccess = useCommentsStore(
+    (state) => state.setCommentSuccess
+  );
 
   const { data, isLoading } = useGetComments();
 
@@ -29,8 +33,8 @@ const Messages = () => {
   const setLoginMob = useLoginStore((state) => state.setMobActive);
   const setDeskActive = useLoginStore((state) => state.setActive);
 
-  const commentOpen = useCommentsStore().commentOpen;
-  const setCommentOpen = useCommentsStore().setCommentOpen;
+  const commentOpen = useCommentsStore((state) => state.commentOpen);
+  const setCommentOpen = useCommentsStore((state) => state.setCommentOpen);
 
   const perPage = 6;
 
@@ -58,7 +62,7 @@ const Messages = () => {
     }
   };
 
-  console.log(data);
+  const { data: staticData } = useGetStatic(11, "messagesData");
 
   return (
     <>
@@ -76,9 +80,9 @@ const Messages = () => {
 
       <PageLayout
         loading={isLoading}
-        title="Teswirler"
+        title={staticData?.[0]?.word}
         messagesText="Hormatly muşdaklar!"
-        text="Sahypadaky eserler barada seljerlenen teswirlerlerňizi, pikirleňizii hem-de tekliplerňizi aşakda goýup bilersiňiz. Siz bilen gatnaşykda bolar ýaly, elektron adresiňizi goýmany hem unutmaň!"
+        text={staticData?.[1]?.word}
         className="gap-12"
       >
         <div className="">
@@ -100,7 +104,7 @@ const Messages = () => {
 
           <div className="flex justify-center">
             <Button onClick={onComment} className="px-6 mt-16">
-              Ostawit swoý kommentariý
+              {staticData?.[2]?.word}
             </Button>
           </div>
         </div>

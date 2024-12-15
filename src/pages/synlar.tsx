@@ -3,10 +3,9 @@ import Pagination from "@/components/shared/pagination";
 import SortModal from "@/components/shared/sort-modal";
 import SynlarCard from "@/components/shared/synlar-card";
 import Tabs from "@/components/shared/tabs";
-import { cn, scrollTop } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useGetReviews } from "@/query/use-get-reviews";
 import { useGetStatic } from "@/query/use-get-static-words";
-import { useGetUserNotifications } from "@/query/use-get-user-notifications";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -30,8 +29,8 @@ export const tabs = [
 ];
 
 const Synlar = () => {
+  const { data: staticWords } = useGetStatic(5, "synlarData");
   const [currentPage, setCurrentPage] = useState(1);
-  scrollTop(currentPage);
 
   const [active, setActive] = useState(0);
   const [searchValue, setSearchValue] = useState("");
@@ -40,8 +39,6 @@ const Synlar = () => {
     id: "new",
     view: "Snaçala nowye",
   });
-
-  const { data: staticWords } = useGetStatic(5);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -52,9 +49,6 @@ const Synlar = () => {
   };
 
   const { data: reviews } = useGetReviews();
-
-  const { data } = useGetUserNotifications();
-  console.log(data);
 
   const filteredData =
     (reviews &&
@@ -86,11 +80,9 @@ const Synlar = () => {
     id === 1 ? "Synlar" : id === 2 ? "Ýatlamalar" : "Gutlaglar";
 
   return (
-    <PageLayout
-      title={staticWords?.[0]?.word?.[0]?.word}
-      text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
-    >
+    <PageLayout title={staticWords?.[0]?.word} text={staticWords?.[1]?.word}>
       <SortModal
+        data={staticWords || []}
         search={searchValue}
         setSearch={setSearchValue}
         sort={sort}
@@ -123,6 +115,7 @@ const Synlar = () => {
             <AnimatePresence>
               {displayedData.map((item, i) => (
                 <SynlarCard
+                  btnText={staticWords?.slice(-1)[0].word}
                   categ={getCat(item.reviews_category_id)}
                   key={i}
                   {...item}

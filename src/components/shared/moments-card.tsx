@@ -3,15 +3,22 @@ import { BgTexture } from "./bg-texture";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  img: string;
-  title: string;
+  image: string;
+  moment_name: string;
   textureNone?: boolean;
   className?: string;
+  id: number | undefined;
 };
 
-const MomentsCard = ({ title, img, className, textureNone = false }: Props) => {
+const MomentsCard = ({
+  moment_name,
+  image,
+  className,
+  textureNone = false,
+  id,
+}: Props) => {
   return (
-    <Link to={`/moments/1`}>
+    <Link to={`/moments/${id}`}>
       <article
         className={cn(
           "flex flex-col gap-4 xl:w-[378px] md:w-[372px] w-[328px] relative group cursor-pointer",
@@ -32,17 +39,17 @@ const MomentsCard = ({ title, img, className, textureNone = false }: Props) => {
         >
           <img
             src="/images/moments/img.svg"
-            alt=""
+            alt="moments-image"
             className={cn("absolute z-20 top-3 right-3")}
           />
 
           <img
-            src={img}
-            alt=""
+            src={image}
+            alt="moments-icon"
             className="absolute z-10 top-0 left-0 size-full object-cover"
           />
         </div>
-        <h4 className="text-[20px] leading-[140%]">{title}</h4>
+        <h4 className="text-[20px] leading-[140%]">{moment_name}</h4>
       </article>
     </Link>
   );

@@ -6,20 +6,21 @@ interface Props {
   className?: string;
   sort: ActiveSort;
   setSort: (val: ActiveSort) => void;
+  data: { word: string }[];
 }
 
-const sortData = [
-  {
-    id: "new",
-    view: "Snaçala nowye",
-  },
-  {
-    id: "old",
-    view: "Snaçala starye",
-  },
-];
+export const DropDown = ({ className, sort, setSort, data }: Props) => {
+  const sortData = [
+    {
+      id: "new",
+      view: data[0]?.word,
+    },
+    {
+      id: "old",
+      view: data[1]?.word,
+    },
+  ];
 
-export const DropDown = ({ className, sort, setSort }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 

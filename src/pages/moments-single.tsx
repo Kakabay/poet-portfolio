@@ -1,10 +1,10 @@
 import PageLayout from "@/components/layout/page-layout";
 import MomentsCard from "@/components/shared/moments-card";
 
-import { cn, scrollTop } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { usePathStore } from "@/store/usePathname";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import {
   Carousel,
@@ -15,11 +15,15 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { BgTexture } from "@/components/shared";
+import { useGetMomentsSingle } from "@/query/use-get-moments-single";
+import { useGetMoments } from "@/query/use-get-moments";
 
 const MomentsSingle = () => {
-  scrollTop();
+  const setPath = usePathStore((state) => state.setPath);
 
-  const setPath = usePathStore().setPath;
+  const { id } = useParams();
+  const { data } = useGetMomentsSingle(Number(id));
+  const { data: moments } = useGetMoments();
 
   useEffect(() => {
     setPath("moment");
@@ -27,10 +31,12 @@ const MomentsSingle = () => {
     return () => setPath("");
   }, []);
 
+  const image = data?.images[0]?.path || "";
+
   return (
     <PageLayout
       title={"Pursatlar"}
-      text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
+      // text="Dobro pozhalovat' v razdel «Synlar, ýatlamar, gutlaglar» nashego saita, gde kazhdoe slovo napolneno iskrennost'yu i teplotoy. Zdes' vy naydete utonchennye stikhi i prozu, kotorye pokoryat serdtsa vashikh blizkikh i druzey svoey krasotoy i glubinoy emotsiy."
       className="gap-8"
     >
       <div className="relative w-full xl:h-[504px] md:h-[436px] md:shadow-bottom py-8 md:px-6">
@@ -49,7 +55,7 @@ const MomentsSingle = () => {
         <div className="flex md:flex-row flex-col xl:gap-6 gap-8">
           <div className="xl:flex-[0_0_675px] md:flex-[0_0_420px] xl:h-[379px] md:h-[235px] md:bg-[#7A590C]/[16%]">
             <img
-              src="/images/poet.png"
+              src={data?.main_image?.path}
               alt="surat"
               className="size-full object-contain"
             />
@@ -58,18 +64,10 @@ const MomentsSingle = () => {
           <div className="flex flex-col -tracking-wide justify-between">
             <div>
               <h4 className="text-[24px] md:text-[20px] xl:text-[24px] leading-[140%] -tracking-wide font-semibold xl:mb-4 md:mb-2 mb-4">
-                Luchshie momenty zhizni
+                {data?.moment_name}
               </h4>
               <p className="xl:text-16 md:text-[14px] md:leading-[145%] text-16 !font-normal md:mb-2 mb-4">
-                Na fotoghrafiyi zobrazhen portret poeta. Na perednem plani viden
-                muzhchina s vyrazitelnym litcom, vozmozhno, s glyubokimi glazami
-                i mudrym vzyglyadom. Yego poza i vyrashcheniye litca mogut
-                peredavat' kakuyu-to ymotsiyu ili nastroyeniye, kharakternyye
-                dlya poetov - naprimer, zadumchivost', vdokhnoveniye ili
-                melan'kholiye. Vozmozhno, na yego litce mozhno uvidet' sledy
-                zhiznennogo opyta i razmyshleniy. Fon na fotoghrafiyi mozhet
-                byt' spokoinym ili simvolichno otrazhat' yego tvorcheskuyu
-                naturu.
+                {data?.moment_text}
               </p>
             </div>
 
@@ -87,20 +85,22 @@ const MomentsSingle = () => {
 
         <Carousel className="md:block hidden">
           <CarouselContent innerClassName="overflow-hidden">
-            {[...Array(6)].map((_, i) => (
+            {moments?.map((item, i) => (
               <CarouselItem
                 className={cn(
-                  "xl:basis-[372px] md:basis-[352px] !h-[253px]",
-                  6 !== i + 1 && "xl:mr-[18px] mr-4"
+                  "xl:basis-[372px] md:basis-[352px] !h-[253px] mr-[18px]"
                 )}
                 key={i}
               >
-                <MomentsCard
-                  textureNone
-                  img={"/images/moments/moments-img.png"}
-                  title={"Zagolovok"}
-                  className="md:!w-full"
-                />
+                <Link to={`/moments/${item.id}`}>
+                  <MomentsCard
+                    textureNone
+                    id={item.id}
+                    image={image}
+                    moment_name={data?.moment_name || ""}
+                    className="md:!w-full"
+                  />
+                </Link>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -111,12 +111,13 @@ const MomentsSingle = () => {
 
       <div className="md:hidden flex flex-col gap-[44px]">
         <div className="flex xl:hidden flex-col gap-4">
-          {[...Array(3)].map((_, i) => (
+          {moments?.map((item, i) => (
             <MomentsCard
+              id={item.id}
               key={i}
               textureNone
-              img={"/images/moments/moments-img.png"}
-              title={"Zagolovok"}
+              image={image}
+              moment_name={data?.moment_name || ""}
               className="!p-0"
             />
           ))}

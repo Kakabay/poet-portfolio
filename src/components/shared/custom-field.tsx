@@ -14,8 +14,8 @@ import { useMediaQuery } from "usehooks-ts";
 type Props = {
   control: any;
   name: string;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   error: FieldError | undefined;
   area?: boolean;
   type?: string;
