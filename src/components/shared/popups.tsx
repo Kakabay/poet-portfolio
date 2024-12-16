@@ -16,19 +16,19 @@ interface Burger {
 }
 
 const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
-  const contactsSucces = useContactsStore().success;
-  const contactsSetSucces = useContactsStore().setSuccess;
+  const contactsSucces = useContactsStore((state) => state.success);
+  const contactsSetSucces = useContactsStore((state) => state.setSuccess);
 
-  const registerSuccess = useAuthStore().registerSuccess;
-  const setRegisterSuccess = useAuthStore().setRegisterSuccess;
+  const registerSuccess = useAuthStore((state) => state.registerSuccess);
+  const setRegisterSuccess = useAuthStore((state) => state.setRegisterSuccess);
 
-  const loginSuccess = useLoginStore().loginSuccess;
-  const setLoginSuccess = useLoginStore().setLoginSuccess;
+  const loginSuccess = useLoginStore((state) => state.loginSuccess);
+  const setLoginSuccess = useLoginStore((state) => state.setLoginSuccess);
 
-  const loginActive = useLoginStore().active;
-  const mobActive = useLoginStore().mobActive;
+  const loginActive = useLoginStore((state) => state.active);
+  const mobActive = useLoginStore((state) => state.mobActive);
 
-  const token = useAuthStore().accessToken;
+  const token = useAuthStore((state) => state.accessToken);
 
   return (
     <>

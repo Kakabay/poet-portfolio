@@ -1,10 +1,11 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { useEffect } from 'react';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { useEffect } from "react";
+import { useScrollLock } from "usehooks-ts";
 
 export const scrollTop = (value?: any) => {
   useEffect(() => {
-    window.scroll({ behavior: 'smooth', top: 0 });
+    window.scroll({ behavior: "smooth", top: 0 });
   }, [value]);
 };
 
@@ -14,59 +15,59 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getCover = (key: string) => {
   switch (key) {
-    case '/poems':
+    case "/poems":
       return {
-        img: '/images/poems/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/poems/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/about':
+    case "/about":
       return {
-        img: '/images/about/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: '!opacity-75',
+        img: "/images/about/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "!opacity-75",
       };
-    case '/comments':
+    case "/comments":
       return {
-        img: '/images/comments/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: '!opacity-100',
+        img: "/images/comments/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "!opacity-100",
       };
-    case '/moments':
+    case "/moments":
       return {
-        img: '/images/faq/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/faq/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/contacts':
+    case "/contacts":
       return {
-        img: '/images/faq/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/faq/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/instruction':
+    case "/instruction":
       return {
-        img: '/images/faq/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/faq/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/books':
+    case "/books":
       return {
-        img: '/images/books/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/books/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/messages':
+    case "/messages":
       return {
-        img: '/images/messages/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/messages/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
-    case '/cabinet':
+    case "/cabinet":
       return {
-        img: '/images/faq/cover.png',
-        mode: 'mix-blend-soft-light',
-        opacity: 'opacity-35',
+        img: "/images/faq/cover.png",
+        mode: "mix-blend-soft-light",
+        opacity: "opacity-35",
       };
   }
 };

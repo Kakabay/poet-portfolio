@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
-import { useRef } from "react";
 import { motion } from "framer-motion";
-import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "../ui/button";
+import { useRef } from "react";
 import { BgTexture } from "./bg-texture";
+import { useOnClickOutside } from "usehooks-ts";
 
 interface Props {
   className?: string;
@@ -16,6 +16,12 @@ const PopupMessage = ({ className, setActive, title, text }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(ref, () => setActive(false));
+
+  // useEffect(() => {
+  //   lock();
+
+  //   return () => unlock();
+  // }, []);
 
   return (
     <motion.div
@@ -43,9 +49,7 @@ const PopupMessage = ({ className, setActive, title, text }: Props) => {
 
           <Button
             type="button"
-            onClick={() => {
-              setActive(false);
-            }}
+            onClick={() => setActive(false)}
             className="text-[10px] md:text-[14px]"
           >
             Zakryt

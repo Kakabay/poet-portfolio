@@ -5,8 +5,8 @@ import { useRef, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useCommentsStore } from "@/store/useComments";
-import poetService from "@/services/poet.service";
 import { X } from "lucide-react";
+import poetService from "@/services/poet.service";
 
 const PopupComment = () => {
   const ref = useRef<HTMLDivElement>(null);

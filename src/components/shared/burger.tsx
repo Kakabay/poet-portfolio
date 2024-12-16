@@ -8,23 +8,26 @@ import { usePopupStore } from "@/store/usePopup";
 import { useLoginStore } from "@/store/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterBtn } from "./enter-btn";
+import { useScrollLock } from "usehooks-ts";
+import { useEffect } from "react";
 
 interface Props {
   setBurger: (val: boolean) => void;
 }
 
 export const Burger = ({ setBurger }: Props) => {
-  const setMode = usePopupStore().setMode;
-  const setMobActive = useLoginStore().setMobActive;
+  const setMode = usePopupStore((state) => state.setMode);
+  const setMobActive = useLoginStore((state) => state.setMobActive);
 
   const token = useAuthStore((state) => state.accessToken);
 
-  // useEffect(() => {
-  //   const main = document.getElementById("main");
+  const { lock, unlock } = useScrollLock({ autoLock: false });
 
-  //   main?.classList.add("overflow-hidden");
+  useEffect(() => {
+    lock();
 
-  // }, []);
+    return () => unlock();
+  }, []);
 
   return (
     <motion.div
