@@ -1,31 +1,31 @@
-import PageLayout from "@/components/layout/page-layout";
-import CommentCard from "@/components/shared/comment-card";
-import MobCommentModal from "@/components/shared/mob-comment-modal";
-import Pagination from "@/components/shared/pagination";
-import PopupComment from "@/components/shared/popup-comment";
-import PopupMessage from "@/components/shared/popup-message";
+import PageLayout from '@/components/layout/page-layout';
+import CommentCard from '@/components/shared/comment-card';
+import MobCommentModal from '@/components/shared/mob-comment-modal';
+import Pagination from '@/components/shared/pagination';
+import PopupComment from '@/components/shared/popup-comment';
+import PopupMessage from '@/components/shared/popup-message';
 
-import { Button } from "@/components/ui/button";
-import { useGetComments } from "@/query/use-get-comments";
-import { useGetStatic } from "@/query/use-get-static-words";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useCommentsStore } from "@/store/useComments";
-import { useLoginStore } from "@/store/useLogin";
-import { usePopupStore } from "@/store/usePopup";
-import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { Button } from '@/components/ui/button';
+import { scrollTop } from '@/lib/utils';
+import { useGetComments } from '@/query/use-get-comments';
+import { useGetStatic } from '@/query/use-get-static-words';
+import { useAuthStore } from '@/store/useAuthStore';
+import { useCommentsStore } from '@/store/useComments';
+import { useLoginStore } from '@/store/useLogin';
+import { usePopupStore } from '@/store/usePopup';
+import { AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 const Messages = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  scrollTop(currentPage);
 
   const [mobComment, setMobComment] = useState(false);
-  const desktop = useMediaQuery("(min-width: 768px)");
+  const desktop = useMediaQuery('(min-width: 768px)');
 
   const commentSuccess = useCommentsStore((state) => state.commentSucces);
-  const setCommentSuccess = useCommentsStore(
-    (state) => state.setCommentSuccess
-  );
+  const setCommentSuccess = useCommentsStore((state) => state.setCommentSuccess);
 
   const { data, isLoading } = useGetComments();
 
@@ -42,19 +42,17 @@ const Messages = () => {
     setCurrentPage(page);
   };
 
-  const displayedData = data
-    ? data.slice((currentPage - 1) * perPage, currentPage * perPage)
-    : [];
+  const displayedData = data ? data.slice((currentPage - 1) * perPage, currentPage * perPage) : [];
 
   const accessToken = useAuthStore((state) => state.accessToken);
 
   const onComment = () => {
     if (desktop && accessToken) {
-      setMode("comment");
+      setMode('comment');
       setCommentOpen(true);
     } else if (desktop && !accessToken) {
       setDeskActive(true);
-      setMode("login");
+      setMode('login');
     } else if (!desktop && accessToken) {
       setMobComment(true);
     } else {
@@ -62,7 +60,7 @@ const Messages = () => {
     }
   };
 
-  const { data: staticData } = useGetStatic(11, "messagesData");
+  const { data: staticData } = useGetStatic(11, 'messagesData');
 
   return (
     <>
@@ -83,8 +81,7 @@ const Messages = () => {
         title={staticData?.[0]?.word}
         messagesText="Hormatly muşdaklar!"
         text={staticData?.[1]?.word}
-        className="gap-12"
-      >
+        className="gap-12 min-h-[205px]">
         <div className="">
           <div className="mx-auto w-[892px] flex flex-col gap-6">
             {displayedData?.map((item, i) => (

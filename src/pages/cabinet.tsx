@@ -2,7 +2,7 @@ import PageLayout from '@/components/layout/page-layout';
 import CommentCard from '@/components/shared/comment-card';
 import PoemsItem from '@/components/shared/poems-item';
 import Tabs from '@/components/shared/tabs';
-import { cn } from '@/lib/utils';
+import { cn, scrollTop } from '@/lib/utils';
 import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useGetUserComments } from '@/query/use-get-user-comments';
 import { usePinPoemsStore } from '@/store/use-pin-poems';
@@ -26,6 +26,7 @@ const cabinetTabs = [
 
 const Cabinet = () => {
   const [active, setActive] = useState(0);
+  scrollTop(active);
 
   const name = useAuthStore((state) => state.name);
 
@@ -34,7 +35,7 @@ const Cabinet = () => {
   const pinPoems = usePinPoemsStore((state) => state.pinPoems);
 
   return (
-    <PageLayout title={`Salam ${name}!`} className="gap-12">
+    <PageLayout title={`Salam ${name}!`} className="gap-12 min-h-[380px]">
       <Tabs
         renderName={(item) => item.name}
         array={Array.isArray(cabinetTabs) ? cabinetTabs : []}

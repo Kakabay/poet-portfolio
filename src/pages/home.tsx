@@ -1,6 +1,9 @@
+import { scrollTop } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
 
 const Home = () => {
+  scrollTop();
+
   const tab = useMediaQuery('(min-width: 768px)');
 
   return (

@@ -27,7 +27,7 @@ const PageLayout = ({
   onStar,
 }: Props) => {
   return (
-    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30')}>
+    <div className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] min-h-full relative z-30')}>
       <div className="container">
         {!loading ? (
           <>
@@ -72,7 +72,7 @@ const PageLayout = ({
           <Spin />
         )}
       </div>
-    </main>
+    </div>
   );
 };
 

@@ -4,10 +4,7 @@ import { useEffect } from 'react';
 
 export const scrollTop = (value?: any) => {
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scroll({ behavior: 'smooth', top: 0 });
   }, [value]);
 };
 
@@ -29,12 +26,6 @@ export const getCover = (key: string) => {
         mode: 'mix-blend-soft-light',
         opacity: '!opacity-75',
       };
-    // case "/poems/1":
-    //   return {
-    //     img: "/images/poems/poem-cover.png",
-    //     mode: "mix-blend-soft-light",
-    //     opacity: "opacity-35",
-    //   };
     case '/comments':
       return {
         img: '/images/comments/cover.png',
@@ -47,12 +38,6 @@ export const getCover = (key: string) => {
         mode: 'mix-blend-soft-light',
         opacity: 'opacity-35',
       };
-    // case "/moments/1":
-    //   return {
-    //     img: "/images/faq/cover.png",
-    //     mode: "mix-blend-soft-light",
-    //     opacity: "opacity-35",
-    //   };
     case '/contacts':
       return {
         img: '/images/faq/cover.png',
