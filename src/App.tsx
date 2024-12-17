@@ -10,8 +10,10 @@ function App() {
   const path = usePathStore((state) => state.path);
 
   return (
-    <div id="main" className={cn('flex flex-col relative  w-full bg-[#EFDEBE] overflow-x-hidden')}>
-      <div className="fixed left-0 right-0 bottom-0 pointer-events-none top-0 w-full h-full mix-blend-multiply">
+    <div
+      id="main"
+      className={cn('flex flex-col relative w-full min-h-screen bg-[#EFDEBE] overflow-x-hidden')}>
+      <div className="fixed  left-0 right-0 bottom-0 pointer-events-none top-0 w-[2000px] h-full mix-blend-multiply">
         <img
           src="/images/texture047.png"
           alt=""
@@ -48,7 +50,7 @@ function App() {
         <Outlet />
       </main>
 
-      <div className="container relative">
+      <div className="container relative md:block hidden">
         <Toaster />
       </div>
 

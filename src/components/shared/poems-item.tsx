@@ -55,9 +55,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
         toast({
           title: 'Открепленно',
           action: (
-            <ToastAction
-              onClick={handlePin} // Явное закрепление
-              altText="Отмена">
+            <ToastAction onClick={handlePin} altText="Отмена">
               Отмена
             </ToastAction>
           ),
@@ -67,9 +65,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
         toast({
           title: 'Закрепленно',
           action: (
-            <ToastAction
-              onClick={handleUnpin} // Явное открепление
-              altText="Отмена">
+            <ToastAction onClick={handleUnpin} altText="Отмена">
               Отмена
             </ToastAction>
           ),
@@ -107,7 +103,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
         )}
         <img src="/images/poems/new.svg" alt="" className="mr-1" />
 
-        <span className="font-medium italic text-[14px]">(Aýdym üçin)</span>
+        {/* <span className="font-medium italic text-[14px]">(Aýdym üçin)</span> */}
       </div>
     </motion.div>
   );

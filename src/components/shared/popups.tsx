@@ -1,12 +1,12 @@
-import { AnimatePresence } from "framer-motion";
-import { useContactsStore } from "@/store/useContacts";
-import { useLoginStore } from "@/store/useLogin";
-import { useAuthStore } from "@/store/useAuthStore";
-import Login from "./login";
-import LoginWindowMob from "./login-window-mob";
-import MedBurger from "./med-burger";
-import PopupMessage from "./popup-message";
-import { Burger } from "./burger";
+import { AnimatePresence } from 'framer-motion';
+import { useContactsStore } from '@/store/useContacts';
+import { useLoginStore } from '@/store/useLogin';
+import { useAuthStore } from '@/store/useAuthStore';
+import Login from './login';
+import LoginWindowMob from './login-window-mob';
+import MedBurger from './med-burger';
+import PopupMessage from './popup-message';
+import { Burger } from './burger';
 
 interface Burger {
   burger: boolean;
@@ -32,51 +32,40 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
   return (
     <>
-      <AnimatePresence>
-        {contactsSucces && (
-          <PopupMessage
-            title={"Data was sended!"}
-            text="Спасибо за доверие!"
-            setActive={contactsSetSucces}
-          />
-        )}
+      {contactsSucces && (
+        <PopupMessage
+          active={contactsSucces}
+          title={'Data was sended!'}
+          text="Спасибо за доверие!"
+          setActive={contactsSetSucces}
+        />
+      )}
 
-        {contactsSucces && (
-          <PopupMessage
-            title={"Data was sended!"}
-            text="Спасибо за доверие!"
-            setActive={contactsSetSucces}
-          />
-        )}
+      {registerSuccess && (
+        <PopupMessage
+          active={registerSuccess}
+          title={'Data was sended!'}
+          text="Спасибо за доверие!"
+          setActive={setRegisterSuccess}
+        />
+      )}
 
-        {registerSuccess && (
-          <PopupMessage
-            title={"Data was sended!"}
-            text="Спасибо за доверие!"
-            setActive={setRegisterSuccess}
-          />
-        )}
-
-        {loginSuccess && (
-          <PopupMessage
-            title={"Вы успешно вошли!"}
-            text="Спасибо за доверие!"
-            setActive={setLoginSuccess}
-          />
-        )}
-      </AnimatePresence>
+      {loginSuccess && (
+        <PopupMessage
+          active={loginSuccess}
+          title={'Вы успешно вошли!'}
+          text="Спасибо за доверие!"
+          setActive={setLoginSuccess}
+        />
+      )}
 
       <AnimatePresence>{!token && loginActive && <Login />}</AnimatePresence>
 
       <AnimatePresence>{mobActive && <LoginWindowMob />}</AnimatePresence>
 
-      <AnimatePresence>
-        {burger && <Burger setBurger={setBurger} />}
-      </AnimatePresence>
+      {burger && <Burger setBurger={setBurger} />}
 
-      <AnimatePresence>
-        {medBurger && <MedBurger setBurger={setMedBurger} />}
-      </AnimatePresence>
+      {medBurger && <MedBurger setBurger={setMedBurger} burger={medBurger} />}
     </>
   );
 };

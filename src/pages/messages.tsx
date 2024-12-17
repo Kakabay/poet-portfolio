@@ -14,7 +14,7 @@ import { useCommentsStore } from '@/store/useComments';
 import { useLoginStore } from '@/store/useLogin';
 import { usePopupStore } from '@/store/usePopup';
 import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 const Messages = () => {
@@ -42,32 +42,41 @@ const Messages = () => {
     setCurrentPage(page);
   };
 
-  const displayedData = data ? data.slice((currentPage - 1) * perPage, currentPage * perPage) : [];
+  const displayedData = useMemo(() => {
+    return data ? data.slice((currentPage - 1) * perPage, currentPage * perPage) : [];
+  }, [data, currentPage]);
 
   const accessToken = useAuthStore((state) => state.accessToken);
 
-  const onComment = () => {
-    if (desktop && accessToken) {
+  const handleDesktopComment = () => {
+    if (accessToken) {
       setMode('comment');
       setCommentOpen(true);
-    } else if (desktop && !accessToken) {
+    } else {
       setDeskActive(true);
       setMode('login');
-    } else if (!desktop && accessToken) {
+    }
+  };
+
+  const handleMobileComment = () => {
+    if (accessToken) {
       setMobComment(true);
     } else {
       setLoginMob(true);
     }
   };
 
+  const onComment = () => (desktop ? handleDesktopComment() : handleMobileComment());
+
   const { data: staticData } = useGetStatic(11, 'messagesData');
 
   return (
     <>
       <AnimatePresence>
-        {commentOpen && <PopupComment />}
+        {commentOpen && <PopupComment active={commentOpen} setActive={setCommentOpen} />}
         {commentSuccess && (
           <PopupMessage
+            active={commentSuccess}
             title="Ваш комментарий отправлен"
             text="Ждите пока модераторы займутся вашим комментарием"
             setActive={setCommentSuccess}
@@ -81,7 +90,7 @@ const Messages = () => {
         title={staticData?.[0]?.word}
         messagesText="Hormatly muşdaklar!"
         text={staticData?.[1]?.word}
-        className="gap-12 min-h-[205px]">
+        className="gap-12">
         <div className="">
           <div className="mx-auto w-[892px] flex flex-col gap-6">
             {displayedData?.map((item, i) => (

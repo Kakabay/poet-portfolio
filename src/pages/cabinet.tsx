@@ -32,7 +32,6 @@ const Cabinet = () => {
 
   const { data: comments } = useGetUserComments();
   const { data } = useGetPinPoems();
-  const pinPoems = usePinPoemsStore((state) => state.pinPoems);
 
   return (
     <PageLayout title={`Salam ${name}!`} className="gap-12 min-h-[380px]">

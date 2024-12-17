@@ -52,6 +52,7 @@ const LoginForm = () => {
   };
 
   const { data } = useGetStatic(15, 'authData');
+  console.log(data?.[6]?.word.split(',').slice(-1));
 
   return (
     <Form {...form}>
@@ -78,7 +79,7 @@ const LoginForm = () => {
           </div>
 
           <Button disabled={isSubmitting} type="submit">
-            {isSubmitting ? <LoadingDots /> : 'Woýti w swoý akkaunt'}
+            {isSubmitting ? <LoadingDots /> : data?.[5]?.word}
           </Button>
 
           {loginError && (
@@ -86,12 +87,11 @@ const LoginForm = () => {
           )}
 
           <h5 className="text-16 transition-all">
-            Esli net akkaunta,
             <Link
               onClick={() => setLoginActive(false)}
               className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
               to="/instruction">
-              zaregistriruýsýa.
+              {data?.[6]?.word}
             </Link>
           </h5>
         </div>

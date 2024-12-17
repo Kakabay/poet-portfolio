@@ -7,7 +7,6 @@ import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useGetPoems } from '@/query/use-get-poems';
 import { useGetPoemsSingle } from '@/query/use-get-poems-single';
 import poetService from '@/services/poet.service';
-import { usePinPoemsStore } from '@/store/use-pin-poems';
 import { usePathStore } from '@/store/usePathname';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -48,12 +47,12 @@ const PoemsSingle = () => {
   const { data, isLoading } = useGetPoemsSingle(Number(id || 1));
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({ behavior: 'smooth', top: 0 });
   }, [data]);
 
   const poemId = Number(id);
   const { data: poems } = useGetPoems();
-  const { data: pinned } = useGetPinPoems();
+  const { data: pinned, refetch } = useGetPinPoems();
 
   const info = data || [];
 
@@ -72,51 +71,55 @@ const PoemsSingle = () => {
   const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
   const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
 
-  const [isPinned, setIsPinned] = useState(false);
-
-  const setPinPoems = usePinPoemsStore((state) => state.setPinPoems);
-
   const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === poemId);
 
-  const handlePoem = async (id: number) => {
-    if (isPinnedBack) {
-      await poetService.unPinPoem({ poem_id: id });
-    } else {
-      await poetService.postPoem({ poem_id: id });
+  const handlePin = async () => {
+    try {
+      await poetService.postPoem({ poem_id: Number(id) });
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при закреплении:', error);
     }
   };
 
-  const onFavorite = async () => {
+  const handleUnpin = async () => {
     try {
+      await poetService.unPinPoem({ poem_id: Number(id) });
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при откреплении:', error);
+    }
+  };
+
+  const onStar = async () => {
+    try {
+      setLoading(true);
       const { toast } = await import('@/hooks/use-toast');
 
-      const obj = {
-        poem_name: info[0].poem_name,
-        id: poemId,
-      };
-
-      setPinPoems(obj);
-
-      handlePoem(poemId);
-
-      toast({
-        title: isPinned ? 'Стих удален из избранного' : 'Стих добавлен в избранное',
-        action: (
-          <ToastAction
-            onClick={() => {
-              setPinPoems(obj);
-            }}
-            altText="Отменить">
-            Отменить
-          </ToastAction>
-        ),
-        duration: 3000,
-      });
-
-      setIsPinned(!isPinned);
+      if (isPinnedBack) {
+        await handleUnpin();
+        toast({
+          title: 'Открепленно',
+          action: (
+            <ToastAction onClick={handlePin} altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
+      } else {
+        await handlePin();
+        toast({
+          title: 'Закрепленно',
+          action: (
+            <ToastAction onClick={handleUnpin} altText="Отмена">
+              Отмена
+            </ToastAction>
+          ),
+        });
+      }
+      setLoading(false);
     } catch (error) {
-      console.log(error);
-    } finally {
+      console.error('Ошибка при изменении закрепления:', error);
       setLoading(false);
     }
   };
@@ -130,10 +133,10 @@ const PoemsSingle = () => {
               <h1 className="h1 kaushan text-center xl:mb-12 mb-6">{info[0]?.poem_name}</h1>
 
               <div className="flex gap-1">
-                <button disabled={loading} onClick={onFavorite} className="disabled:opacity-50">
+                <button disabled={loading} onClick={onStar} className="disabled:opacity-50">
                   <img
                     className="cursor-pointer p-1"
-                    src={!isPinned ? '/images/star.svg' : '/images/star-fill.svg'}
+                    src={!isPinnedBack ? '/images/star.svg' : '/images/star-fill.svg'}
                   />
                 </button>
                 <img src="/images/play.svg" />

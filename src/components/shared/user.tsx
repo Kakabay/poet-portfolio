@@ -11,14 +11,15 @@ import {
 } from '../ui/dropdown-menu';
 
 interface Props {
+  setBurger?: (value: boolean) => void;
   className?: string;
 }
 
-const User = ({ className }: Props) => {
+const User = ({ className, setBurger }: Props) => {
   const clearAuthData = useAuthStore((state) => state.clearAuthData);
 
-  const token = useAuthStore().accessToken;
-  const name = useAuthStore().name;
+  const token = useAuthStore((state) => state.accessToken);
+  const name = useAuthStore((state) => state.name);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +35,13 @@ const User = ({ className }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-[#ECE1D4] md:w-fit w-[328px] relative z-[70] border-none rounded-[4px]">
         <DropdownMenuItem>
-          <Link to="/cabinet" onClick={() => setIsOpen(false)} className="py-2 px-4 w-full">
+          <Link
+            to="/cabinet"
+            onClick={() => {
+              setIsOpen(false);
+              setBurger?.(false);
+            }}
+            className="py-2 px-4 w-full">
             Kabinet
           </Link>
         </DropdownMenuItem>

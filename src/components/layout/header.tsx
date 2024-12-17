@@ -123,9 +123,9 @@ const Header = () => {
   const [burger, setBurger] = useState(false);
   const [medBurger, setMedBurger] = useState(false);
 
-  const setLoginActive = useLoginStore().setActive;
+  const setLoginActive = useLoginStore((state) => state.setActive);
 
-  const setMode = usePopupStore().setMode;
+  const setMode = usePopupStore((state) => state.setMode);
 
   const token = useAuthStore((state) => state.accessToken);
 
@@ -149,7 +149,7 @@ const Header = () => {
 
             <div className="flex items-center justify-between gap-4">
               {token ? (
-                <User className="hidden md:flex" />
+                <User setBurger={setBurger} className="hidden md:flex" />
               ) : (
                 <EnterBtn
                   className="!hidden md:!flex"
