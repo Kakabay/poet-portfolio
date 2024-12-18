@@ -28,7 +28,7 @@ const PopupMessage = ({ className, setActive, title, text, active }: Props) => {
             type="button"
             onClick={() => setActive(false)}
             className="text-[10px] md:text-[14px]">
-            Zakryt
+            Ýapmak
           </Button>
         </div>
       </DialogContent>

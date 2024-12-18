@@ -7,6 +7,7 @@ import LoginWindowMob from './login-window-mob';
 import MedBurger from './med-burger';
 import PopupMessage from './popup-message';
 import { Burger } from './burger';
+import { useGetStatic } from '@/query/use-get-static-words';
 
 interface Burger {
   burger: boolean;
@@ -30,13 +31,16 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
   const token = useAuthStore((state) => state.accessToken);
 
+  const { data } = useGetStatic(15, 'authData');
+  const { data: contactsData } = useGetStatic(14, 'contactsData');
+
   return (
     <>
       {contactsSucces && (
         <PopupMessage
           active={contactsSucces}
-          title={'Data was sended!'}
-          text="Спасибо за доверие!"
+          title={contactsData?.slice(-3)[0]?.word || ''}
+          text={contactsData?.slice(-2)[0]?.word || ''}
           setActive={contactsSetSucces}
         />
       )}
@@ -44,8 +48,8 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
       {registerSuccess && (
         <PopupMessage
           active={registerSuccess}
-          title={'Data was sended!'}
-          text="Спасибо за доверие!"
+          title={data?.slice(-6)[0].word || ''}
+          text={data?.slice(-5)[0].word || ''}
           setActive={setRegisterSuccess}
         />
       )}
@@ -53,8 +57,8 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
       {loginSuccess && (
         <PopupMessage
           active={loginSuccess}
-          title={'Вы успешно вошли!'}
-          text="Спасибо за доверие!"
+          title={data?.slice(-3)?.[0]?.word || ''}
+          text={data?.slice(-2)?.[0]?.word || ''}
           setActive={setLoginSuccess}
         />
       )}

@@ -13,7 +13,7 @@ interface Store {
 export const useSortStore = create<Store>((set) => ({
   activeSort: {
     id: 'news',
-    view: 'Snaçala nowye',
+    view: 'Ilki täze goşgular',
   },
   setSort: (value) => set((state) => ({ activeSort: (state.activeSort = value) })),
 }));

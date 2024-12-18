@@ -6,6 +6,7 @@ import { ToastAction } from '../ui/toast';
 import poetService from '@/services/poet.service';
 import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useState } from 'react';
+import { useGetStatic } from '@/query/use-get-static-words';
 
 export interface PoemType {
   id: number;
@@ -24,6 +25,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { data: pinned, refetch } = useGetPinPoems();
+  const { data: staticData } = useGetStatic(3, 'poemsData');
 
   const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === id);
 
@@ -32,7 +34,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       await poetService.postPoem({ poem_id: id });
       await refetch();
     } catch (error) {
-      console.error('Ошибка при закреплении:', error);
+      console.log('Ошибка при закреплении:', error);
     }
   };
 
@@ -41,7 +43,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       await poetService.unPinPoem({ poem_id: id });
       await refetch();
     } catch (error) {
-      console.error('Ошибка при откреплении:', error);
+      console.log('Ошибка при откреплении:', error);
     }
   };
 
@@ -53,20 +55,20 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       if (isPinnedBack) {
         await handleUnpin();
         toast({
-          title: 'Открепленно',
+          title: staticData?.[1]?.word,
           action: (
             <ToastAction onClick={handlePin} altText="Отмена">
-              Отмена
+              {staticData?.[2]?.word}
             </ToastAction>
           ),
         });
       } else {
         await handlePin();
         toast({
-          title: 'Закрепленно',
+          title: staticData?.[0]?.word,
           action: (
             <ToastAction onClick={handleUnpin} altText="Отмена">
-              Отмена
+              {staticData?.[2]?.word}
             </ToastAction>
           ),
         });
@@ -103,7 +105,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
         )}
         <img src="/images/poems/new.svg" alt="" className="mr-1" />
 
-        {/* <span className="font-medium italic text-[14px]">(Aýdym üçin)</span> */}
+        <span className="font-medium italic text-[14px]">(Aýdym üçin)</span>
       </div>
     </motion.div>
   );

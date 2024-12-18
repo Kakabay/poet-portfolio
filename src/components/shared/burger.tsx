@@ -62,7 +62,7 @@ export const Burger = ({ setBurger }: Props) => {
 
         <hr className="text-OUTLINE_VAR" />
 
-        <h3 className="text-[32px] kaushan">Sosial medialar</h3>
+        <h3 className="text-[32px] kaushan">Sosial media</h3>
 
         <div className="flex flex-col gap-4">
           {socials.map((item, i) => (

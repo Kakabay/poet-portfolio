@@ -62,9 +62,8 @@ class PoetService {
               return axios(originalRequest);
             }
           } catch (refreshError) {
-            console.error('Refresh токен устарел или невалиден:', refreshError);
+            console.log('Refresh токен устарел или невалиден:', refreshError);
 
-            // Удаляем токен и завершаем сессию
             this.authStore.getState().clearAuthData();
           }
         }

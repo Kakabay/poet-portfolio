@@ -7,14 +7,14 @@ import { useGetStatic } from '@/query/use-get-static-words';
 const Books = () => {
   scrollTop();
 
-  const { data: books, isLoading } = useGetBooks();
+  const { data: books, isPending } = useGetBooks();
   const { data: staticData } = useGetStatic(10, 'booksData');
 
   return (
     <PageLayout
       title={staticData?.[0]?.word}
       className="gap-12"
-      loading={isLoading}
+      loading={isPending}
       text={staticData?.[1]?.word}>
       <div className="flex flex-col gap-6 mx-auto">
         {books &&

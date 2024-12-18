@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 import LoadingDots from '../shared/loading-dots';
 import { CustomField } from '../shared/custom-field';
 import { useGetStatic } from '@/query/use-get-static-words';
+import { Spin } from '../shared';
 
 const formsSchema = z.object({
-  login: z.string().email(),
-  password: z.string().min(8),
+  login: z.string().email(''),
+  password: z.string().min(8, ''),
 });
 
 type FormTypes = z.infer<typeof formsSchema>;
@@ -47,12 +48,14 @@ const LoginForm = () => {
       setLoginSuccess(true);
     } catch (e) {
       console.error(e);
-      setLoginError('Неверный пароль');
+      setLoginError('Loginiňiz ýa-da açar sözüňiz nädogry');
     }
   };
 
-  const { data } = useGetStatic(15, 'authData');
+  const { data, isPending } = useGetStatic(15, 'authData');
   console.log(data?.[6]?.word.split(',').slice(-1));
+
+  if (isPending) return <Spin className="-translate-y-20" />;
 
   return (
     <Form {...form}>

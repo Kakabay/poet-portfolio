@@ -88,7 +88,7 @@ const Messages = () => {
       <PageLayout
         loading={isLoading}
         title={staticData?.[0]?.word}
-        messagesText="Hormatly muşdaklar!"
+        // messagesText="Hormatly muşdaklar!"
         text={staticData?.[1]?.word}
         className="gap-12">
         <div className="">
