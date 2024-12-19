@@ -7,8 +7,8 @@ import { Dialog, DialogContent } from '../ui/dialog';
 interface Props {
   className?: string;
   active: boolean;
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
   setActive: (value: boolean) => void;
 }
 

@@ -10,6 +10,7 @@ import { AboutTypes } from './types/about.type';
 import { StaticType } from './types/static.type';
 import { MomentsType } from './types/moments.type';
 import { MomentsSingleType } from './types/moments-single-type';
+import { NotificationsType } from './types/notifications.type';
 
 interface User {
   id: number;
@@ -165,16 +166,18 @@ class PoetService {
     return data.data;
   };
 
-  // getUserNotifications = async () => {
-  //   const token = this.authStore.getState().accessToken;
+  getUserNotifications = async () => {
+    const token = this.authStore.getState().accessToken;
 
-  //   const { data } = await axios.get(`${this.URL_TOKEN}notifications`, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  // };
+    const { data } = await axios.get<NotificationsType>(`${this.URL_TOKEN}notifications`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  };
 
   getUserComments = async () => {
     const token = this.authStore.getState().accessToken;

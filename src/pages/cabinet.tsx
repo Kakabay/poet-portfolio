@@ -1,25 +1,26 @@
 import PageLayout from '@/components/layout/page-layout';
 import CommentCard from '@/components/shared/comment-card';
+import NotificationCard from '@/components/shared/notification-card';
 import PoemsItem from '@/components/shared/poems-item';
 import Tabs from '@/components/shared/tabs';
 import { cn, scrollTop } from '@/lib/utils';
 import { useGetPinPoems } from '@/query/use-get-pin-poems';
 import { useGetUserComments } from '@/query/use-get-user-comments';
-import { usePinPoemsStore } from '@/store/use-pin-poems';
+import { useGetUserNotifications } from '@/query/use-get-user-notifications';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useState } from 'react';
 
 const cabinetTabs = [
   {
-    name: 'Moi zakladki',
+    name: 'Meniň halanlarym',
     id: 0,
   },
   {
-    name: 'Moi kommentarii',
+    name: 'Meniň teswirlerim',
     id: 1,
   },
   {
-    name: 'Uwedomleniýa',
+    name: 'Bildirişler',
     id: 2,
   },
 ];
@@ -32,6 +33,7 @@ const Cabinet = () => {
 
   const { data: comments } = useGetUserComments();
   const { data } = useGetPinPoems();
+  const { data: notifications } = useGetUserNotifications();
 
   return (
     <PageLayout title={`Salam ${name}!`} className="gap-12 min-h-[380px]">
@@ -54,6 +56,17 @@ const Cabinet = () => {
           ))}
 
         {active === 1 && comments?.map((item, i) => <CommentCard key={i} {...item} />)}
+
+        {active === 2 &&
+          notifications &&
+          notifications.map((item, i) => (
+            <NotificationCard
+              title={item.title}
+              text={item.text}
+              date={item.created_at as string}
+              key={i}
+            />
+          ))}
       </div>
     </PageLayout>
   );

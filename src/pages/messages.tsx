@@ -77,8 +77,8 @@ const Messages = () => {
         {commentSuccess && (
           <PopupMessage
             active={commentSuccess}
-            title="Ваш комментарий отправлен"
-            text="Ждите пока модераторы займутся вашим комментарием"
+            title={staticData?.[3]?.word}
+            text={staticData?.[4]?.word}
             setActive={setCommentSuccess}
           />
         )}

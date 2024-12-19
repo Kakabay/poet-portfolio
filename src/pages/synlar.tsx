@@ -113,7 +113,7 @@ const Synlar = () => {
             <AnimatePresence>
               {displayedData.map((item, i) => (
                 <SynlarCard
-                  btnText={staticWords?.slice(-1)[0].word}
+                  btnText={staticWords?.slice(-2)[0].word}
                   categ={getCat(item.reviews_category_id)}
                   key={i}
                   {...item}

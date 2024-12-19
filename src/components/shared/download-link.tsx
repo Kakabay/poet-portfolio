@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-const DownloadLink = ({ link, className, text = 'Skaçat knigu' }: Props) => {
+const DownloadLink = ({ link, className, text = 'Kitap ýükle' }: Props) => {
   return (
     <a
       href={link}

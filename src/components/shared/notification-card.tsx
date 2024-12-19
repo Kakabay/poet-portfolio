@@ -1,6 +1,21 @@
 import { BgTexture } from './bg-texture';
 
-const NotificationCard = () => {
+interface Props {
+  title?: string;
+  text?: string;
+  date?: string;
+}
+
+const NotificationCard = ({ title, text, date }: Props) => {
+  const formatDate = (date?: string) => {
+    const datee = new Date(date ? date : '');
+    const day = String(datee?.getDate()).padStart(2, '0');
+    const month = String(datee?.getMonth() + 1).padStart(2, '0');
+    const year = datee.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  };
+
   return (
     <div className="md:p-6 w-[328px] h-[140px] p-4 xl:w-[892px] md:w-[768px] md:h-[96px] relative shadow-bottom">
       <BgTexture className="xl:bg-[url('/images/cabinet/notific-shape.svg')] md:bg-[url('/images/cabinet/notific-med-shape.svg')] bg-[url('/images/cabinet/notific-mob-shape.svg')] notific-mob-path md:notific-med-path xl:notific-card-path" />
@@ -9,16 +24,14 @@ const NotificationCard = () => {
 
         <div className="hidden md:flex flex-col gap-1 w-full">
           <div className="flex justify-between items-center">
-            <h5 className="text-16 font-semibold text-PRIM">Zagolovok</h5>
+            <h5 className="text-16 font-semibold text-PRIM">{title}</h5>
             <div className="size-3 bg-TERTIARY rounded-full" />
           </div>
 
           <div className="flex justify-between items-center">
-            <p className="italic text-14 !leading-[140%]">
-              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye perenosyat menya.
-            </p>
+            <p className="italic text-14 !leading-[140%]">{text}</p>
             <h6 className="text-[12px] font-medium leading-[130%] text-ON_SURFACE_VAR">
-              01.09.2024 ý.
+              {formatDate(date)}
             </h6>
           </div>
         </div>
@@ -29,15 +42,13 @@ const NotificationCard = () => {
           <img src="/images/bell.svg" className="p-3" />
           <div className="flex flex-col gap-1 w-full">
             <div className="flex justify-between items-center w-full">
-              <h5 className="text-16 font-semibold text-PRIM">Zagolovok</h5>
+              <h5 className="text-16 font-semibold text-PRIM">{title}</h5>
               <div className="size-3 bg-TERTIARY rounded-full" />
             </div>
             <h6 className="text-[12px] font-medium leading-[130%] text-ON_SURFACE_VAR">
-              01.09.2024 ý.
+              {formatDate?.(date)}
             </h6>
-            <p className="italic text-14 !leading-[140%]">
-              Poet, tvoye tvorchestvo - istinnoye volshebstvo, kotoroye perenosyat menya.
-            </p>
+            <p className="italic text-14 !leading-[140%]">{text}</p>
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ import { useGetStatic } from '@/query/use-get-static-words';
 import { Spin } from '../shared';
 
 const formsSchema = z.object({
-  login: z.string().email(''),
-  password: z.string().min(8, ''),
+  login: z.string().email('Email nädogry'),
+  password: z.string().min(8, 'Açar sözi nädogry'),
 });
 
 type FormTypes = z.infer<typeof formsSchema>;

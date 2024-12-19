@@ -60,7 +60,7 @@ export const BookCard = ({ book_name, book_text, path = '', id, link = '' }: Pro
               className={cn(
                 'md:hidden block text-TERTIARY text-[12px] font-medium leading-[140%]',
               )}>
-              {findId() ? 'pokazat menshe...' : 'pokazat bolshe'}
+              {findId() ? '' : 'doly görkez'}
             </button>
           </div>
           <DownloadLink className="hidden md:flex" link={link} />

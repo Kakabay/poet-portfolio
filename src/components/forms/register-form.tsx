@@ -13,17 +13,17 @@ import { useGetStatic } from '@/query/use-get-static-words';
 
 const signUpSchema = z
   .object({
-    first_name: z.string().min(2, 'Пароль должен быть не менее 2 символов'),
+    first_name: z.string().min(2, 'Adyňyz azyndan 2 nyşandan ybarat bolmaly'),
     email: z.string().email('Nädogry'),
     password: z
       .string()
-      .min(8, 'parolyňyz 8 simwoldan geçmeli')
-      .regex(/[A-Za-z]/, 'parolyňyzda harp bolmaly')
-      .regex(/\d/, 'parolyňyzda san bolmaly'),
+      .min(8, 'Açar sözi azyndan 8 nyşandan ybarat bolmaly')
+      .regex(/[A-Za-z]/, 'Açar sözüňizde harplar hökman bolmaly')
+      .regex(/\d/, 'Açar sözüňizde sanlar hökman bolmaly'),
     password_confirmation: z.string(),
   })
   .refine((data) => data.password === data.password_confirmation, {
-    message: 'parolyňyz deň gelenok',
+    message: 'Açar sözüňiz gabat gelenok',
     path: ['password_confirmation'],
   });
 
@@ -55,7 +55,7 @@ const RegisterForm = () => {
       await poetService.postUser(body);
 
       setRegisterSuccess(true);
-      // form.reset();
+      form.reset();
     } catch (e) {
       console.log(e);
     }
@@ -77,7 +77,7 @@ const RegisterForm = () => {
     }
   };
 
-  const accessToken = useAuthStore().accessToken;
+  const accessToken = useAuthStore((state) => state.accessToken);
 
   const { isSubmitting, errors } = form.formState;
 

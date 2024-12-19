@@ -72,8 +72,6 @@ const Moments = () => {
 
   const displayedData = moments?.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  console.log(moments);
-
   const image = moments?.[0]?.main_image.path || '';
 
   return (
