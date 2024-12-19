@@ -7,7 +7,6 @@ import { useAuthStore } from '@/store/useAuthStore';
 import Popups from '../shared/popups';
 import { usePopupStore } from '@/store/usePopup';
 import { BgTexture, EnterBtn } from '../shared';
-import { useGetStatic } from '@/query/use-get-static-words';
 
 export const navData = [
   {

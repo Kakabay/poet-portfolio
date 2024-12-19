@@ -4,62 +4,7 @@ import Pagination from '@/components/shared/pagination';
 import { scrollTop } from '@/lib/utils';
 import { useGetMoments } from '@/query/use-get-moments';
 import { useGetStatic } from '@/query/use-get-static-words';
-import { useEffect, useState } from 'react';
-
-const data = [
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Batyr',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Myrat',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Sanjar',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Dowran',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Geldi',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Eziz',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Ayhan',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Seyran',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Halid',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Valid',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Ali',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Sumbar',
-  },
-  {
-    img: '/images/moments/moments-img.png',
-    title: 'Akmyrat',
-  },
-];
+import { useState } from 'react';
 
 const Moments = () => {
   const [currentPage, setCurrentPage] = useState(1);

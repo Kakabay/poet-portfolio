@@ -17,8 +17,8 @@ const ContactsForm = () => {
   const { data } = useGetStatic(14, 'contactsData');
 
   const formSchema = z.object({
-    name: z.string().min(3, 'Imya obyazatelno'),
-    email: z.string().email(data?.slice(-1)[0].word || ''),
+    name: z.string().min(2, 'Adyňyz azyndan 2 nyşandan ybarat bolmaly'),
+    email: z.string().email('Nädogry'),
     text: z.string().min(5, data?.[11]?.word || ''),
   });
 

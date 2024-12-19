@@ -1,1 +1,0 @@
-import{p as u}from"./index-DUSLFOFJ.js";import{u as a}from"./useQuery-B-FtTTmS.js";const c=()=>{const{data:e,isLoading:s,isError:r,isSuccess:o}=a({queryKey:["poems"],queryFn:()=>u.getPoems(),select:({data:t})=>t});return{data:e,isLoading:s,isError:r,isSuccess:o}};export{c as u};

@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 import { Button } from '../ui/button';
 import { BgTexture } from './bg-texture';
 import { Dialog, DialogContent } from '../ui/dialog';

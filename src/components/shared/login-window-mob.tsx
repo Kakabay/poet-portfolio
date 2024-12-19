@@ -43,7 +43,7 @@ const LoginWindowMob = () => {
     }
   };
 
-  const { data, isPending } = useGetStatic(15, 'authData');
+  const { data } = useGetStatic(15, 'authData');
 
   return (
     <motion.div
@@ -84,12 +84,11 @@ const LoginWindowMob = () => {
             <Button type="submit">{data?.[5]?.word}</Button>
 
             <h5 className="text-16">
-              Esli net akkaunta,
               <Link
                 onClick={() => setMobActive(false)}
                 className="text-TERTIARY tracking-normal hover:underline-offset-4 transition-all hover:underline"
                 to="/instruction">
-                zaregistriruýsýa.
+                {data?.[6]?.word}
               </Link>
             </h5>
           </div>

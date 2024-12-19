@@ -1,6 +1,3 @@
-import { lazy } from 'react';
-
-import Home from './pages/home';
 // const About = lazy(() => import('./pages/about'));
 // const Poems = lazy(() => import('./pages/poems'));
 // const PoemsSingle = lazy(() => import('./pages/poems-single'));

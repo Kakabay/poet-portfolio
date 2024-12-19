@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import { usePopupStore } from '@/store/usePopup';
 import { cn } from '@/lib/utils';
 import { BgTexture } from './bg-texture';
+import { useGetStatic } from '@/query/use-get-static-words';
 
 interface Props {
   setActive: (v: boolean) => void;
@@ -15,6 +16,8 @@ const MobCommentModal = ({ setActive }: Props) => {
   const setMode = usePopupStore().setMode;
 
   const [open, setOpen] = useState(false);
+
+  const { data } = useGetStatic(11, 'messagesData');
 
   return (
     <>
@@ -31,14 +34,14 @@ const MobCommentModal = ({ setActive }: Props) => {
         <div className="container">
           <button onClick={() => setActive(false)} className="flex items-center gap-1 h-10 mb-8">
             <img src="/images/arrow.svg" />
-            <h6 className="text-16 !font-normal text-ON_SURFACE_VAR">Wernutsýa nazad</h6>
+            <h6 className="text-16 !font-normal text-ON_SURFACE_VAR">Yza</h6>
           </button>
 
           <div className="flex flex-col gap-6">
-            <h5 className="font-semibold">Ostaw swoý kommentariý</h5>
+            <h5 className="font-semibold">{data?.[6]?.word}</h5>
 
             <div className="flex flex-col gap-2">
-              <div className="text-16 text-left">Kommentariý</div>
+              <div className="text-16 text-left">{data?.[7]?.word}</div>
               <Textarea
                 value={value}
                 onChange={(e) => {
@@ -50,7 +53,9 @@ const MobCommentModal = ({ setActive }: Props) => {
                 minLength={10}
               />
               <div className="flex justify-between items-center">
-                <h5 className="text-error"></h5>
+                <h5 className="text-error !text-ON_SURFACE">
+                  Siziň teswiriňiz 10 harpdan az bolmaly däl
+                </h5>
                 <div className="text-right text-14 !font-normal justify-end">
                   {value.length}/500
                 </div>
@@ -61,7 +66,7 @@ const MobCommentModal = ({ setActive }: Props) => {
               onClick={() => {
                 value.length > 10 && setOpen(true) && setMode('tost');
               }}>
-              Otprawit
+              {data?.[8]?.word}
             </Button>
           </div>
         </div>
@@ -82,11 +87,9 @@ const MobCommentModal = ({ setActive }: Props) => {
             )}>
             <BgTexture className={cn("bg-[url('/images/tost-mob-shape.svg')] tost-mob-path")} />
             <div className="flex flex-col md:gap-4 gap-2 text-center">
-              <h5 className="font-semibold md:text-[24px] text-[20px]">
-                Waş kommentariý otprawlen
-              </h5>
+              <h5 className="font-semibold md:text-[24px] text-[20px]">{data?.[3]?.word} </h5>
               <h6 className="md:text-16 text-[14px] leading-[145%] -tracking-wide">
-                Wy uwidite swoý kommentriý posle moderasii
+                {data?.[4]?.word}
               </h6>
               <Button
                 onClick={() => {
@@ -94,7 +97,7 @@ const MobCommentModal = ({ setActive }: Props) => {
                   setActive(false);
                 }}
                 className="text-[14px]">
-                Zakryt
+                {data?.[5]?.word}
               </Button>
             </div>
           </motion.div>
