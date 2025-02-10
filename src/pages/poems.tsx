@@ -1,20 +1,20 @@
-import { cn, scrollTop } from '@/lib/utils';
-import { useGetPoems } from '@/query/use-get-poems';
-import { useQueryClient } from '@tanstack/react-query';
-import { getSortPoems } from '@/lib/get-sort-data-poems';
-import { useGetStatic } from '@/query/use-get-static-words';
-import { useGetPinPoems } from '@/query/use-get-pin-poems';
+import { cn, scrollTop } from "@/lib/utils";
+import { useGetPoems } from "@/query/use-get-poems";
+import { useQueryClient } from "@tanstack/react-query";
+import { getSortPoems } from "@/lib/get-sort-data-poems";
+import { useGetStatic } from "@/query/use-get-static-words";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
 
-import poetService from '@/services/poet.service';
-import SortModal from '@/components/shared/sort-modal';
-import PoemsItem from '@/components/shared/poems-item';
-import Pagination from '@/components/shared/pagination';
-import PageLayout from '@/components/layout/page-layout';
+import poetService from "@/services/poet.service";
+import SortModal from "@/components/shared/sort-modal";
+import PoemsItem from "@/components/shared/poems-item";
+import Pagination from "@/components/shared/pagination";
+import PageLayout from "@/components/layout/page-layout";
 
 const Poems = () => {
   const { data: poems } = useGetPoems();
   const { data: pinned } = useGetPinPoems();
-  const { data: staticData } = useGetStatic(3, 'poemsData');
+  const { data: staticData } = useGetStatic(3, "poemsData");
 
   const perPage = 10;
 
@@ -47,7 +47,7 @@ const Poems = () => {
         await poetService.postPoem({ poem_id: poemId });
       }
 
-      queryClient.invalidateQueries({ queryKey: ['pinPoems'] });
+      queryClient.invalidateQueries({ queryKey: ["pinPoems"] });
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,8 @@ const Poems = () => {
     <PageLayout
       title={staticData?.[8]?.word}
       text={staticData?.[9]?.word}
-      className="xl:gap-[64px] gap-8">
+      className="xl:gap-[64px] gap-8"
+    >
       <SortModal
         searchTitle={staticData?.[3]?.word}
         searchPlace={staticData?.[7]?.word}
@@ -73,10 +74,13 @@ const Poems = () => {
         {searchValue.length > 0 && filterData && (
           <div
             className={cn(
-              'w-full mx-auto text-[18px]  xl:text-[24px] text-center pb-4 h-[50px]',
-              filterData.length !== 0 && 'border-b border-OUTLINE',
-            )}>
-            {filterData.length > 0 ? `Po «${searchValue}» zaprosy naýdeno:` : 'Niçego ne naýdeno!'}
+              "w-full mx-auto text-[18px]  xl:text-[24px] text-center pb-4 h-[50px]",
+              filterData.length !== 0 && "border-b border-OUTLINE"
+            )}
+          >
+            {filterData.length > 0
+              ? `Po «${searchValue}» zaprosy naýdeno:`
+              : "Niçego ne naýdeno!"}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-8 gap-6 md:w-[768px] xl:w-[948px] mx-auto">

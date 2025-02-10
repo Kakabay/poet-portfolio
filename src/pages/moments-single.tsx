@@ -35,7 +35,7 @@ const MomentsSingle = () => {
   const image = data?.images[0]?.path || '';
 
   return (
-    <PageLayout title={'Pursatlar'} className="gap-8">
+    <PageLayout title={'Pursatlarag'} className="gap-8">
       <div className="relative w-full xl:h-[504px] md:h-[436px] md:shadow-bottom py-8 md:px-6">
         <BgTexture className="hidden md:block xl:bg-[url('/images/moments/moments-single-shape.svg')] md:bg-[url('/images/moments/main-med-shape.svg')] xl:moments-single-path md:moments-main-med-path" />
 
@@ -70,7 +70,7 @@ const MomentsSingle = () => {
 
       <div className="relative md:block hidden shadow-bottom xl:h-[317px] py-8 px-6">
         <BgTexture className="md:block hidden xl:bg-[url('/images/moments/moments-single-shape-2.svg')] md:bg-[url('/images/moments/moments-2-med-shape.svg')] xl:moments-single-2-path moments-2-med-path" />
-
+        ag
         <Carousel className="md:block hidden">
           <CarouselContent innerClassName="overflow-hidden">
             {moments?.map((item, i) => (

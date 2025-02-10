@@ -1,15 +1,15 @@
-import { Spin } from '@/components/shared';
-import PoemSwitch from '@/components/shared/poem-switch';
-import SectionLine from '@/components/shared/section-line';
-import { ToastAction } from '@/components/ui/toast';
-import { cn } from '@/lib/utils';
-import { useGetPinPoems } from '@/query/use-get-pin-poems';
-import { useGetPoems } from '@/query/use-get-poems';
-import { useGetPoemsSingle } from '@/query/use-get-poems-single';
-import poetService from '@/services/poet.service';
-import { usePathStore } from '@/store/usePathname';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Spin } from "@/components/shared";
+import PoemSwitch from "@/components/shared/poem-switch";
+import SectionLine from "@/components/shared/section-line";
+import { ToastAction } from "@/components/ui/toast";
+import { cn } from "@/lib/utils";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
+import { useGetPoems } from "@/query/use-get-poems";
+import { useGetPoemsSingle } from "@/query/use-get-poems-single";
+import poetService from "@/services/poet.service";
+import { usePathStore } from "@/store/usePathname";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const poem = [
   {
@@ -47,7 +47,7 @@ const PoemsSingle = () => {
   const { data, isLoading } = useGetPoemsSingle(Number(id || 1));
 
   useEffect(() => {
-    window.scroll({ behavior: 'smooth', top: 0 });
+    window.scroll({ behavior: "smooth", top: 0 });
   }, [data]);
 
   const poemId = Number(id);
@@ -61,12 +61,13 @@ const PoemsSingle = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setPath('poem');
+    setPath("poem");
 
-    return () => setPath('');
+    return () => setPath("");
   }, []);
 
-  const currentIndex = poems?.findIndex((poem) => poem.id === poemId) || poemId - 1;
+  const currentIndex =
+    poems?.findIndex((poem) => poem.id === poemId) || poemId - 1;
 
   const prevPoemName = poems?.[currentIndex - 1]?.poem_name;
   const nextPoemName = poems?.[currentIndex + 1]?.poem_name;
@@ -78,7 +79,7 @@ const PoemsSingle = () => {
       await poetService.postPoem({ poem_id: Number(id) });
       await refetch();
     } catch (error) {
-      console.error('Ошибка при закреплении:', error);
+      console.error("Ошибка при закреплении:", error);
     }
   };
 
@@ -87,19 +88,19 @@ const PoemsSingle = () => {
       await poetService.unPinPoem({ poem_id: Number(id) });
       await refetch();
     } catch (error) {
-      console.error('Ошибка при откреплении:', error);
+      console.error("Ошибка при откреплении:", error);
     }
   };
 
   const onStar = async () => {
     try {
       setLoading(true);
-      const { toast } = await import('@/hooks/use-toast');
+      const { toast } = await import("@/hooks/use-toast");
 
       if (isPinnedBack) {
         await handleUnpin();
         toast({
-          title: 'Открепленно',
+          title: "Открепленно",
           action: (
             <ToastAction onClick={handlePin} altText="Отмена">
               Отмена
@@ -109,7 +110,7 @@ const PoemsSingle = () => {
       } else {
         await handlePin();
         toast({
-          title: 'Закрепленно',
+          title: "Закрепленно",
           action: (
             <ToastAction onClick={handleUnpin} altText="Отмена">
               Отмена
@@ -119,48 +120,56 @@ const PoemsSingle = () => {
       }
       setLoading(false);
     } catch (error) {
-      console.error('Ошибка при изменении закрепления:', error);
+      console.error("Ошибка при изменении закрепления:", error);
       setLoading(false);
     }
   };
 
   return (
-    <main className={cn('pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30')}>
+    <main className={cn("pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30")}>
       <div className="container">
         {!isLoading ? (
           <>
             <div className="flex justify-center items-start gap-4">
-              <h1 className="h1 kaushan text-center xl:mb-12 mb-6">{info[0]?.poem_name}</h1>
+              <h1 className="h1 kaushan text-center xl:mb-12 mb-6">
+                {info[0]?.poem_name}
+              </h1>
 
               <div className="flex gap-1">
-                <button disabled={loading} onClick={onStar} className="disabled:opacity-50">
+                <button
+                  disabled={loading}
+                  onClick={onStar}
+                  className="disabled:opacity-50"
+                >
                   <img
                     className="cursor-pointer p-1"
-                    src={!isPinnedBack ? '/images/star.svg' : '/images/star-fill.svg'}
+                    src={
+                      !isPinnedBack
+                        ? "/images/star.svg"
+                        : "/images/star-fill.svg"
+                    }
                   />
                 </button>
                 <img src="/images/play.svg" />
               </div>
             </div>
 
-            <div className={cn('flex flex-col xl:gap-12 gap-8')}>
+            <div className={cn("flex flex-col xl:gap-12 gap-8")}>
               <section className="container">
                 <div className="flex flex-col gap-4 xl:gap-12 md:gap-6 text-[16px] xl:text-[20px] leading-[140%] text-ON_SURFACE_VAR">
-                  {info[0]?.couplets_poem.map(({ textarea1 }, i) => (
-                    <p key={i} className="md:flex-[0_1_50%]">
-                      {textarea1}
-                    </p>
-                  ))}
+                  <p className="md:flex-[0_1_50%]">{info[0]?.about_poems}</p>
                 </div>
               </section>
 
-              <SectionLine />
+              {info[0]?.about_poems && <SectionLine />}
 
               <section className="">
                 <div className="flex flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] md:w-[372px] !font-normal mx-auto xl:text-[20px]">
-                  {poem.map(({ text }, i) => (
-                    <p key={i}>{text}</p>
-                  ))}
+                  <div className="flex flex-col gap-4">
+                    {info?.[0]?.couplets_poem.map((item, i) => (
+                      <p key={i}>{item.textarea1}</p>
+                    ))}
+                  </div>
                   <div className="flex justify-end">
                     <h4 className="text-right xl:w-[140px] text-[14px] leading-[140%] text-ON_SURFACE_VAR xl:font-medium">
                       {info[0]?.place_poem}
@@ -187,12 +196,12 @@ const PoemsSingle = () => {
                     link={`/poems/${poemId - 1}`}
                     disable={poemId === 1}
                     prev
-                    name={prevPoemName || poems?.[0]?.poem_name || ''}
+                    name={prevPoemName || poems?.[0]?.poem_name || ""}
                   />
                   <PoemSwitch
                     link={`/poems/${poemId + 1}`}
                     disable={poemId === poems?.length}
-                    name={nextPoemName || poems?.[5]?.poem_name || ''}
+                    name={nextPoemName || poems?.[5]?.poem_name || ""}
                   />
                 </div>
               </section>
