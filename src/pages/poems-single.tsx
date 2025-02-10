@@ -11,37 +11,6 @@ import { usePathStore } from "@/store/usePathname";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const poem = [
-  {
-    text: `Giň eýwanyň diwaryndan asylan, 
-    Gabat garşysynda eýwan gapylaň. 
-    Iler göze, hol ýokarda dakylan, 
-    Kakamyň sagady, 
-    Ýaňly sagady.`,
-  },
-  {
-    text: `Ulyň-kiçiň gözi mydam ondady, 
-    “Jyk, jyk” sesi gulagmyzda, aňdady. 
-    Wagty “aýdýan” ol ajaýyp jaňdady, 
-    Kakamyň sagady, 
-    Jaňly sagady.`,
-  },
-  {
-    text: `Biziň kalba hemişelik dolupdy, 
-    Ýol görkezýän ýol beledi bolupdy. 
-    Sadalygy ýüreklere salypdy, 
-    Kakamyň sagady, 
-    Zaňly sagady.`,
-  },
-  {
-    text: `Dolansadym ýene şol ajap döwre, 
-    Many paýlan, mazmun beren bu ömre.
-    Ajaýyp arzuwlar gelsin bu köňle, 
-    Kakamyň sagady, 
-    Şanly sagatdy`,
-  },
-];
-
 const PoemsSingle = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetPoemsSingle(Number(id || 1));

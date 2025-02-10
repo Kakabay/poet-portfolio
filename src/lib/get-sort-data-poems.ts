@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Poem } from '@/services/types/poems.type';
+import { useState } from "react";
+import { Poem } from "@/services/types/poems.type";
 
 interface SortType {
   id: string;
@@ -18,23 +18,29 @@ interface ReturnProps {
   getSortData: () => Poem[] | undefined;
 }
 
-export const getSortPoems = (poems: Poem[] | undefined, perPage: number): ReturnProps => {
+export const getSortPoems = (
+  poems: Poem[] | undefined,
+  perPage: number
+): ReturnProps => {
   const [sort, setSort] = useState({
-    id: 'new',
-    view: 'Ilki täze goşgular',
+    id: "new",
+    view: "Ilki täze goşgular",
   });
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const filterData = poems?.filter((item) =>
-    item.poem_name.toLowerCase().includes(searchValue.toLowerCase()),
+    item.poem_name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const displayedData = filterData?.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const displayedData = filterData?.slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage
+  );
 
   const sortData = displayedData && [...displayedData].reverse();
 
-  const getSortData = () => (sort.id === 'old' ? sortData : displayedData);
+  const getSortData = () => (sort.id === "old" ? sortData : displayedData);
 
   return {
     sort,

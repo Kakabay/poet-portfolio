@@ -3,10 +3,10 @@ import { CoupletsPoem } from "./pin-poems.type";
 export interface PoemsType {
   status_code: number;
   message: string;
-  data: Datum[];
+  data: Poem[];
 }
 
-export interface Datum {
+export interface Poem {
   id: number;
   poem_name: string;
   couplets_poem: CoupletsPoem[];
