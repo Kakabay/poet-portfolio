@@ -1,31 +1,32 @@
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useAuthStore } from '@/store/useAuthStore';
-import { BgTexture } from './bg-texture';
-import { ToastAction } from '../ui/toast';
-import poetService from '@/services/poet.service';
-import { useGetPinPoems } from '@/query/use-get-pin-poems';
-import { useState } from 'react';
-import { useGetStatic } from '@/query/use-get-static-words';
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useAuthStore } from "@/store/useAuthStore";
+import { BgTexture } from "./bg-texture";
+import { ToastAction } from "../ui/toast";
+import poetService from "@/services/poet.service";
+import { useGetPinPoems } from "@/query/use-get-pin-poems";
+import { useState } from "react";
+import { useGetStatic } from "@/query/use-get-static-words";
 
 export interface PoemType {
   id: number;
   poem_name: string;
+  title: string;
 }
 
 interface Props extends PoemType {
   link: string;
-
+  title: string;
   active?: boolean;
   onFavoriteChange?: (id: number, isPinned: boolean) => void;
 }
 
-const PoemsItem = ({ id, poem_name, link }: Props) => {
+const PoemsItem = ({ id, poem_name, link, title }: Props) => {
   const token = useAuthStore((state) => state.accessToken);
   const [loading, setLoading] = useState(false);
 
   const { data: pinned, refetch } = useGetPinPoems();
-  const { data: staticData } = useGetStatic(3, 'poemsData');
+  const { data: staticData } = useGetStatic(3, "poemsData");
 
   const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === id);
 
@@ -34,7 +35,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       await poetService.postPoem({ poem_id: id });
       await refetch();
     } catch (error) {
-      console.log('Ошибка при закреплении:', error);
+      console.log("Ошибка при закреплении:", error);
     }
   };
 
@@ -43,14 +44,14 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       await poetService.unPinPoem({ poem_id: id });
       await refetch();
     } catch (error) {
-      console.log('Ошибка при откреплении:', error);
+      console.log("Ошибка при откреплении:", error);
     }
   };
 
   const onStar = async () => {
     try {
       setLoading(true);
-      const { toast } = await import('@/hooks/use-toast');
+      const { toast } = await import("@/hooks/use-toast");
 
       if (isPinnedBack) {
         await handleUnpin();
@@ -75,7 +76,7 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
       }
       setLoading(false);
     } catch (error) {
-      console.error('Ошибка при изменении закрепления:', error);
+      console.error("Ошибка при изменении закрепления:", error);
       setLoading(false);
     }
   };
@@ -84,7 +85,10 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
     <motion.div className="xl:w-[458px] md:w-[372px] xl:h-[134px] h-[118px] w-[328px] p-4 xl:p-6 relative shadow-bottom cursor-pointer">
       <BgTexture className="xl:bg-[url('/images/poems/poem-shape.svg')] md:bg-[url('/images/poems/poem-med-shape.svg')] bg-[url('/images/poems/poem-mob-shape.svg')] poem-mob-path md:poems-med-path xl:poem-path" />
 
-      <Link to={link} className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden">
+      <Link
+        to={link}
+        className="leading-[120%] flex items-start mb-2 h-[58px] overflow-hidden"
+      >
         <div className="flex items-center w-full">
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
@@ -96,16 +100,20 @@ const PoemsItem = ({ id, poem_name, link }: Props) => {
 
       <div className="leading-[115%] h-5 flex items-center gap-2">
         {token && (
-          <button disabled={loading} onClick={() => onStar()} className="w-5 disabled:opacity-50">
+          <button
+            disabled={loading}
+            onClick={() => onStar()}
+            className="w-5 disabled:opacity-50"
+          >
             <img
-              src={isPinnedBack ? '/images/star-fill.svg' : '/images/star.svg'}
+              src={isPinnedBack ? "/images/star-fill.svg" : "/images/star.svg"}
               className="mr-1 size-5"
             />
           </button>
         )}
         <img src="/images/poems/new.svg" alt="" className="mr-1" />
 
-        <span className="font-medium italic text-[14px]">(Aýdym üçin)</span>
+        <span className="font-medium italic text-[14px]">{title}</span>
       </div>
     </motion.div>
   );

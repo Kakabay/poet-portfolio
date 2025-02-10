@@ -132,9 +132,12 @@ const PoemsSingle = () => {
 
               {info[0]?.about_poems && <SectionLine />}
 
-              <section className="">
-                <div className="flex flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] md:w-[372px] !font-normal mx-auto xl:text-[20px]">
-                  <div className="flex flex-col gap-4">
+              <section>
+                <div className="flex items-center flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] md:w-[372px] !font-normal mx-auto xl:text-[20px]">
+                  <div
+                    style={{ whiteSpace: "pre-line" }}
+                    className="flex flex-col gap-4"
+                  >
                     {info?.[0]?.couplets_poem.map((item, i) => (
                       <p key={i}>{item.textarea1}</p>
                     ))}
@@ -146,9 +149,14 @@ const PoemsSingle = () => {
                   </div>
                 </div>
 
-                {/* <div className="container flex justify-center xl:mt-16 mt-8" aria-disabled>
+                {/* <div
+                  className="container flex justify-center xl:mt-16 mt-8"
+                  aria-disabled
+                >
                   <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
-                    <h5 className="text-16 font-semibold">Kakamyň sagady</h5>
+                    <h5 className="text-16 font-semibold">
+                      {info[0]?.poem_name}
+                    </h5>
                     <audio
                       id="player"
                       controls
