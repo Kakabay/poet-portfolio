@@ -7,8 +7,8 @@ export interface StaticType {
 export interface Datum {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   word: Word[];
 }
 
@@ -16,7 +16,7 @@ export interface Word {
   id: number;
   key: string;
   word: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   page_id: number;
 }

@@ -77,7 +77,7 @@ const PoemsSingle = () => {
           title: staticData?.[2]?.word,
           action: (
             <ToastAction onClick={handlePin} altText="Отмена">
-              Отмена
+              Ýatyrmak
             </ToastAction>
           ),
         });
@@ -87,7 +87,7 @@ const PoemsSingle = () => {
           title: staticData?.[0]?.word,
           action: (
             <ToastAction onClick={handleUnpin} altText="Отмена">
-              Отмена
+              Ýatyrmak
             </ToastAction>
           ),
         });
@@ -127,7 +127,6 @@ const PoemsSingle = () => {
                       }
                     />
                   </button>
-                  <img src="/images/play.svg" />
                 </div>
               )}
             </div>
@@ -157,22 +156,24 @@ const PoemsSingle = () => {
                   </div>
                 </div>
 
-                {/* <div
-                  className="container flex justify-center xl:mt-16 mt-8"
-                  aria-disabled
-                >
-                  <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
-                    <h5 className="text-16 font-semibold">
-                      {info?.[0]?.poem_name}
-                    </h5>
-                    <audio
-                      id="player"
-                      controls
-                      src="/images/sound.mp3"
-                      className="bg-transparent"
-                    />
+                {poemInfo?.audio_file && (
+                  <div
+                    className="container flex justify-center xl:mt-16 mt-8"
+                    aria-disabled
+                  >
+                    <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
+                      <h5 className="text-16 font-semibold">
+                        {info?.[0]?.poem_name}
+                      </h5>
+                      <audio
+                        id="player"
+                        controls
+                        src={poemInfo?.audio_file?.path}
+                        className="bg-transparent"
+                      />
+                    </div>
                   </div>
-                </div> */}
+                )}
 
                 <SectionLine className="xl:mt-16 xl:mb-12 my-8" />
 

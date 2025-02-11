@@ -7,24 +7,37 @@ import poetService from "@/services/poet.service";
 import { useGetPinPoems } from "@/query/use-get-pin-poems";
 import { useState } from "react";
 import { useGetStatic } from "@/query/use-get-static-words";
+import { AudioFile } from "@/services/types/poems.type";
 
 export interface PoemType {
   id: number;
   poem_name: string;
+  audio_file?: AudioFile;
+
   title: string;
   isNew: number;
 }
 
 interface Props extends PoemType {
   link: string;
+
   title: string;
   active?: boolean;
   onFavoriteChange?: (id: number, isPinned: boolean) => void;
 }
 
-const PoemsItem = ({ id, poem_name, link, title, isNew }: Props) => {
+const PoemsItem = ({
+  id,
+  poem_name,
+  link,
+  title,
+  isNew,
+  audio_file,
+}: Props) => {
   const token = useAuthStore((state) => state.accessToken);
   const [loading, setLoading] = useState(false);
+
+  console.log(audio_file?.path);
 
   const { data: staticData } = useGetStatic(3, "poemsData");
 
@@ -93,7 +106,7 @@ const PoemsItem = ({ id, poem_name, link, title, isNew }: Props) => {
           <img src="/images/romb.svg" className="mr-1" />
           <div className="flex justify-between w-full">
             <h4 className="kaushan mr-3">{poem_name}</h4>
-            <img src="/images/play.svg" alt="play" />
+            {audio_file?.path && <img src="/images/play.svg" alt="play" />}
           </div>
         </div>
       </Link>

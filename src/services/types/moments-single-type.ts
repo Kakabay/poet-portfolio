@@ -8,8 +8,8 @@ export interface Datum {
   id: number;
   moment_name: string;
   moment_text: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   main_image: Image;
   images: Image[];
 }
@@ -24,8 +24,8 @@ export interface Image {
   description: null;
   field: string;
   sort_order: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   path: string;
   extension: string;
 }

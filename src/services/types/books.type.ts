@@ -8,8 +8,8 @@ export interface Datum {
   id: number;
   book_name: string;
   book_text: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   image: Image | null;
   book: null;
 }
@@ -24,8 +24,8 @@ export interface Image {
   description: null;
   field: string;
   sort_order: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   path: string;
   extension: string;
 }

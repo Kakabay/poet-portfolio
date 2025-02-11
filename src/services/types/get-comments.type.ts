@@ -20,6 +20,6 @@ export interface Datum {
   id?: number;
   comment_text: string;
   user_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
+  created_at?: string;
+  updated_at?: string;
 }
