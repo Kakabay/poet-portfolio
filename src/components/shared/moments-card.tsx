@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { BgTexture } from "./bg-texture";
 import { cn } from "@/lib/utils";
-import { Image } from "@/services/types/moments-single-type";
 
 type Props = {
   image: string;
