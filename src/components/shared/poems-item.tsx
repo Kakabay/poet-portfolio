@@ -12,6 +12,7 @@ export interface PoemType {
   id: number;
   poem_name: string;
   title: string;
+  isNew: number;
 }
 
 interface Props extends PoemType {
@@ -21,15 +22,14 @@ interface Props extends PoemType {
   onFavoriteChange?: (id: number, isPinned: boolean) => void;
 }
 
-const PoemsItem = ({ id, poem_name, link, title }: Props) => {
+const PoemsItem = ({ id, poem_name, link, title, isNew }: Props) => {
   const token = useAuthStore((state) => state.accessToken);
   const [loading, setLoading] = useState(false);
 
-  const { data: pinned, refetch } = useGetPinPoems();
   const { data: staticData } = useGetStatic(3, "poemsData");
 
+  const { data: pinned, refetch } = useGetPinPoems(token ? token : "");
   const isPinnedBack = pinned?.pinned_poems.some((item) => item.id === id);
-
   const handlePin = async () => {
     try {
       await poetService.postPoem({ poem_id: id });
@@ -111,7 +111,9 @@ const PoemsItem = ({ id, poem_name, link, title }: Props) => {
             />
           </button>
         )}
-        <img src="/images/poems/new.svg" alt="" className="mr-1" />
+        {Boolean(isNew) && (
+          <img src="/images/poems/new.svg" alt="" className="mr-1" />
+        )}
 
         <span className="font-medium italic text-[14px]">{title}</span>
       </div>

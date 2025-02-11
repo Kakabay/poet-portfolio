@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { BgTexture } from "./bg-texture";
 import { cn } from "@/lib/utils";
+import { Image } from "@/services/types/moments-single-type";
 
 type Props = {
   image: string;
@@ -44,7 +45,7 @@ const MomentsCard = ({
           />
 
           <img
-            src={image}
+            src={image || ""}
             alt="moments-icon"
             className="absolute z-10 top-0 left-0 size-full object-cover"
           />

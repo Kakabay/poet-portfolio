@@ -42,7 +42,7 @@ export const EllipsisBlock = () => {
         />
 
         <div className="flex gap-6 relative">
-          <TextRomb ellips text={info[0]?.name} />
+          <TextRomb ellips text={info?.[0]?.name} />
           <img
             src="/images/about/dash-arrow.svg"
             alt=""
@@ -85,7 +85,7 @@ export const EllipsisBlock = () => {
       <div className="hidden md:block xl:hidden relative h-[540px]">
         <TextRomb
           ellips
-          text={info[0]?.name}
+          text={info?.[0]?.name}
           className="absolute top-0 left-1/2 -translate-x-1/2"
         />
         <img

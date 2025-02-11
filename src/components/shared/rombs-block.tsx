@@ -14,7 +14,7 @@ const RombsBlock = () => {
     <>
       <div className="md:hidden xl:flex flex xl:flex-row flex-col xl:gap-6 items-center relative">
         <div className="flex justify-start w-full xl:w-fit">
-          <TextRomb text={info[0]?.name} />
+          <TextRomb text={info?.[0]?.name} />
         </div>
         <img
           src={`/images/about/arrow${desktop ? "" : "-right"}.svg`}
@@ -61,7 +61,7 @@ const RombsBlock = () => {
           src="/images/about/medium-arrow-bottom.svg"
           className="absolute top-4 left-[130px]"
         />
-        <TextRomb text={info[0]?.name} className="absolute top-0 left-0" />
+        <TextRomb text={info?.[0]?.name} className="absolute top-0 left-0" />
 
         <TextRomb
           text={info[1]?.name}

@@ -50,9 +50,9 @@ class PoetService {
         const originalRequest = error.config;
 
         if (
-          error.response &&
-          error.response.status === 401 &&
-          !originalRequest._retry
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          !originalRequest._isRefreshRequest
         ) {
           originalRequest._retry = true;
 
@@ -62,24 +62,30 @@ class PoetService {
             if (newToken) {
               this.authStore
                 .getState()
-                .setAuthData(this.authStore.getInitialState().name, newToken);
+                .setAuthData(this.authStore.getState().name, newToken);
               axios.defaults.headers.common[
                 "Authorization"
               ] = `Bearer ${newToken}`;
+              originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
               return axios(originalRequest);
             }
           } catch (refreshError) {
-            console.log("Refresh токен устарел или невалиден:", refreshError);
-
+            console.log("Refresh token failed:", refreshError);
             this.authStore.getState().clearAuthData();
+            return Promise.reject(refreshError);
           }
+        }
+
+        // Если ошибка 401 и это запрос на обновление токена - разлогиниваем
+        if (error.config._isRefreshRequest && error.response?.status === 401) {
+          this.authStore.getState().clearAuthData();
+          window.location.href = "/login";
         }
 
         return Promise.reject(error);
       }
     );
   }
-
   postUser = async (body: RegisterBody) => {
     const { data } = await axios.post<UserData>(
       `${this.URL_TOKEN}signup`,
@@ -116,19 +122,26 @@ class PoetService {
   };
 
   refreshToken = async () => {
-    const token = this.authStore.getInitialState().accessToken;
+    try {
+      const token = this.authStore.getState().accessToken;
+      if (!token) throw new Error("No refresh token available");
 
-    const { data } = await axios.post(
-      `${this.URL_TOKEN}refresh`,
-      { token },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+      const { data } = await axios.post(
+        `${this.URL_TOKEN}refresh`,
+        { token },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          // _isRefreshRequest: true, // Помечаем запрос как refresh
+        }
+      );
 
-    return data.token;
+      return data.token;
+    } catch (error) {
+      this.authStore.getState().clearAuthData();
+      throw error;
+    }
   };
 
   postContacts = async (body: {
@@ -264,7 +277,7 @@ class PoetService {
     return data;
   };
 
-  getMomemntsSingle = async (id: number | undefined) => {
+  getMomemntsSingle = async (id: string) => {
     const { data } = await axios.get<MomentsSingleType>(
       `${this.URl}moments/${id}`
     );
@@ -273,7 +286,7 @@ class PoetService {
   };
 
   getPoems = async () => {
-    const { data } = await axios.get<PoemsType>(`${this.URl}poems?per_page=10`);
+    const { data } = await axios.get<PoemsType>(`${this.URl}poems`);
 
     return data;
   };

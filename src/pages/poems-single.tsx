@@ -6,12 +6,17 @@ import { cn } from "@/lib/utils";
 import { useGetPinPoems } from "@/query/use-get-pin-poems";
 import { useGetPoems } from "@/query/use-get-poems";
 import { useGetPoemsSingle } from "@/query/use-get-poems-single";
+import { useGetStatic } from "@/query/use-get-static-words";
 import poetService from "@/services/poet.service";
+import { useAuthStore } from "@/store/useAuthStore";
 import { usePathStore } from "@/store/usePathname";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PoemsSingle = () => {
+  const token = useAuthStore((state) => state.accessToken);
+  const { data: staticData } = useGetStatic(3, "poemsData");
+
   const { id } = useParams();
   const { data, isLoading } = useGetPoemsSingle(Number(id || 1));
 
@@ -21,7 +26,7 @@ const PoemsSingle = () => {
 
   const poemId = Number(id);
   const { data: poems } = useGetPoems();
-  const { data: pinned, refetch } = useGetPinPoems();
+  const { data: pinned, refetch } = useGetPinPoems(token ?? "");
 
   const info = data || [];
 
@@ -69,7 +74,7 @@ const PoemsSingle = () => {
       if (isPinnedBack) {
         await handleUnpin();
         toast({
-          title: "Открепленно",
+          title: staticData?.[2]?.word,
           action: (
             <ToastAction onClick={handlePin} altText="Отмена">
               Отмена
@@ -79,7 +84,7 @@ const PoemsSingle = () => {
       } else {
         await handlePin();
         toast({
-          title: "Закрепленно",
+          title: staticData?.[0]?.word,
           action: (
             <ToastAction onClick={handleUnpin} altText="Отмена">
               Отмена
@@ -94,6 +99,8 @@ const PoemsSingle = () => {
     }
   };
 
+  const poemInfo = info?.[0];
+
   return (
     <main className={cn("pt-8 xl:pt-12 pb-16 xl:pb-[120px] relative z-30")}>
       <div className="container">
@@ -101,36 +108,38 @@ const PoemsSingle = () => {
           <>
             <div className="flex justify-center items-start gap-4">
               <h1 className="h1 kaushan text-center xl:mb-12 mb-6">
-                {info[0]?.poem_name}
+                {poemInfo?.poem_name}
               </h1>
 
-              <div className="flex gap-1">
-                <button
-                  disabled={loading}
-                  onClick={onStar}
-                  className="disabled:opacity-50"
-                >
-                  <img
-                    className="cursor-pointer p-1"
-                    src={
-                      !isPinnedBack
-                        ? "/images/star.svg"
-                        : "/images/star-fill.svg"
-                    }
-                  />
-                </button>
-                <img src="/images/play.svg" />
-              </div>
+              {token && (
+                <div className="flex gap-1">
+                  <button
+                    disabled={loading}
+                    onClick={onStar}
+                    className="disabled:opacity-50"
+                  >
+                    <img
+                      className="cursor-pointer p-1"
+                      src={
+                        !isPinnedBack
+                          ? "/images/star.svg"
+                          : "/images/star-fill.svg"
+                      }
+                    />
+                  </button>
+                  <img src="/images/play.svg" />
+                </div>
+              )}
             </div>
 
             <div className={cn("flex flex-col xl:gap-12 gap-8")}>
               <section className="container">
                 <div className="flex flex-col gap-4 xl:gap-12 md:gap-6 text-[16px] xl:text-[20px] leading-[140%] text-ON_SURFACE_VAR">
-                  <p className="md:flex-[0_1_50%]">{info[0]?.about_poems}</p>
+                  <p className="md:flex-[0_1_50%]">{poemInfo?.about_poems}</p>
                 </div>
               </section>
 
-              {info[0]?.about_poems && <SectionLine />}
+              {poemInfo?.about_poems && <SectionLine />}
 
               <section>
                 <div className="flex items-center flex-col text-16 gap-4 xl:gap-6 xl:w-[400px] md:w-[372px] !font-normal mx-auto xl:text-[20px]">
@@ -142,10 +151,9 @@ const PoemsSingle = () => {
                       <p key={i}>{item.textarea1}</p>
                     ))}
                   </div>
-                  <div className="flex justify-end">
-                    <h4 className="text-right xl:w-[140px] text-[14px] leading-[140%] text-ON_SURFACE_VAR xl:font-medium">
-                      {info[0]?.place_poem}
-                    </h4>
+                  <div className="flex flex-col w-full justify-end items-end text-right xl:w-[140px] text-[14px] leading-[140%] text-ON_SURFACE_VAR xl:font-medium">
+                    <h4>{poemInfo?.date_poem}</h4>
+                    <h4 className="">{poemInfo?.place_poem}</h4>
                   </div>
                 </div>
 
@@ -155,7 +163,7 @@ const PoemsSingle = () => {
                 >
                   <div className="border pt-4 px-4 border-OUTLINE w-fit rounded-[4px]">
                     <h5 className="text-16 font-semibold">
-                      {info[0]?.poem_name}
+                      {info?.[0]?.poem_name}
                     </h5>
                     <audio
                       id="player"
@@ -168,7 +176,7 @@ const PoemsSingle = () => {
 
                 <SectionLine className="xl:mt-16 xl:mb-12 my-8" />
 
-                <div className="flex gap-4 md:gap-8 xl:gap-0 items-center xl:justify-between">
+                <div className="flex gap-4 md:gap-8 xl:gap-0 items-start xl:justify-between">
                   <PoemSwitch
                     link={`/poems/${poemId - 1}`}
                     disable={poemId === 1}

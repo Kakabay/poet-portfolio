@@ -10,11 +10,15 @@ import SortModal from "@/components/shared/sort-modal";
 import PoemsItem from "@/components/shared/poems-item";
 import Pagination from "@/components/shared/pagination";
 import PageLayout from "@/components/layout/page-layout";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const Poems = () => {
+  const token = useAuthStore((state) => state.accessToken);
   const { data: poems } = useGetPoems();
-  const { data: pinned } = useGetPinPoems();
   const { data: staticData } = useGetStatic(3, "poemsData");
+
+  const { data: pinned } = useGetPinPoems(token ?? "");
+  const pinPoems = pinned?.pinned_poems || [];
 
   const perPage = 10;
 
@@ -30,8 +34,6 @@ const Poems = () => {
     setCurrentPage,
     setSearchValue,
   } = getSortPoems(poems, perPage);
-
-  const pinPoems = pinned?.pinned_poems || [];
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -78,14 +80,13 @@ const Poems = () => {
               filterData.length !== 0 && "border-b border-OUTLINE"
             )}
           >
-            {filterData.length > 0
-              ? `Po «${searchValue}» zaprosy naýdeno:`
-              : "Niçego ne naýdeno!"}
+            {filterData.length > 0 ? `«${searchValue}»` : "Tapylmady!"}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-8 gap-6 md:w-[768px] xl:w-[948px] mx-auto">
           {getSortData()?.map((item, i) => (
             <PoemsItem
+              isNew={item.new}
               key={i}
               link={`/poems/${item.id}`}
               active={pinPoems.some((obj) => obj.id === item.id)}

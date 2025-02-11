@@ -1,7 +1,7 @@
-import { Input } from '../ui/input';
-import { ActiveSort } from '@/store/useSynlar';
-import { DropDown } from './drop-down';
-import { Word } from '@/services/types/static.type';
+import { Input } from "../ui/input";
+import { ActiveSort } from "@/store/useSynlar";
+import { DropDown } from "./drop-down";
+import { Word } from "@/services/types/static.type";
 
 interface Props {
   searchTitle?: string;
@@ -40,7 +40,12 @@ const SortModal = ({
         </div>
         <div className="md:flex-[0_0_240px]">
           <h5 className="mb-2 text-16">{sortTitle}</h5>
-          <DropDown data={data} sort={sort} setSort={setSort} className="w-full" />
+          <DropDown
+            data={data}
+            sort={sort}
+            setSort={setSort}
+            className="w-full"
+          />
         </div>
       </div>
     </div>

@@ -12,9 +12,9 @@ export interface Poem {
   couplets_poem: CoupletsPoem[];
   about_poems: string;
   place_poem: string;
-  date_poem: Date;
+  date_poem: string;
   new: number;
   title: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }

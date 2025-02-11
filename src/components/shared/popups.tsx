@@ -1,13 +1,13 @@
-import { AnimatePresence } from 'framer-motion';
-import { useContactsStore } from '@/store/useContacts';
-import { useLoginStore } from '@/store/useLogin';
-import { useAuthStore } from '@/store/useAuthStore';
-import Login from './login';
-import LoginWindowMob from './login-window-mob';
-import MedBurger from './med-burger';
-import PopupMessage from './popup-message';
-import { Burger } from './burger';
-import { useGetStatic } from '@/query/use-get-static-words';
+import { AnimatePresence } from "framer-motion";
+import { useContactsStore } from "@/store/useContacts";
+import { useLoginStore } from "@/store/useLogin";
+import { useAuthStore } from "@/store/useAuthStore";
+import Login from "./login";
+import LoginWindowMob from "./login-window-mob";
+import MedBurger from "./med-burger";
+import PopupMessage from "./popup-message";
+import { Burger } from "./burger";
+import { useGetStatic } from "@/query/use-get-static-words";
 
 interface Burger {
   burger: boolean;
@@ -31,16 +31,16 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
   const token = useAuthStore((state) => state.accessToken);
 
-  const { data } = useGetStatic(15, 'authData');
-  const { data: contactsData } = useGetStatic(14, 'contactsData');
+  const { data } = useGetStatic(15, "authData");
+  const { data: contactsData } = useGetStatic(14, "contactsData");
 
   return (
     <>
       {contactsSucces && (
         <PopupMessage
           active={contactsSucces}
-          title={contactsData?.slice(-3)[0]?.word || ''}
-          text={contactsData?.slice(-2)[0]?.word || ''}
+          title={contactsData?.slice(-3)[0]?.word || ""}
+          text={contactsData?.slice(-2)[0]?.word || ""}
           setActive={contactsSetSucces}
         />
       )}
@@ -48,8 +48,8 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
       {registerSuccess && (
         <PopupMessage
           active={registerSuccess}
-          title={data?.slice(-6)[0].word || ''}
-          text={data?.slice(-5)[0].word || ''}
+          title={data?.slice(-6)[0].word || ""}
+          text={data?.slice(-5)[0].word || ""}
           setActive={setRegisterSuccess}
         />
       )}
@@ -57,8 +57,8 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
       {loginSuccess && (
         <PopupMessage
           active={loginSuccess}
-          title={data?.slice(-3)?.[0]?.word || ''}
-          text={data?.slice(-2)?.[0]?.word || ''}
+          title={data?.slice(-3)?.[0]?.word || ""}
+          text={data?.slice(-2)?.[0]?.word || ""}
           setActive={setLoginSuccess}
         />
       )}
@@ -67,7 +67,9 @@ const Popups = ({ burger, setBurger, medBurger, setMedBurger }: Burger) => {
 
       <AnimatePresence>{mobActive && <LoginWindowMob />}</AnimatePresence>
 
-      {burger && <Burger setBurger={setBurger} />}
+      <AnimatePresence>
+        {burger && <Burger setBurger={setBurger} />}
+      </AnimatePresence>
 
       {medBurger && <MedBurger setBurger={setMedBurger} burger={medBurger} />}
     </>
